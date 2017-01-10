@@ -103,7 +103,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	ArrayList<CSG> parts = new ArrayList<CSG>()
 	mainThigh = mainThigh.movex(xLength + 25*xLength/80)
 						   		.movez(-13)
-						   		//.difference(connector)
+						   		.difference(connector)
 						   		.movez(14)
 						   		
 	//replicates parts from mainLeg part to have a similar thigh
@@ -134,9 +134,9 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.rotx(180)
 				.movez(-73.5)
 	bottomCap = bottomCap
-				.movex(xLength + 25*xLength/80)
+				.movex(xLength/2+11 + 25*xLength/80+32.0/2)//figure this out
 	bottomCap = bottomCap
-				//.difference(connector)
+				.difference(connector)
 
 	//visibility
 	bottomCap = bottomCap.movez(-50)
