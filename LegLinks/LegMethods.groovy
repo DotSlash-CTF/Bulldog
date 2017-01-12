@@ -104,7 +104,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	mainThigh = mainThigh.movex(xLength + 25*xLength/80)
 						   		.movez(-13)
 						   		.difference(connector)
-						   		.movez(14)
+						   		.movez(13)
 						   		
 	//replicates parts from mainLeg part to have a similar thigh
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
@@ -238,6 +238,42 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 
 	
 	return connector
+}
+public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
+
+	/*
+	 * Recreation of the CSGs from the first part, mainLeg
+	 */
+	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
+	int servoX = vitaminData.get("flangeLongDimention")//32
+	int servoY = vitaminData.get("servoThinDimentionThickness")
+	int servoZ = vitaminData.get("servoShaftSideHeight")
+
+	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
+	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
+
+	CSG cap = thighParts.get(2)
+					.rotx(-90)
+	
+	CSG rotatedLink = shoulderParts.get(0)
+	rotatedLink = rotatedLink.rotx(90)
+						.toYMin()
+						
+	rotatedLink = rotatedLink.movex(xLength + 25*xLength/80)
+	
+	CSG connector = createConnector(servo, hornRef, xLength).toZMin()
+
+	connector = connector.movez(-servoY*8/14)//connector hight = servoY*8/7
+
+	rotatedLink = rotatedLink.difference(connector)
+
+	ArrayList<CSG> parts = new ArrayList<CSG>()
+
+	parts.add(rotatedLink.movez(50))
+	parts.add(cap.movez(50))
+	parts.add(connector.movez(50))
+
+	return parts
 }
 
 public CSG theUnion(){
