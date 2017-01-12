@@ -1,1 +1,1 @@
-
+CSG tail = new Cylinder(10, 10, 40, (int)30).toCSG()
