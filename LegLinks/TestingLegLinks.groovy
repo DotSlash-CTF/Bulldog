@@ -27,7 +27,6 @@ ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
 ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
 
 ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, length)
-//rotatedLink.get(0) = rotatedLink.get(0).movez(50)
 
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
 conector = connector.movez(30)
@@ -61,11 +60,10 @@ ArrayList<CSG> totalParts = thigh ;
 totalParts.add(connector)
 for(int i = 0; i < shoulder.size(); i++)
 {
-	//make smaller by nozzle diameter x 2, 0.5*2 makeKeepaway -- createThigh
 	totalParts.add(shoulder.get(i))
 }
 for(int i = 0; i < rotatedLink.size(); i++)
 {
 	totalParts.add(rotatedLink.get(i))
 }
-return totalParts//[horn.movey(100).movex(-20), shoulder, thigh, connector]
+return totalParts
