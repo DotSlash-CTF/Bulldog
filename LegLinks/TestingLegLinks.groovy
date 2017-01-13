@@ -9,10 +9,8 @@ import eu.mihosoft.vrl.v3d.Transform;
 import com.neuronrobotics.bowlerstudio.physics.TransformFactory;
 
 def remoteLegPiece = ScriptingEngine.gitScriptRun(
-            /*"https://github.com/DotSlash-CTF/Bulldog.git", // git location of the library
-            "LegLinks/LegMethods.groovy",*/ // file to load
-            "https://gist.github.com/6a7ebd3799e086e9b1912c5e7d73125f.git",
-            "DogLegShoulder.groovy",
+            "https://github.com/DotSlash-CTF/Bulldog.git",
+            "LegLinks/LegMethods.groovy",
             null
             );
 
