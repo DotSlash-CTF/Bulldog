@@ -782,8 +782,8 @@
 
 <name>Neck</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>neckCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>headCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/bcb4760a449190206170.git</git>
@@ -974,8 +974,8 @@
 
 <name>Tail</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>neckCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>tailCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/bcb4760a449190206170.git</git>
