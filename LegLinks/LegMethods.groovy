@@ -218,7 +218,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 	CSG connectorEnds = connectorEnd1.hull(connectorEnd2)
 							.movez(1)
 	
-	CSG endCyl = new Cylinder(1,1,14,(int)40).toCSG()
+	CSG endCyl = new Cylinder(2,2,14,(int)40).toCSG()
 			.rotx(90)
 			.movez(-20)
 			.movex(endLength)
