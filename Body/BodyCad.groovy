@@ -1,9 +1,17 @@
-CSG body = new Cube(10, 10, 77.5).toCSG().toZMin(); //Starter code
-rib = Extrude.bezier(new Cylinder(2.5, 2.5, 10).toCSG(), [10,-60,0], [60,-60,0], [65,-20,0], 10) //index finger
-int numRibs = 4;
-for(int i = 0; i < numRibs; i++)
-{
-	body = body.union(rib.collect{it.movez(25 * i)});
-	body = body.union(rib.collect{it.rotx(180).toZMin().movez(25 * i)})
-}
-return body.roty(-90).toZMin()
+import eu.mihosoft.vrl.v3d.parametrics.*;
+import com.neuronrobotics.bowlerstudio.vitamins.*;
+
+LengthParameter bodyLength 		= new LengthParameter("Body Length",100,[200,0])
+LengthParameter bodyWidth 		= new LengthParameter("Body Width",50,[200,0])
+LengthParameter matThickness 		= new LengthParameter("Material Thickness",10,[200,0])
+
+CSG mainBody = new Cube(bodyLength, bodyWidth, matThickness).toCSG()
+CSG cChannel = Vitamins.get("vexCchannel","2x5")
+
+mainBody = mainBody	.setParameter(bodyLength)
+				.setParameter(bodyWidth)
+				.setParameter(matThickness)
+				.setRegenerate({new Cube(bodyLength, bodyWidth, matThickness).toCSG()})
+
+return cChannel
+//return [cChannel,mainBody]
