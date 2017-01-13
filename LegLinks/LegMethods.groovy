@@ -252,8 +252,11 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
 
-	CSG cap = thighParts.get(2)
-					.rotx(-90)
+	CSG cap = shoulderParts.get(1)
+					.rotx(90)
+					.toYMin()
+					.movey(-4.5)
+					
 	
 	CSG rotatedLink = shoulderParts.get(0)
 	rotatedLink = rotatedLink.rotx(90)
