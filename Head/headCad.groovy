@@ -31,7 +31,7 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 	double boltDimeMeasurment = boltMeasurments.get("outerDiameter")
 	double nutDimeMeasurment = nutMeasurments.get("width")
 	double nutThickMeasurment = nutMeasurments.get("height")
-	private TransformNR offset =BowlerStudio3dEngine.getOffsetforvisualization().inverse();
+	//private TransformNR offset =BowlerStudio3dEngine.getOffsetforvisualization().inverse();
 	ArrayList<CSG> headParts =null
 	CSG cutsheet=null;
 	@Override 
@@ -41,7 +41,6 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 		DHLink dh = dhLinks.get(linkIndex)
 		//If you want you can add things here
 		//allCad.add(myCSG);
-		/*
 		if(linkIndex ==dhLinks.size()-1){
 			println "Found neck limb" 
 			headDiameter.setMM(180)
@@ -71,7 +70,6 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 				}
 			}
 		}
-		*/
 		return allCad;
 	}
 
