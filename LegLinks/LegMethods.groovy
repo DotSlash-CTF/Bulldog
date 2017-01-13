@@ -126,7 +126,6 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 	//see original value declaration above
 	int value = -(27.5 + (xLength - 80)/2)
-	println(value)
 	int value2 = (connectorLength.getMM()+21.5) + (xLength - 80)/2
 	bottomCap = bottomCap.movex(value)
 	bottomCap = bottomCap
@@ -248,14 +247,37 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	int servoX = vitaminData.get("flangeLongDimention")//32
 	int servoY = vitaminData.get("servoThinDimentionThickness")
 	int servoZ = vitaminData.get("servoShaftSideHeight")
-
+	//HV6214MG
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
 
-	CSG cap = shoulderParts.get(1)
+	CSG bottomCap = new Cube(33, servoY*8/3.5, 12).toCSG()
+							.movez(servoZ/2+2.5)
+							.movex(27.5 + (xLength - 80)/2)
+	CSG capSide1 = new Cube(33, 5, servoZ/2+3).toCSG()
+								.movex(27.5 + (xLength - 80)/2)
+								.movey(servoY*8/7+2.5)
+								.movez(servoZ/4+7)
+	CSG capSide2 = new Cube(33, 5, servoZ/2+3).toCSG()
+								.movex(27.5 + (xLength - 80)/2)
+								.movey(-servoY*8/7-2.5)
+								.movez(servoZ/4+7)
+	bottomCap = bottomCap.union(capSide1)
+	bottomCap = bottomCap.union(capSide2)
+	int value = -(27.5 + (xLength - 80)/2)
+	bottomCap = bottomCap.movex(value)
+	bottomCap = bottomCap
+				.movez(-60)
+				.rotx(180)
+				.movez(-73.5)
+	bottomCap = bottomCap
+				.movex(xLength/2+11 + 25*xLength/80+32.0/2)//figure this out
+	bottomCap = bottomCap.movez(-50)
+	
+	bottomCap = bottomCap
 					.rotx(90)
 					.toYMin()
-					.movey(-4.5)
+					.movey(-12)//amount of connector subtracted from rotated cap
 					
 	
 	CSG rotatedLink = shoulderParts.get(0)
@@ -266,14 +288,19 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	
 	CSG connector = createConnector(servo, hornRef, xLength).toZMin()
 
-	connector = connector.movez(-servoY*8/14)//connector hight = servoY*8/7
+	connector = connector.movez(-servoY*8/14)
+					 .movey(0)//connector hight = servoY*8/7
 
 	rotatedLink = rotatedLink.difference(connector)
+	bottomCap = bottomCap.difference(connector)
 
+	//visibility
+	bottomCap = bottomCap.movey(-10)
+	
 	ArrayList<CSG> parts = new ArrayList<CSG>()
 
 	parts.add(rotatedLink.movez(50))
-	parts.add(cap.movez(50))
+	parts.add(bottomCap.movez(50))
 	parts.add(connector.movez(50))
 
 	return parts
