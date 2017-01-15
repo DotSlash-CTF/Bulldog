@@ -14,8 +14,8 @@
 
 <name>DefaultLeg</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -206,8 +206,8 @@
 
 <name>DefaultLeg2</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -398,8 +398,8 @@
 
 <name>DefaultLeg3</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -590,8 +590,8 @@
 
 <name>DefaultLeg4</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
