@@ -55,10 +55,10 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 			for (int i = 0; i < headParts.size() - 1; i++) {
 				CSG part = headParts.get(i)
 				
-				//part = modify(part, d)
+				part = modify(part, d)
 
-				allCad.add(part)
-				//defaultCadGen.add(allCad, part, dh.getListener())
+				//allCad.add(part)
+				defaultCadGen.add(allCad, part, dh.getListener())
 				
 			}
 			cutsheet = headParts.get(headParts.size() - 1)
@@ -75,18 +75,19 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 		return allCad;
 	}
 
-	CSG modify(CSG part,DHParameterKinematics d){
-		TransformNR initialState = offset.times(d.getRobotToFiducialTransform())
-		RotationNR rot = initialState.getRotation();
+	CSG modify(CSG part, DHParameterKinematics d) {
+		System.out.println("start")
+		//TransformNR initialState = offset.times(d.getRobotToFiducialTransform())
+		//RotationNR rot = initialState.getRotation();
 		Color color= part.getColor()
-		PrepForManufacturing mfg =part.getManufactuing()
+		//PrepForManufacturing mfg =part.getManufactuing()
 		CSG startingPoint = part;
 		return part	
 			.movez(-jawHeight.getMM())
 			.rotx(-90)
-			.rotz(-Math.toDegrees(rot.getRotationElevation()))
+			//.rotz(-Math.toDegrees(rot.getRotationElevation()))
 			.setColor(color)
-			.setManufactuing({incoming ->
+			/*.setManufactuing({incoming ->
 				println "Prepping part"
 				try{
 					return mfg.prep(startingPoint)
@@ -94,7 +95,8 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 					ex.printStackTrace()
 					return startingPoint
 				}
-			})
+			})*/
+		System.out.println("end")
 		
 	}
 	@Override 
