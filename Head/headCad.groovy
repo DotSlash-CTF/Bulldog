@@ -36,36 +36,37 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 	CSG cutsheet=null;
 	@Override 
 	public ArrayList<CSG> generateCad(DHParameterKinematics d, int linkIndex) {
-		ArrayList<CSG> allCad=defaultCadGen.generateCad(d,linkIndex);
+		ArrayList<CSG> allCad = defaultCadGen.generateCad(d, linkIndex);
 		ArrayList<DHLink> dhLinks=d.getChain().getLinks();
 		DHLink dh = dhLinks.get(linkIndex)
 		//If you want you can add things here
 		//allCad.add(myCSG);
-		if(linkIndex ==dhLinks.size()-1){
+		if (linkIndex == dhLinks.size() - 1) {
 			println "Found neck limb" 
 			headDiameter.setMM(180)
 			snoutLen.setMM(150)
 			eyeCenter.setMM(100)
 			leyeDiam.setMM(60)
 			reyeDiam.setMM(60)
-			if(headParts==null)
-				headParts = (ArrayList<CSG> )ScriptingEngine.gitScriptRun("https://gist.github.com/e67b5f75f23c134af5d5054106e3ec40.git", "AnimatronicHead.groovy" ,  [false] )
+			if (headParts == null) {
+				headParts = (ArrayList<CSG>)ScriptingEngine.gitScriptRun("https://gist.github.com/e67b5f75f23c134af5d5054106e3ec40.git", "AnimatronicHead.groovy",  [false])
+			}
 			
-			for(int i=0;i<headParts.size()-1;i++){
+			for (int i = 0; i < headParts.size() - 1; i++) {
 				CSG part = headParts.get(i)
 				
-				part=	modify(part,d)							
+				part = modify(part, d)
 				
-				defaultCadGen.add(allCad ,part, dh.getListener() )
+				defaultCadGen.add(allCad, part, dh.getListener())
 				
 			}
-			cutsheet = headParts.get(headParts.size()-1)
+			cutsheet = headParts.get(headParts.size() - 1)
 			headParts.get(0).setManufactuing({incoming ->
 				return cutsheet
 			})
 			CSGDatabase.clear()
-			for(CSG c:allCad){
-				for(String p:c .getParameters()){
+			for(CSG c: allCad){
+				for (String p: c.getParameters()) {
 					CSGDatabase.addParameterListener(p,this);
 				}
 			}
