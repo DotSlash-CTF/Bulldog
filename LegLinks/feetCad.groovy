@@ -73,9 +73,9 @@ class Feet implements ICadGenerator, IParameterChanged{
 
 		for(CSG piece : link)
 		{
-			allCad.add(piece)
+			defaultCadGen.add(allCad, defaultCadGen.moveDHValues(piece, dh), dh.getListener())
 		}
-		allCad.add(connector)
+		defaultCadGen.add(allCad, defaultCadGen.moveDHValues(connector, dh), dh.getListener())
 		
 		//allCad.add(myCSG);
 		//if(linkIndex ==dhLinks.size()-1){
