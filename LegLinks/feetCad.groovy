@@ -50,6 +50,33 @@ class Feet implements ICadGenerator, IParameterChanged{
 		
 		
 		//If you want you can add things here
+		def remoteLegPiece = ScriptingEngine.gitScriptRun(
+			"https://github.com/DotSlash-CTF/Bulldog.git",
+			"LegLinks/LegMethods.groovy",
+			null);
+
+		ArrayList<CSG> link;
+		if(linkIndex == 0)
+		{
+			link = remoteLegPiece.rotatedLegLink(servo, dh.getR())
+		}
+		else if(linkIndex == dhLinks.size() - 1)
+		{
+			link = remoteLegPiece.creatShoulder(servo, horn, dh.getR())
+		}
+		else
+		{
+			link = remoteLegPiece.createThigh(servo, horn, dh.getR())
+		}
+			
+		CSG connector = remoteLegPiece.createConnector(servo, horn, dh.getR()).makeKeepAway(-2)
+
+		for(CSG piece : link)
+		{
+			allCad.add(piece)
+		}
+		allCad.add(connector)
+		
 		//allCad.add(myCSG);
 		//if(linkIndex ==dhLinks.size()-1){
 			println "Found foot limb" 
