@@ -175,6 +175,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 
 			for(int i = 0; i < parts.size(); i++)
 			{
+				CSG part = defaultCadGen.moveDHValues(parts.get(i), dh)
 				defaultCadGen.add(allCad, part, dh.getListener())
 			}
 			
