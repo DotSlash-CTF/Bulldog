@@ -39,6 +39,8 @@ class Feet implements ICadGenerator, IParameterChanged{
 		ArrayList<DHLink> dhLinks=d.getChain().getLinks();
 		DHLink dh = dhLinks.get(linkIndex)
 
+		println "feetCad run"
+
 		//The link configuration
 		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
 		// creating the servo
