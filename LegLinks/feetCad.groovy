@@ -38,7 +38,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 		ArrayList<CSG> allCad=defaultCadGen.generateCad(d,linkIndex);
 		ArrayList<DHLink> dhLinks=d.getChain().getLinks();
 		DHLink dh = dhLinks.get(linkIndex)
-\
+
 
 		
 		System.out.println("\n feetCad run \n")
@@ -55,9 +55,11 @@ class Feet implements ICadGenerator, IParameterChanged{
 		
 		//Code adapted from leg creation method
 
+		System.out.println("\n feetCad2 run \n")
+
 		
 		{
-		System.out.println("\n feetCad run \n")
+		System.out.println("\n feetCad3 run \n")
 			//variable setup
 			HashMap<String, Object>  vitaminData = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			ArrayList<CSG> parts = new ArrayList<CSG>()
@@ -66,7 +68,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 			int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 			int xLength = dh.getR();
 
-			System.out.println("\n feetCad run \n")
+			System.out.println("\n feetCad4 run \n")
 
 			//creating servo cutout
 			servo= s ervoReference
