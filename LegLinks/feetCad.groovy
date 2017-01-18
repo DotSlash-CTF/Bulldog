@@ -11,8 +11,8 @@ class Feet implements ICadGenerator, IParameterChanged{
 	//First we load teh default cad generator script 
 	ICadGenerator defaultCadGen=(ICadGenerator) ScriptingEngine
 	                    .gitScriptRun(
-                                "https://github.com/madhephaestus/laser-cut-robot.git", // git location of the library
-	                              "laserCutCad.groovy" , // file to load
+                                "https://github.com/DotSlash-CTF/Bulldog.git", // git location of the library
+	                              "FullDog/laserCutCad.groovy" , // file to load
 	                              null
                         )
 	LengthParameter thickness 		= new LengthParameter("Material Thickness",3.15,[10,1])
@@ -54,11 +54,6 @@ class Feet implements ICadGenerator, IParameterChanged{
 		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
 		
 		//Code adapted from leg creation method
-
-		System.out.println("\n feetCad2 run \n")
-
-		
-		{
 		System.out.println("\n feetCad3 run \n")
 			//variable setup
 			HashMap<String, Object>  vitaminData = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
@@ -71,7 +66,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 			System.out.println("\n feetCad4 run \n")
 
 			//creating servo cutout
-			servo= s ervoReference
+			CSG servo = servoReference
 							.scalex(1.08)
 							.rotz(90)
 							.rotx(180)
@@ -113,7 +108,6 @@ class Feet implements ICadGenerator, IParameterChanged{
 			parts.add(cap)
 
 			System.out.println("\n feetCad run \n")
-		}
 		
 		//If you want you can add things here
 		/*
@@ -177,7 +171,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 		*/
 		//}
 
-			
+			/*
 			otherBit.setManufactuing({CSG arg0 ->
 	
 				return defaultCadGen
@@ -186,10 +180,11 @@ class Feet implements ICadGenerator, IParameterChanged{
 							dh
 						).toZMin()
 			});
+			*/
 
 			for(int i = 0; i < parts.size(); i++)
 			{
-				CSG part = defaultCadGen.moveDHValues(parts.get(i), dh)
+				CSG part = parts.get(i).toXMax()
 				defaultCadGen.add(allCad, part, dh.getListener())
 
 				println "link part \"added\""
