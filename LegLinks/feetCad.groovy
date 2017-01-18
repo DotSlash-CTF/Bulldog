@@ -58,6 +58,8 @@ class Feet implements ICadGenerator, IParameterChanged{
 			int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 			int xLength = dh.getR();
 
+			println "Link variables initialized"
+
 			//creating servo cutout
 			servo= s ervoReference
 							.scalex(1.08)
@@ -99,6 +101,8 @@ class Feet implements ICadGenerator, IParameterChanged{
 
 			parts.add(mainLeg)
 			parts.add(cap)
+
+			println "Link parts created"
 		}
 		
 		//If you want you can add things here
@@ -177,6 +181,8 @@ class Feet implements ICadGenerator, IParameterChanged{
 			{
 				CSG part = defaultCadGen.moveDHValues(parts.get(i), dh)
 				defaultCadGen.add(allCad, part, dh.getListener())
+
+				println "link part \"added\""
 			}
 			
 			return allCad;
