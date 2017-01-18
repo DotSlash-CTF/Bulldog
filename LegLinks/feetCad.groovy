@@ -58,15 +58,15 @@ class Feet implements ICadGenerator, IParameterChanged{
 		ArrayList<CSG> link;
 		if(linkIndex == 0)
 		{
-			link = remoteLegPiece.rotatedLegLink(servo, dh.getR())
+			link = remoteLegPiece.rotatedLegLink(servoReference, dh.getR())
 		}
 		else if(linkIndex == dhLinks.size() - 1)
 		{
-			link = remoteLegPiece.creatShoulder(servo, horn, dh.getR())
+			link = remoteLegPiece.creatShoulder(servoReference, horn, dh.getR())
 		}
 		else
 		{
-			link = remoteLegPiece.createThigh(servo, horn, dh.getR())
+			link = remoteLegPiece.createThigh(servoReference, horn, dh.getR())
 		}
 			
 		CSG connector = remoteLegPiece.createConnector(servo, horn, dh.getR()).makeKeepAway(-2)
