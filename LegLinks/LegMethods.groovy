@@ -9,15 +9,15 @@ import eu.mihosoft.vrl.v3d.Transform;
 import com.neuronrobotics.bowlerstudio.physics.TransformFactory;
 
 class legPiece{
+
+/*
+ * A base template for a link. Has no connector connection subtracted yet
+ */
 public ArrayList<CSG> createShoulder(CSG servo, int xLength){
 HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91") //replace with servo type 
 println vitaminData
 
 ArrayList<CSG> parts = new ArrayList<CSG>()
-
-/*
- * First part of the leg (the shoulder) is created below
- */
 
 //these numbers can be used as universal reference numbers
 int servoX = vitaminData.get("flangeLongDimention")//32
@@ -79,15 +79,12 @@ return parts
 
 
 /*
- * Create second part of the leg below
- * (uses connectorLength from above so that the distance corrects itself with a longer connector length
+ * Creates a link that will rotate parallel with the link attached to it
+ * Uses the base design of shoulder above
  */
 public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
-	/*
-	 * Recreation of the CSGs from the first part, mainLeg
-	 */
-
+	//Recreation of the CSGs from the first part, mainLeg
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	CSG mainThigh = shoulderParts.get(0)
 	CSG cap2 = shoulderParts.get(1)
@@ -99,7 +96,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	int servoZ = vitaminData.get("servoShaftSideHeight")
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
-	//using a value here because it doesnt work to put this in the movex method -- bring up an issue
+	
 	ArrayList<CSG> parts = new ArrayList<CSG>()
 	mainThigh = mainThigh.movex(xLength + 25*xLength/80)
 						   		.movez(-13)
@@ -149,11 +146,12 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 }
 
+/*
+ * Creates the generic connector that will connect any 2 links
+ */
 public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 
-	/*
-	 * Recreation of the CSGs from the first part, mainLeg
-	 */
+	//Recreation of the CSGs from the first part, mainLeg
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
 	int servoX = vitaminData.get("flangeLongDimention")//32
 	int servoY = vitaminData.get("servoThinDimentionThickness")
@@ -168,7 +166,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 				 				   .toXMin()
 				 				   .movex(20)
 				 				   
-	//fancifying
+	//fancifying, could be removed if we want the connectors shorter
 	CSG decor1 = new Cylinder(8,8,thickness,(int)50).toCSG()
 								.movez(-21.5)
 								.movex(24)
@@ -238,16 +236,19 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 	
 	return connector
 }
+
+/*
+ * Creates a link that will rotate perpendicular with the link attached to it
+ * Uses the base design of shoulder above
+ */
 public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 
-	/*
-	 * Recreation of the CSGs from the first part, mainLeg
-	 */
+	//Recreation of the CSGs from the first part, mainLeg
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
 	int servoX = vitaminData.get("flangeLongDimention")//32
 	int servoY = vitaminData.get("servoThinDimentionThickness")
 	int servoZ = vitaminData.get("servoShaftSideHeight")
-	//HV6214MG
+
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
 
@@ -334,3 +335,4 @@ public CSG theUnionNoConnector(){
 }
 
 return new legPiece()
+
