@@ -40,9 +40,9 @@ class Feet implements ICadGenerator, IParameterChanged{
 		DHLink dh = dhLinks.get(linkIndex)
 \
 
-		\n
-		System.out.println("feetCad run")
-		\n
+		
+		System.out.println("\n feetCad run \n")
+		
 
 		//The link configuration
 		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
