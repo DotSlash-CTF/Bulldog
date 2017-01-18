@@ -15,7 +15,7 @@ def remoteLegPiece = ScriptingEngine.gitScriptRun(
             );
 
 CSG servo = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
-.get( "hobbyServo","towerProMG91")
+.get( "hobbyServo","hv6214mg")//old is towerProMG91
             
 CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 .get( "hobbyServoHorn","standardMicro1")
