@@ -8,24 +8,20 @@ srv.SetPosition(15);
 float time = 5;
 
 System.out.println("Moving with time");
-for(int i = 0; i < 4&&!Thread.interrupted(); i++) {
+for (int i = 0; i < 4&&!Thread.interrupted(); i++) {
 	// Set the value high every other time, exit if unsuccessful
 	
 	int target;
 	int setter;
-	
-	System.out.println("SPOT1");
 
-		srv.SetPosition(170, 0);
-		serv.SetPosition(170, 0);
-
-	System.out.println("SPOT2");	
+	srv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
+	serv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
 	
 	Thread.sleep((long) (time*150));
-	
-		srv.SetPosition(20, 0);
-		serv.SetPosition(20, 0);
-        //This will move the servo from the position it is currentlly in
+
+	srv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
+	serv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
+     //This will move the servo from the position it is currentlly in
 	
 	// pause between cycles so that the changes are visible
 	Thread.sleep((long) (time*150));
