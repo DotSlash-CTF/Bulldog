@@ -54,7 +54,10 @@ class Feet implements ICadGenerator, IParameterChanged{
 		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
 		
 		//Code adapted from leg creation method
+
+		
 		{
+		System.out.println("\n feetCad run \n")
 			//variable setup
 			HashMap<String, Object>  vitaminData = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			ArrayList<CSG> parts = new ArrayList<CSG>()
@@ -63,7 +66,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 			int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 			int xLength = dh.getR();
 
-			println "Link variables initialized"
+			System.out.println("\n feetCad run \n")
 
 			//creating servo cutout
 			servo= s ervoReference
@@ -107,7 +110,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 			parts.add(mainLeg)
 			parts.add(cap)
 
-			println "Link parts created"
+			System.out.println("\n feetCad run \n")
 		}
 		
 		//If you want you can add things here
