@@ -14,7 +14,7 @@ class legPiece{
  * A base template for a link. Has no connector connection subtracted yet
  */
 public ArrayList<CSG> createShoulder(CSG servo, int xLength){
-HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91") //replace with servo type 
+HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
 println vitaminData
 
 ArrayList<CSG> parts = new ArrayList<CSG>()
@@ -27,16 +27,15 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 servo = servo								.scalex(1.08)
 										.rotz(90)
 										.rotx(180)
-										.movez(-7)
-										.movez(1.4)
-										.movex(servoX + (xLength - 80)/2)
+										.movez(-6.5)
+										.movex(servoX/2 + (xLength - 80)/2)
 
 //create the main part of the leg that will have an indent in the shape of the servo
 CSG sub1 = new Cube(servoX+3, servoY+1.75, servoZ).toCSG()
 
 CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
 mainLeg =mainLeg.difference(servo)
-mainLeg =mainLeg.difference(sub1.movex(servoX-2.7 + (xLength - 80)/2).movez(7.9))
+mainLeg =mainLeg.difference(sub1.movex(servoX/3 + (xLength - 80)/2).movez(7.9))
 
 
 //union barriers that will stop the cap (below) from moving onto the main leg
