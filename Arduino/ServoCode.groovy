@@ -1,31 +1,54 @@
-//If your DyIO is using a lower voltage power source, you need to disable the brownout detect
-dyio.setServoPowerSafeMode(false);
-ServoChannel srv = new ServoChannel (dyio.getChannel(9));
-ServoChannel serv = new ServoChannel (dyio.getChannel(10));
-//Loop 10 times setting the position of the servo 
-//the time the loop waits will be the time it takes for the servo to arrive
-srv.SetPosition(15);
-float time = 5;
+import com.neuronrobotics.sdk.addons.gamepad.IJInputEventListener;
+import com.neuronrobotics.sdk.addons.gamepad.BowlerJInputDevice;
+import net.java.games.input.Component;
+import net.java.games.input.Event;
+import net.java.games.input.Controller;
+import net.java.games.input.ControllerEnvironment;
 
-System.out.println("Moving with time");
-for (int i = 0; i < 4&&!Thread.interrupted(); i++) {
-	// Set the value high every other time, exit if unsuccessful
-	
-	int target;
-	int setter;
+BowlerJInputDevice g=null;// Create a variable to store the device
+//Check if the device already exists in the device Manager
+if(DeviceManager.getSpecificDevice(BowlerJInputDevice.class, "jogController")==null){
+	BowlerStudio.speak("I did not find a device named jogController. Select a port to connect to the device.");
+	//If the device does not exist, prompt for the connection
+	g = new BowlerJInputDevice(ControllerEnvironment.getDefaultEnvironment().getControllers()[0]); // This is the DyIO to talk to.
+	g.connect(); // Connect to it.
+	// add the device to the maager
+	DeviceManager.addConnection(g,"jogController");
+}else{
+	//the device is already present on the system, load the one that exists.
+  g=(BowlerJInputDevice)DeviceManager.getSpecificDevice(BowlerJInputDevice.class, "jogController")
+}
+//Set the DyIO into cached mode
+//dyio.setCachedMode(true);
 
-	srv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
-	serv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
-	
-	Thread.sleep((long) (time*150));
+ServoChannel pan = new ServoChannel(dyio.getChannel(11))
+ServoChannel tilt = new ServoChannel(dyio.getChannel(10))
 
-	srv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
-	serv.SetPosition((int)Math.random() * (172 - 16) + 16, 0);
-     //This will move the servo from the position it is currentlly in
-	
-	// pause between cycles so that the changes are visible
-	Thread.sleep((long) (time*150));
-
+IJInputEventListener listener = new IJInputEventListener() {
+	@Override public void onEvent(Component comp, Event event1,float value, String eventString) {
+		int val =(int)(127*value+128)
+		try{
+			if(comp.getName().equals("x")){
+				//System.out.println(comp.getName()+" is value= "+value);
+				pan.getChannel().setCachedValue(val);
+			}
+			if(comp.getName().equals("y")){
+				//System.out.println(comp.getName()+" is value= "+value);
+				tilt.getChannel().setCachedValue(val);
+			}
+		}catch(Exception e){
+			e.printStackTrace(System.out)
+		}
+		System.out.println(comp.getName()+" is value= "+value);
+	}
+}
+g.clearListeners()
+// gamepad is a BowlerJInputDevice
+g.addListeners(listener);
+// wait while the application is not stopped
+while(!Thread.interrupted()){
+	ThreadUtil.wait(20)
+	//dyio.flush(0)
 }
 
 System.out.println("DONE");
