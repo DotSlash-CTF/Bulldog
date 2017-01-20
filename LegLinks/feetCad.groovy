@@ -127,10 +127,10 @@ class Feet implements ICadGenerator, IParameterChanged{
 								.movex(34)
 			//subtracting the correct horn from the connector
 			CSG hornCube = new Cube(10,10,10).toCSG()
-			CSG halfHorn = hornRef.intersect(hornCube)
+			CSG halfHorn = horn.intersect(hornCube)
 			halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
-			hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
-			CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(5)).makeKeepaway(2)
+			horn = horn.rotz(90).movex(servoX).movez(-17)
+			CSG keyHole = connHole.union(horn).union(halfHorn.movez(5)).makeKeepaway(2)
 						.movex(-(8))
 			connector = connector
 						.difference(keyHole)
@@ -194,4 +194,4 @@ class Feet implements ICadGenerator, IParameterChanged{
 
 System.out.println("please show")
 
-return new Feet()//Your code here
+return new Feet()/horn here
