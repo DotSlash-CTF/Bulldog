@@ -27,24 +27,24 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 servo = servo								.scalex(1.08)
 										.rotz(90)
 										.rotx(180)
-										.movez(-6.5)
+										.movez(-6.3)
 										.movex(servoX/2 + (xLength - 80)/2)
 
 //create the main part of the leg that will have an indent in the shape of the servo
-CSG sub1 = new Cube(servoX+3, servoY+1.75, servoZ).toCSG()
+CSG sub1 = new Cube(servoX+3, servoY+1.75, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9)
 
 CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
 mainLeg =mainLeg.difference(servo)
-mainLeg =mainLeg.difference(sub1.movex(servoX/3 + (xLength - 80)/2).movez(7.9))
+mainLeg =mainLeg.difference(sub1)
 
 
 //union barriers that will stop the cap (below) from moving onto the main leg
 CSG barrier1 = new Cube(2, servoY*2, 2) .toCSG()
 								.movez(servoZ/2+2)
-								.movex(10.8 + (xLength - 80)/2)
+								.movex(-xLength/6.8 + (xLength - 80)/2-1.5)
 CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
 								.movez(servoZ/2+2)
-								.movex(47.8 + (xLength - 80)/2)
+								.movex(46.3 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
 
 //create the cap that will encapsulate the servo
@@ -68,7 +68,7 @@ cap = cap.movez(100)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
-//parts.add(servo)
+parts.add(servo)
 parts.add(cap)
 //parts.add(sub1)
 
@@ -97,7 +97,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
 	
 	ArrayList<CSG> parts = new ArrayList<CSG>()
-	mainThigh = mainThigh.movex(xLength + 25*xLength/80)
+	mainThigh = mainThigh.movex(xLength + 25*xLength/80) //two links are 5/16*xLength length apart
 						   		.movez(-13)
 						   		.difference(connector)
 						   		.movez(13)
