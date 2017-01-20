@@ -5,7 +5,6 @@ import com.neuronrobotics.bowlerstudio.vitamins.*;
 LengthParameter bodyLength 		= new LengthParameter("Body Length",100,[200,0])
 LengthParameter bodyWidth 		= new LengthParameter("Body Width",50,[200,0])
 LengthParameter matThickness 		= new LengthParameter("Material Thickness",10,[200,0])
-CSG ribs = new CSG();
 double[][] ribVals = [[200, 100, -20], [200, 100, 20], [200, 100, 30]];
 
 
@@ -40,12 +39,12 @@ mainBody = mainBody	.setParameter(bodyLength)
 				.setParameter(matThickness)
 				.setRegenerate({new Cube(bodyLength, bodyWidth, matThickness).toCSG()})
 
-ribs = ribs		.setParameter(matThickness)
-				.setRegenerate({makeRibCage(ribVals, matThickness, mainBody).toCSG()})
-
 CSG cChannel = Vitamins.get("vexCchannel","5x10").rotz(90)
 
 ribs = makeRibCage(ribVals, matThickness.getMM(), mainBody)
+
+ribs = ribs		.setParameter(matThickness)
+				.setRegenerate({makeRibCage(ribVals, matThickness.getMM(), mainBody)})
 //cChannel = cChannel.movey((cChannel.getMaxY()-cChannel.getMinY())/2)
 
 CSG center = new Cube(5, 240, 5).toCSG().toZMin()
