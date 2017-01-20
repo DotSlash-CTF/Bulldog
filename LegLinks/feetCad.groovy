@@ -139,7 +139,28 @@ class Feet implements ICadGenerator, IParameterChanged{
 						.movex(-(8.5)) 	
 			connector = connector.difference(connHole)
 
-			
+			//create connector end key
+			int endLength = (xLength - 80)/2 + 61 +20
+			CSG connectorEnd1 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
+									.movex(endLength)
+									.movey(6)
+						   			.movez(-32.5)
+			CSG connectorEnd2 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
+									.movex(endLength)
+									.movey(-6)
+						   			.movez(-32.5)
+			CSG connectorEnds = connectorEnd1.hull(connectorEnd2)
+									.movez(1)
+			CSG endCyl = new Cylinder(2,2,14,(int)40).toCSG()
+									.rotx(90)
+									.movez(-20)
+									.movex(endLength)
+									.movey(-7)
+			connectorEnds = connectorEnds.hull(endCyl)
+			connector = connector.union(connectorEnds)
+
+			//add connector to parts list
+			parts.add(connector)	
 
 		//add parts to cad generator list
 		for(int i = 0; i < parts.size(); i++)
