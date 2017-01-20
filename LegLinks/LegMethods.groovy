@@ -90,9 +90,11 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	CSG connector = createConnector(servo, hornRef, xLength).movez(18)
 	
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
+	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServo","hv6214mg")//current servo
 	int servoX = vitaminData.get("flangeLongDimention")
 	int servoY = vitaminData.get("servoThinDimentionThickness")
 	int servoZ = vitaminData.get("servoShaftSideHeight")
+	int servoY2 = vitaminData2.get("servoThinDimentionThickness")
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
 	
@@ -104,18 +106,19 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 						   		
 	//replicates parts from mainLeg part to have a similar thigh
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
-	
 
-	CSG bottomCap = new Cube(33, servoY*8/3.5, 9).toCSG()
+
+	int bottCapWid = xLength;
+	CSG bottomCap = new Cube(xLength, servoY2*2, 9).toCSG()
 							.movez(servoZ/2+2.5)
-							.movex(27.5 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(33, 5, servoZ/2).toCSG()
-								.movex(27.5 + (xLength - 80)/2)
-								.movey(servoY*8/7+2.5)
+							.movex(51 + (xLength - 80)/2)
+	CSG capSide1 = new Cube(xLength*3/4, 5, servoZ/2).toCSG()
+								.movex(41 + (xLength - 80)/2)
+								.movey(servoY2+2.5)
 								.movez(servoZ/4+7)
-	CSG capSide2 = new Cube(33, 5, servoZ/2).toCSG()
-								.movex(27.5 + (xLength - 80)/2)
-								.movey(-servoY*8/7-2.5)
+	CSG capSide2 = new Cube(xLength*3/4, 5, servoZ/2).toCSG()
+								.movex(41 + (xLength - 80)/2)
+								.movey(-servoY2-2.5)
 								.movez(servoZ/4+7)
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
@@ -134,7 +137,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.difference(connector)
 
 	//visibility
-	bottomCap = bottomCap.movez(-50)
+	bottomCap = bottomCap.movez(-0)
 	
  	parts.add(mainThigh)
  	parts.add(cap2)
@@ -383,6 +386,7 @@ cap = cap.union(capSide1)
 cap = cap.union(capSide2)
 return cap;
 }
+
 }
 
 return new legPiece()
