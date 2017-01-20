@@ -17,8 +17,8 @@ void getBodyOffsetLength(double bodyLength)
 CSG makeRib(double width, double height, double materialThickness, CSG spine)
 {
 	CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
-	CSG center = new Cube(width, 2.5, materialThickness).toCSG().toZMin();
-	return base.scalex(width / 2).scaley(height / 2).difference(center).roty(90).difference(spine);
+	CSG center = new Cube(height, 2.5, materialThickness).toCSG().toZMin();
+	return base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
 }
 
 CSG makeRibCage(double[][] ribVals, double matThickness, CSG spine)
