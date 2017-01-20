@@ -27,11 +27,11 @@ IJInputEventListener listener = new IJInputEventListener() {
 	@Override public void onEvent(Component comp, Event event1,float value, String eventString) {
 		int val = (int)(93 + 77*value)
 		try {
-			if (comp.getName().equals("x")) {
+			if (comp.getName().equals("y")) {
 				System.out.println(val);
 				pan.SetPosition(val);
 			}
-			if (comp.getName().equals("y")) {
+			if (comp.getName().equals("rz")) {
 				tilt.SetPosition(val);
 			}
 		} catch (Exception e) {
