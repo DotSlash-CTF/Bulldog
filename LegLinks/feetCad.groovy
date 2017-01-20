@@ -61,9 +61,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 			int servoX = vitaminData.get("flangeLongDimention")//32
 			int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
 			int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
-			int xLength = dh.getR();
-
-			System.out.println("\n feetCad4 run \n")
+			int xLength = dh.getR() * (16.0/21.0);
 
 			//creating servo cutout
 			CSG servo = servoReference
@@ -106,81 +104,6 @@ class Feet implements ICadGenerator, IParameterChanged{
 
 			parts.add(mainLeg)
 			parts.add(cap)
-
-			System.out.println("\n feetCad run \n")
-		
-		//If you want you can add things here
-		/*
-		def remoteLegPiece = ScriptingEngine.gitScriptRun(
-			"https://github.com/DotSlash-CTF/Bulldog.git",
-			"LegLinks/LegMethods.groovy",
-			null);
-
-		ArrayList<CSG> link;
-		if(linkIndex == 0)
-		{
-			link = remoteLegPiece.rotatedLegLink(servoReference, dh.getR())
-		}
-		else if(linkIndex == dhLinks.size() - 1)
-		{
-			link = remoteLegPiece.creatShoulder(servoReference, horn, dh.getR())
-		}
-		else
-		{
-			link = remoteLegPiece.createThigh(servoReference, horn, dh.getR())
-		}
-			
-		CSG connector = remoteLegPiece.createConnector(servo, horn, dh.getR()).makeKeepAway(-2)
-
-		for(CSG piece : link)
-		{
-			defaultCadGen.add(allCad, piece, dh.getListener())
-		}
-		defaultCadGen.add(allCad, defaultCadGen.moveDHValues(connector, dh), dh.getListener())
-		*?
-		
-		//allCad.add(myCSG);
-		//if(linkIndex ==dhLinks.size()-1){
-		/*
-			println "Found foot limb" 
-			CSG foot =new Cylinder(20,20,thickness.getMM(),(int)30).toCSG() // a one line Cylinder
-
-			CSG otherBit =new Cube(	40,// X dimention
-								dh.getR(),// Y dimention
-								thickness.getMM()//  Z dimention
-								).toCSG()// this converts from the geometry to an object we can work with
-								.toYMin()
-								.toZMin()
-			
-			//moving the pary to the attachment pont
-			otherBit = defaultCadGen.moveDHValues(otherBit,dh)
-			
-
-			for(CSG vitamin: allCad){
-				vitamin.setManufactuing({CSG arg0 ->
-		
-					return new Cube(	0.001,// X dimention
-									0.001,// Y dimention
-									0.001//  Z dimention
-									).toCSG()// this converts from the geometry to an object we can work with
-									.toZMin()
-				});
-			}
-			defaultCadGen.add(allCad,otherBit,dh.getListener())
-			defaultCadGen.add(allCad,foot,dh.getListener())
-		*/
-		//}
-
-			/*
-			otherBit.setManufactuing({CSG arg0 ->
-	
-				return defaultCadGen
-						.reverseDHValues(
-							arg0,
-							dh
-						).toZMin()
-			});
-			*/
 
 			for(int i = 0; i < parts.size(); i++)
 			{
