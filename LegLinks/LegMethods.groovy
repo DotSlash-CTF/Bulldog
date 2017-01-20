@@ -68,7 +68,7 @@ cap = cap.movez(100)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
-parts.add(servo)
+//parts.add(servo)
 parts.add(cap)
 //parts.add(sub1)
 
@@ -329,6 +329,42 @@ public CSG theUnionNoConnector(){
 	CSG united = shoulder.union(thigh)
 	united.setRegenerate({theUnionNoConnector()})
 	return united
+}
+
+public CSG createBaseLink(CSG servo, CSG hornRef, int xLength){
+	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
+
+ArrayList<CSG> parts = new ArrayList<CSG>()
+
+//these numbers can be used as universal reference numbers
+int servoX = vitaminData.get("flangeLongDimention")//32
+int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
+int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
+
+servo = servo								.scalex(1.08)
+										.rotz(90)
+										.rotx(180)
+										.movez(-6.3)
+										.movex(servoX/2 + (xLength - 80)/2)
+
+//create the main part of the leg that will have an indent in the shape of the servo
+CSG sub1 = new Cube(servoX+3, servoY+1.75, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9)
+
+CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
+mainLeg =mainLeg.difference(servo)
+mainLeg =mainLeg.difference(sub1)
+
+
+//union barriers that will stop the cap (below) from moving onto the main leg
+CSG barrier1 = new Cube(2, servoY*2, 2) .toCSG()
+								.movez(servoZ/2+2)
+								.movex(-xLength/6.8 + (xLength - 80)/2-1.5)
+CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
+								.movez(servoZ/2+2)
+								.movex(46.3 + (xLength - 80)/2)
+mainLeg = mainLeg.union(barrier1).union(barrier2)
+
+return mainLeg
 }
 
 }
