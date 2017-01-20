@@ -39,11 +39,6 @@ class Feet implements ICadGenerator, IParameterChanged{
 		ArrayList<DHLink> dhLinks=d.getChain().getLinks();
 		DHLink dh = dhLinks.get(linkIndex)
 
-
-		
-		System.out.println("\n feetCad run \n")
-		
-
 		//The link configuration
 		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
 		// creating the servo
@@ -53,8 +48,6 @@ class Feet implements ICadGenerator, IParameterChanged{
 		double servoTop = servoReference.getMaxZ()
 		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
 		
-		//Code adapted from leg creation method
-		System.out.println("\n feetCad3 run \n")
 			//variable setup
 			HashMap<String, Object>  vitaminData = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			ArrayList<CSG> parts = new ArrayList<CSG>()
@@ -102,18 +95,59 @@ class Feet implements ICadGenerator, IParameterChanged{
 			cap = cap.union(capSide1)
 			cap = cap.union(capSide2)
 
+			//adding link pieces to parts list
 			parts.add(mainLeg)
 			parts.add(cap)
 
-			for(int i = 0; i < parts.size(); i++)
-			{
-				CSG part = parts.get(i).toXMax()
-				defaultCadGen.add(allCad, part, dh.getListener())
+			//create conector base piece
+			int thickness = 10						
+			CSG connector = new Cube((xLength - 80)/2 + 61, servoY*8/7,thickness).toCSG()
+								   .movez(-18.5+thickness/5)
+				 				   .toXMin()
+				 				   .movex(20)
 
-				println "link part \"added\""
-			}
+			//making pretty bumpy thingies
+			CSG decor1 = new Cylinder(8,8,thickness,(int)50).toCSG()
+								.movez(-21.5)
+								.movex(24)
+			CSG decor2 = new Cylinder(8,8,thickness,(int)50).toCSG()
+								.movez(-21.5)
+								.movex(39)
+			CSG decor3 = new Cylinder(8,8,thickness,(int)50).toCSG()
+								.movez(-21.5)
+								.movex(54)
+			connector = connector.union(decor1)
+				 				.union(decor2)
+				 				.union(decor3)
+			//making holes
+			//keyHole is to be subtracted: connHole subtracted from horn
+			int cylVal = 2
+			CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
+								.movez(-19.5)
+								.movex(34)
+			//subtracting the correct horn from the connector
+			CSG hornCube = new Cube(10,10,10).toCSG()
+			CSG halfHorn = hornRef.intersect(hornCube)
+			halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
+			hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
+			CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(5)).makeKeepaway(2)
+						.movex(-(8))
+			connector = connector
+						.difference(keyHole)
+						.movez(-10)
+			connHole = connHole.movez(-12)
+						.movex(-(8.5)) 	
+			connector = connector.difference(connHole)
+
 			
-			return allCad;
+
+		//add parts to cad generator list
+		for(int i = 0; i < parts.size(); i++)
+		{
+			CSG part = parts.get(i).toXMax()
+			defaultCadGen.add(allCad, part, dh.getListener())
+		}
+		return allCad;
 	}
 	@Override 
 	public ArrayList<CSG> generateBody(MobileBase b ) {
