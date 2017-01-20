@@ -48,23 +48,23 @@ CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
 mainLeg = mainLeg.union(barrier1).union(barrier2)
 
 //create the cap that will encapsulate the servo
-CSG cap = new Cube(34.8, servoY*8/3.5, 5).toCSG()
+int capLength = 46.3 + xLength/6.8 -1 ;
+CSG cap = new Cube(capLength, servoY*8/3.5, 5).toCSG()
 							.movez(servoZ/2+2.5)
-							.movex(28.0 + (xLength - 80)/2)
-CSG capSide1 = new Cube(34.8, 5, servoZ/2).toCSG()
-								.movex(28.0 + (xLength - 80)/2)
+							.movex((xLength - 80)+ capLength/2 - 12.5)//capLength/2+11 + (xLength - 80)/2)
+CSG capSide1 = new Cube(capLength, 5, servoZ/2).toCSG()
+								.movex((xLength - 80)+ capLength/2 - 12.5)
 								.movey(servoY+2.5)
 								.movez(servoZ/4+5)
-CSG capSide2 = new Cube(34.8, 5, servoZ/2).toCSG()
-								.movex(28.0 + (xLength - 80)/2)
+CSG capSide2 = new Cube(capLength, 5, servoZ/2).toCSG()
+								.movex((xLength - 80)+ capLength/2 - 12.5)
 								.movey(-servoY-2.5)
 								.movez(servoZ/4+5)
 cap = cap.union(capSide1)
 cap = cap.union(capSide2)
 					
 //move for visibility
-cap = cap.movez(100)
-//servo = servo.movez(4)
+//cap = cap.movez(100)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
@@ -366,7 +366,23 @@ mainLeg = mainLeg.union(barrier1).union(barrier2)
 
 return mainLeg
 }
-
+public CSG createTopCap(int xLength){
+int capLength = 46.3 + xLength/6.8 -1 ;
+CSG cap = new Cube(capLength, servoY*8/3.5, 5).toCSG()
+							.movez(servoZ/2+2.5)
+							.movex((xLength - 80)+ capLength/2 - 12.5)//capLength/2+11 + (xLength - 80)/2)
+CSG capSide1 = new Cube(capLength, 5, servoZ/2).toCSG()
+								.movex((xLength - 80)+ capLength/2 - 12.5)
+								.movey(servoY+2.5)
+								.movez(servoZ/4+5)
+CSG capSide2 = new Cube(capLength, 5, servoZ/2).toCSG()
+								.movex((xLength - 80)+ capLength/2 - 12.5)
+								.movey(-servoY-2.5)
+								.movez(servoZ/4+5)
+cap = cap.union(capSide1)
+cap = cap.union(capSide2)
+return cap;
+}
 }
 
 return new legPiece()
