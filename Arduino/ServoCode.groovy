@@ -21,20 +21,21 @@ if(DeviceManager.getSpecificDevice(BowlerJInputDevice.class, "jogController")==n
 //Set the DyIO into cached mode
 //dyio.setCachedMode(true);
 
-ServoChannel pan = new ServoChannel(dyio.getChannel(11))
+ServoChannel pan = new ServoChannel(dyio.getChannel(9))
 ServoChannel tilt = new ServoChannel(dyio.getChannel(10))
 
 IJInputEventListener listener = new IJInputEventListener() {
 	@Override public void onEvent(Component comp, Event event1,float value, String eventString) {
-		int val =(int)(127*value+128)
+		int val = (int)(93+77*value)
 		try{
 			if(comp.getName().equals("x")){
 				//System.out.println(comp.getName()+" is value= "+value);
-				pan.getChannel().setCachedValue(val);
+				System.out.println(val);
+				pan.SetPosition(val);
 			}
 			if(comp.getName().equals("y")){
 				//System.out.println(comp.getName()+" is value= "+value);
-				tilt.getChannel().setCachedValue(val);
+				tilt.SetPosition(val);
 			}
 		}catch(Exception e){
 			e.printStackTrace(System.out)
