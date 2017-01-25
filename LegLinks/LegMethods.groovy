@@ -122,7 +122,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 								.movez(servoZ/4+7)
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
-
+	
 	//see original value declaration above
 	int value = -(27.5 + (xLength - 80)/2)
 	int value2 = (connectorLength.getMM()+21.5) + (xLength - 80)/2
@@ -138,10 +138,15 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 	//visibility
 	bottomCap = bottomCap.movez(-0)
-	
+
+	CSG bottCap2 = new Cube(25, 5+servoY2*2, 3).toCSG()
+							.movez(servoZ/2+2.5-49.5)
+							.movex(143.5 + (xLength - 80)/2)
+							
  	parts.add(mainThigh)
  	parts.add(cap2)
  	parts.add(bottomCap)
+ 	parts.add(bottCap2)
  	//parts.add(connector)
 
 	return parts
