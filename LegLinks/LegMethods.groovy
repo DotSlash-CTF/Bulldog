@@ -139,9 +139,9 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	//visibility
 	bottomCap = bottomCap.movez(-0)
 
-	CSG bottCap2 = new Cube(25, 5+servoY2*2, 3).toCSG()
-							.movez(servoZ/2+2.5-49.5)
-							.movex(143.5 + (xLength - 80)/2)
+	CSG bottCap2 = new Cube(25, 5+servoY2*2, 2.5).toCSG()
+							.movez(servoZ/2+2.5-49.5-3.25)
+							.movex(80)//143.5 + (xLength - 80)/2)
 							
  	parts.add(mainThigh)
  	parts.add(cap2)
