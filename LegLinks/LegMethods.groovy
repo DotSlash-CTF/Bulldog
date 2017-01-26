@@ -130,15 +130,14 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	bottomCap = bottomCap.union(bottCap2)
 	
 	//see original value declaration above
-	int value = -(27.5 + (xLength - 80)/2)
-	int value2 = (connectorLength.getMM()+21.5) + (xLength - 80)/2
+	int value = -(25*xLength/80)//(27.5 + (xLength - 80)/2)
 	bottomCap = bottomCap.movex(value)
 	bottomCap = bottomCap
 				.movez(-60)
 				.rotx(180)
 				.movez(-73.5)
-	bottomCap = bottomCap
-				.movex(xLength/2+11 + 25*xLength/80+32.0/2)//figure this out
+	bottomCap = bottomCap.toXMin()
+					 .movex(xLength/2+11 + 25*xLength/80)//.movex(xLength/2+11 + 25*xLength/80+16)//figure this out
 	bottomCap = bottomCap
 				.difference(connector)
 
