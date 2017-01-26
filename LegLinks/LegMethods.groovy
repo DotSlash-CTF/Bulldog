@@ -124,7 +124,10 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
-	
+	CSG bottCap2 = new Cube(xLength*2/5, 5+servoY2*2, 2.5).toCSG()
+								.movez(servoZ/2+6)
+								.movex(75 + (xLength - 80)/2)
+	bottomCap = bottomCap.union(bottCap2)
 	
 	//see original value declaration above
 	int value = -(27.5 + (xLength - 80)/2)
@@ -140,10 +143,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.difference(connector)
 
 	//the flat end part of the cap with no sides (to keep connector in place
-	CSG bottCap2 = new Cube(xLength*2/5, 5+servoY2*2, 2.5).toCSG()
-								.movez(servoZ/2+2.5-49.5-3.25)
-								.movex(139.5 + (xLength - 80)/2)
-	bottomCap = bottomCap.union(bottCap2)
+	
 								
 	//visibility
 	bottomCap = bottomCap.movez(-0)
