@@ -137,7 +137,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.rotx(180)
 				.movez(-73.5)
 	bottomCap = bottomCap.toXMin()
-					 .movex(xLength/2+11 + 25*xLength/80)//.movex(xLength/2+11 + 25*xLength/80+16)//figure this out
+					 .movex(xLength/2+11 + 25*xLength/80)//figure this out
 	bottomCap = bottomCap
 				.difference(connector)
 
@@ -305,7 +305,8 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 						.toYMin()
 						
 	rotatedLink = rotatedLink.movex(xLength + 25*xLength/80)
-	
+	bottomCap = bottomCap.toXMin()
+					 .movex(xLength/2+11 + 25*xLength/80)
 	CSG connector = createConnector(servo, hornRef, xLength).toZMin()
 
 	connector = connector.movez(-servoY*8/14)//connector height = servoY*8/7

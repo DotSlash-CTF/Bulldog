@@ -21,7 +21,7 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 .get( "hobbyServoHorn","standardMicro1")
 
 //shortest is 50, largest is 180
-int length = 120
+int length = 80
 ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
 
 ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
