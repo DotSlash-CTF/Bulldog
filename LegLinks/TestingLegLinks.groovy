@@ -29,7 +29,7 @@ ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
 ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, length)
 
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
-conector = connector.movez(30)
+conector = connector.movez(45)
 connector = connector.makeKeepaway(-2)
 					
 for(int i = 0; i < thigh.size(); i++)
