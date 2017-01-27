@@ -26,6 +26,15 @@ CSG centerOnY(CSG start)
 	double xWidth = start.getMaxX() - start.getMinX();
 	return start.toXMin().movex(-(xWidth / 2));
 }
+CSG centerOnZ(CSG start)
+{
+	double zWidth = start.getMaxZ() - start.getMinZ();
+	return start.toZMin().movez(-(zWidth / 2));
+}
+CSG centerOnAxes(CSG start)
+{
+	return centerOnY(centerOnX(centerOnZ(start)));
+}
 
 void getBodyOffsetLength(double bodyLength)
 {
@@ -76,7 +85,8 @@ CSG makeVexRibCage(double[][] ribVals, double matThickness, CSG spine)
 }
 
 //CSG mainBody = new Cube(bodyLength, bodyWidth, matThickness).toCSG()
-CSG mainBody = Vitamins.get("vexCchannel","5x10").rotz(90)
+CSG mainBody = centerOnAxes(Vitamins.get("vexCchannel","5x10").rotz(90))
+.union(centerOnAxes(Vitamins.get("vexCchannel","5x10").rotz(90).rotx(180)).movez(75))
 
 /*
 mainBody = mainBody	.setParameter(bodyLength)
@@ -94,7 +104,7 @@ ribs = ribs		.setParameter(matThickness)
 //cChannel = cChannel.movey((cChannel.getMaxY()-cChannel.getMinY())/2)
 
 CSG center = new Cube(5, 240, 5).toCSG().toZMin()
-return [ribs, centerOnX(mainBody)];
+return [ribs, centerOnAxes(mainBody)];
 //return ribs;
 //eturn makeRib(160, 240, 5, mainBody);
 //return [cChannel,mainBody]
