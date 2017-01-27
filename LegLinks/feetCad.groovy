@@ -96,8 +96,8 @@ class Feet implements ICadGenerator, IParameterChanged{
 			cap = cap.union(capSide2)
 
 			//adding link pieces to parts list
-			//parts.add(mainLeg)
-			//parts.add(cap)
+			parts.add(mainLeg)
+			parts.add(cap)
 
 			//create conector base piece
 			int thickness = 10						
@@ -163,7 +163,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 			connector = connector.rotx(180).toZMin().toXMin()
 
 			//add connector to parts list
-			parts.add(connector)	
+			//parts.add(connector)	
 
 		//add parts to cad generator list
 		for(int i = 0; i < parts.size(); i++)

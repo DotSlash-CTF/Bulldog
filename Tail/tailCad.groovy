@@ -7,12 +7,12 @@ import javafx.scene.paint.Color;
 import com.neuronrobotics.bowlerstudio.threed.BowlerStudio3dEngine;
 
 
-class HeadOnNeck implements ICadGenerator, IParameterChanged{
+class Feet implements ICadGenerator, IParameterChanged{
 	//First we load teh default cad generator script 
 	ICadGenerator defaultCadGen=(ICadGenerator) ScriptingEngine
 	                    .gitScriptRun(
-                                "https://github.com/madhephaestus/laser-cut-robot.git", // git location of the library
-	                              "laserCutCad.groovy" , // file to load
+                                "https://github.com/DotSlash-CTF/Bulldog.git", // git location of the library
+	                              "FullDog/laserCutCad.groovy" , // file to load
 	                              null
                         )
 	LengthParameter thickness 		= new LengthParameter("Material Thickness",3.15,[10,1])
@@ -31,77 +31,58 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 	double boltDimeMeasurment = boltMeasurments.get("outerDiameter")
 	double nutDimeMeasurment = nutMeasurments.get("width")
 	double nutThickMeasurment = nutMeasurments.get("height")
-	private TransformNR offset =BowlerStudio3dEngine.getOffsetforvisualization().inverse();
+	// private TransformNR offset =BowlerStudio3dEngine.getOffsetforvisualization().inverse();
 	ArrayList<CSG> headParts =null
-	CSG cutsheet=null;
 	@Override 
 	public ArrayList<CSG> generateCad(DHParameterKinematics d, int linkIndex) {
 		ArrayList<CSG> allCad=defaultCadGen.generateCad(d,linkIndex);
 		ArrayList<DHLink> dhLinks=d.getChain().getLinks();
 		DHLink dh = dhLinks.get(linkIndex)
-		//If you want you can add things here
-		//allCad.add(myCSG);
-		/*
-		if(linkIndex ==dhLinks.size()-1){
-			println "Found neck limb" 
-			headDiameter.setMM(180)
-			snoutLen.setMM(150)
-			eyeCenter.setMM(100)
-			leyeDiam.setMM(60)
-			reyeDiam.setMM(60)
-			if(headParts==null)
-				headParts = (ArrayList<CSG> )ScriptingEngine.gitScriptRun("https://gist.github.com/e67b5f75f23c134af5d5054106e3ec40.git", "AnimatronicHead.groovy" ,  [false] )
-			
-			for(int i=0;i<headParts.size()-1;i++){
-				CSG part = headParts.get(i)
-				
-				part=	modify(part,d)							
-				
-				defaultCadGen.add(allCad ,part, dh.getListener() )
-				
-			}
-			cutsheet = headParts.get(headParts.size()-1)
-			headParts.get(0).setManufactuing({incoming ->
-				return cutsheet
-			})
-			CSGDatabase.clear()
-			for(CSG c:allCad){
-				for(String p:c .getParameters()){
-					CSGDatabase.addParameterListener(p,this);
-				}
-			}
-		}
-		*/
-		return allCad;
-	}
 
-	CSG modify(CSG part,DHParameterKinematics d){
-		TransformNR initialState = offset.times(d.getRobotToFiducialTransform())
-		RotationNR rot = initialState.getRotation();
-		Color color= part.getColor()
-		PrepForManufacturing mfg =part.getManufactuing()
-		CSG startingPoint = part;
-		return part	
-			.movez(-jawHeight.getMM())
-			.rotx(-90)
-			.rotz(-Math.toDegrees(rot.getRotationElevation()))
-			.setColor(color)
-			.setManufactuing({incoming ->
-				println "Prepping part"
-				try{
-					return mfg.prep(startingPoint)
-				}catch (Exception ex){
-					ex.printStackTrace()
-					return startingPoint
-				}
-			})
-		
+		//The link configuration
+		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
+		// creating the servo
+		CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
+		.transformed(new Transform().rotZ(90))
+		//Creating the horn
+		double servoTop = servoReference.getMaxZ()
+		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
+
+		ArrayList<CSG> parts = new ArrayList<CSG>()
+		CSG bone1 = new Cylinder(5, 5, 10, (int) 30).toCSG()
+		CSG connector1 = new Cylinder(3, 3, 10, (int) 30).toCSG().movez(7.5)
+		CSG bone2 = bone1.movez(15)
+		CSG connector2 = connector1.movez(15)
+		CSG bone3 = bone2.movez(15)
+
+		bone1 = bone1.difference(connector1)
+		bone2 = bone2.difference(connector1).difference(connector2)
+		bone3 = bone3.difference(connector2)
+
+		CSG hornAttachment = new Cylinder(10, 10, 20, (int) 30).toCSG().movez(-20)
+
+		parts.add(bone1)
+		parts.add(bone2)
+		parts.add(bone3)
+		parts.add(connector1)
+		parts.add(connector2)
+		parts.add(hornAttachment)
+
+		//add parts to cad generator list
+		for(int i = 0; i < parts.size(); i++)
+		{
+			parts.set(i, parts.get(i).movez(20))
+			CSG part = parts.get(i).toXMax()
+			defaultCadGen.add(allCad, part, dh.getListener())
+		}
+		return allCad;
 	}
 	@Override 
 	public ArrayList<CSG> generateBody(MobileBase b ) {
 		ArrayList<CSG> allCad=defaultCadGen.generateBody(b);
 		//If you want you can add things here
 		//allCad.add(myCSG);
+		
 		return allCad;
 	}
 	/**
@@ -111,8 +92,13 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 	 */
 	 
 	public void parameterChanged(String name, Parameter p){
+		//new RuntimeException().printStackTrace(System.out);
+		println "headParts was set to null from "+name
+		new Exception().printStackTrace(System.out)
 		headParts=null
 	}
 };
 
-return new HeadOnNeck()
+System.out.println("please show")
+
+return new Feet()
