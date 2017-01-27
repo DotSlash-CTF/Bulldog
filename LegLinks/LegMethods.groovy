@@ -51,7 +51,7 @@ mainLeg = mainLeg.union(barrier1).union(barrier2)
 int capLength = 46.3 + xLength/6.8 -1 ;
 CSG cap = new Cube(capLength, servoY*8/3.5, 5).toCSG()
 							.movez(servoZ/2+2.5)
-							.movex((xLength - 80)+ capLength/2 - 12.5)//capLength/2+11 + (xLength - 80)/2)
+							.movex((xLength - 80)+ capLength/2 - 12.5)
 CSG capSide1 = new Cube(capLength, 5, servoZ/2).toCSG()
 								.movex((xLength - 80)+ capLength/2 - 12.5)
 								.movey(servoY+2.5)
@@ -62,6 +62,7 @@ CSG capSide2 = new Cube(capLength, 5, servoZ/2).toCSG()
 								.movez(servoZ/4+5)
 cap = cap.union(capSide1)
 cap = cap.union(capSide2)
+cap = cap.movex(0.5)
 					
 //move for visibility
 //cap = cap.movez(100)
@@ -108,45 +109,49 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
 
 
-	int bottCapWid = xLength;
-	CSG bottomCap = new Cube(xLength, servoY2*2, 9).toCSG()
+	
+	CSG bottomCap = new Cube(xLength*3/5, servoY2*2, 9).toCSG()
 							.movez(servoZ/2+2.5)
-							.movex(51 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(xLength*3/4, 5, servoZ/2).toCSG()
-								.movex(41 + (xLength - 80)/2)
+							.movex(35 + (xLength - 80)/2)
+	CSG capSide1 = new Cube(xLength*3/5, 5, servoZ/2).toCSG()
+								.movex(35 + (xLength - 80)/2)
 								.movey(servoY2+2.5)
 								.movez(servoZ/4+7)
-	CSG capSide2 = new Cube(xLength*3/4, 5, servoZ/2).toCSG()
-								.movex(41 + (xLength - 80)/2)
+	CSG capSide2 = new Cube(xLength*3/5, 5, servoZ/2).toCSG()
+								.movex(35 + (xLength - 80)/2)
 								.movey(-servoY2-2.5)
 								.movez(servoZ/4+7)
+	
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
+	CSG bottCap2 = new Cube(xLength*2/5, 5+servoY2*2, 2.5).toCSG()
+								.movez(servoZ/2+6)
+								.movex(75 + (xLength - 80)/2)
+	bottomCap = bottomCap.union(bottCap2)
 	
 	//see original value declaration above
-	int value = -(27.5 + (xLength - 80)/2)
-	int value2 = (connectorLength.getMM()+21.5) + (xLength - 80)/2
+	int value = -(25*xLength/80)//(27.5 + (xLength - 80)/2)
 	bottomCap = bottomCap.movex(value)
 	bottomCap = bottomCap
 				.movez(-60)
 				.rotx(180)
 				.movez(-73.5)
-	bottomCap = bottomCap
-				.movex(xLength/2+11 + 25*xLength/80+32.0/2)//figure this out
+	bottomCap = bottomCap.toXMin()
+					 .movex(xLength/2+11 + 25*xLength/80)//figure this out
 	bottomCap = bottomCap
 				.difference(connector)
 
+	//the flat end part of the cap with no sides (to keep connector in place
+	
+								
 	//visibility
 	bottomCap = bottomCap.movez(-0)
 
-	CSG bottCap2 = new Cube(25, 5+servoY2*2, 2.5).toCSG()
-							.movez(servoZ/2+2.5-49.5-3.25)
-							.movex(80)//143.5 + (xLength - 80)/2)
+	
 							
  	parts.add(mainThigh)
  	parts.add(cap2)
  	parts.add(bottomCap)
- 	parts.add(bottCap2)
  	//parts.add(connector)
 
 	return parts
@@ -255,23 +260,30 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	int servoX = vitaminData.get("flangeLongDimention")//32
 	int servoY = vitaminData.get("servoThinDimentionThickness")
 	int servoZ = vitaminData.get("servoShaftSideHeight")
-
+	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServo","hv6214mg")//current servo
+	int servoY2 = vitaminData2.get("servoThinDimentionThickness")
+	
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
 
-	CSG bottomCap = new Cube(33, servoY*8/3.5, 12).toCSG()
+	//side cap creation
+	CSG bottomCap = new Cube(xLength*3/5, servoY2*2+2, 12).toCSG()
 							.movez(servoZ/2+2.5)
-							.movex(27.5 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(33, 5, servoZ/2+3).toCSG()
-								.movex(27.5 + (xLength - 80)/2)
-								.movey(servoY*8/7+2.5)
+							.movex(35 + (xLength - 80)/2)
+	CSG capSide1 = new Cube(xLength*3/5, 5, servoZ/2+3).toCSG()
+								.movex(35 + (xLength - 80)/2)
+								.movey(servoY2+3)
 								.movez(servoZ/4+7)
-	CSG capSide2 = new Cube(33, 5, servoZ/2+3).toCSG()
-								.movex(27.5 + (xLength - 80)/2)
-								.movey(-servoY*8/7-2.5)
+	CSG capSide2 = new Cube(xLength*3/5, 5, servoZ/2+3).toCSG()
+								.movex(35 + (xLength - 80)/2)
+								.movey(-servoY2-3)
 								.movez(servoZ/4+7)
+	CSG bottCap2 = new Cube(xLength*2/5, servoY2*2, 5.5).toCSG()
+								.movez(servoZ/2+2.5-49.5-3.25+56)
+								.movex(75 + (xLength - 80)/2)
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
+	bottomCap = bottomCap.union(bottCap2)
 	int value = -(27.5 + (xLength - 80)/2)
 	bottomCap = bottomCap.movex(value)
 	bottomCap = bottomCap
@@ -293,23 +305,24 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 						.toYMin()
 						
 	rotatedLink = rotatedLink.movex(xLength + 25*xLength/80)
-	
+	bottomCap = bottomCap.toXMin()
+					 .movex(xLength/2+11 + 25*xLength/80)
 	CSG connector = createConnector(servo, hornRef, xLength).toZMin()
 
-	connector = connector.movez(-servoY*8/14)
-					 .movey(0)//connector hight = servoY*8/7
+	connector = connector.movez(-servoY*8/14)//connector height = servoY*8/7
 
-	rotatedLink = rotatedLink.difference(connector)
-	bottomCap = bottomCap.difference(connector)
+	//scaling because the sideways connector has more trouble than normal one at fitting in the connector hole
+	rotatedLink = rotatedLink.difference(connector.scalez(1.05).scalex(1.01))
+	bottomCap = bottomCap.difference(connector.scalez(1.05).scalex(1.01))
 
 	//visibility
 	bottomCap = bottomCap.movey(-10)
 	
 	ArrayList<CSG> parts = new ArrayList<CSG>()
 
-	parts.add(rotatedLink.movez(50))
-	parts.add(bottomCap.movez(50))
-	parts.add(connector.movez(50))
+	parts.add(rotatedLink.movez(70))
+	parts.add(bottomCap.movez(70))
+	parts.add(connector.movez(70))
 
 	return parts
 }
@@ -378,7 +391,7 @@ public CSG createTopCap(int xLength){
 int capLength = 46.3 + xLength/6.8 -1 ;
 CSG cap = new Cube(capLength, servoY*8/3.5, 5).toCSG()
 							.movez(servoZ/2+2.5)
-							.movex((xLength - 80)+ capLength/2 - 12.5)//capLength/2+11 + (xLength - 80)/2)
+							.movex((xLength - 80)+ capLength/2 - 12.5)
 CSG capSide1 = new Cube(capLength, 5, servoZ/2).toCSG()
 								.movex((xLength - 80)+ capLength/2 - 12.5)
 								.movey(servoY+2.5)
