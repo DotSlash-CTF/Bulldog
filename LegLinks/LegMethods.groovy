@@ -351,8 +351,8 @@ public CSG theUnionNoConnector(){
 	united.setRegenerate({theUnionNoConnector()})
 	return united
 }
-
-public CSG createBaseLink(CSG servo, int xLength){
+	
+public ArrayList<CSG> createBaseLink(CSG servo, CSG hornRef, int xLength){
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
 	println vitaminData
 
@@ -384,8 +384,15 @@ CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
 								.movex(46.3 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
 
-					
-return mainLeg
+CSG connector = createConnector(servo, hornRef, xLength)
+
+ArrayList<CSG> parts = new ArrayList<CSG>()
+parts.add(mainLeg)
+parts.add(connector)
+return parts
+
+
+
 }
 public CSG createTopCap(int xLength){
 int capLength = 46.3 + xLength/6.8 -1 ;
