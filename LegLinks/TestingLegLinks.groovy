@@ -29,7 +29,8 @@ ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
 ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, length)
 
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
-conector = connector.movez(45)
+CSG connector2 = remoteLegPiece.createConnector(servo, horn, length)
+conector2 = connector2.movex(20)
 connector = connector.makeKeepaway(-2)
 					
 for(int i = 0; i < thigh.size(); i++)
@@ -53,7 +54,9 @@ for(int i = 0; i < rotatedLink.size(); i++)
 connector.setManufactuing({CSG arg0 ->
 						return arg0.toZMin();
 			})
-			
+connector2.setManufactuing({CSG arg0 ->
+						return arg0.toZMin();
+			})
 
 
 ArrayList<CSG> totalParts = thigh ;
