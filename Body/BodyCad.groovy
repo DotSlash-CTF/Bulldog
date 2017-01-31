@@ -53,9 +53,12 @@ CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 {
 	CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
 	CSG center = new Cube(2.5, height, 50 + materialThickness).toCSG().toZMin();
-	return base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
-	//return center
-	//return base.scalex(height / 2).scaley(width / 2).difference(center)
+	base = base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
+	//Making attach point for vex parts
+	CSG screwType = Vitamins.get("capScrew","8#32");
+	CSG attachPoint = new Cylinder(screwType.get("outerDiameter"), screwType.get("outerDiameter"), 5);
+	
+	return base;
 }
 
 CSG makeRibCage(double[][] ribVals, double matThickness, CSG spine)
@@ -106,5 +109,5 @@ ribs = ribs		.setParameter(matThickness)
 CSG center = new Cube(5, 240, 5).toCSG().toZMin()
 return [ribs, centerOnAxes(mainBody)];
 //return ribs;
-//eturn makeRib(160, 240, 5, mainBody);
+//return makeRib(160, 240, 5, mainBody);
 //return [cChannel,mainBody]
