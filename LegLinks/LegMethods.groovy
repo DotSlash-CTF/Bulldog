@@ -69,7 +69,7 @@ cap = cap.movex(0.5)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
-//parts.add(servo)
+parts.add(servo)
 parts.add(cap)
 //parts.add(sub1)
 
@@ -87,7 +87,8 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	//Recreation of the CSGs from the first part, mainLeg
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	CSG mainThigh = shoulderParts.get(0)
-	CSG cap2 = shoulderParts.get(1)
+	CSG cap2 = shoulderParts.get(2)
+	CSG servo1 = shoulderParts.get(1)//delete
 	CSG connector = createConnector(servo, hornRef, xLength).movez(18)
 	
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
@@ -104,7 +105,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 						   		.movez(-13)
 						   		//.difference(connector)
 						   		.movez(13)
-						   		
+	servo1 = servo1.movex(xLength + 25*xLength/80)
 	//replicates parts from mainLeg part to have a similar thigh
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
 
@@ -144,7 +145,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 
 
-int cylVal = 4
+int cylVal = 3.8
 	CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
 								.movez(-19.5)
 								.movex(33)
@@ -159,25 +160,25 @@ int cylVal = 4
 
 	connHole = connHole.toXMin()
 				    .toZMin()
-				    .movex(160)
-				    .movez(-32)
+				    .movex(166+ 3.6/2*(xLength-100))
+				    .movez(-32.5)
 
-	bottomCap.union(connHole)
+	bottomCap = bottomCap.movez(8)
+					 .union(connHole)
 
 	bottomCap = bottomCap
-				.movez(8)
 				.difference(connector)
 	mainThigh = mainThigh.difference(connector)
 	//visibility
-	bottomCap = bottomCap.movez(0*-20)
+	bottomCap = bottomCap.movez(-7)
 
 	
 							
  	parts.add(mainThigh)
  	parts.add(cap2)
+ 	parts.add(servo1)//delete
  	parts.add(bottomCap)
- 	parts.add(connector.movez(-5).movex(120).movex(100))
- 	parts.add(connHole)
+ 	parts.add(connector.movez(-5).movez(-3.5).movex(128))
 
 	return parts
 
