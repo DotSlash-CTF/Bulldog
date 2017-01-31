@@ -23,7 +23,8 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 //shortest is 50, largest is 180
 int length = 100
 
-ArrayList<CSG> parts = new ArrayList<CSG>() baseLink = remoteLegPiece.createBaseLink(servo, length)
+CSG baseLink = remoteLegPiece.createBaseLink(servo, horn, length)
+
 baseLink = baseLink.movey(50)
 
 ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
@@ -31,6 +32,8 @@ ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
 ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
 
 ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, length)
+
+
 
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
 CSG connector2 = remoteLegPiece.createConnector(servo, horn, length)

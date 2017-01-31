@@ -98,11 +98,11 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	int servoY2 = vitaminData2.get("servoThinDimentionThickness")
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
-	
+	connector = connector.movez(9)
 	ArrayList<CSG> parts = new ArrayList<CSG>()
 	mainThigh = mainThigh.movex(xLength + 25*xLength/80) //two links are 5/16*xLength length apart
 						   		.movez(-13)
-						   		.difference(connector)
+						   		//.difference(connector)
 						   		.movez(13)
 						   		
 	//replicates parts from mainLeg part to have a similar thigh
@@ -110,16 +110,16 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 
 	
-	CSG bottomCap = new Cube(xLength*3/5, servoY2*2, 13).toCSG()
+	CSG bottomCap = new Cube(xLength*3/5, servoY2*2+1, 13).toCSG()
 							.movez(servoZ/2+2.5+2.5)
 							.movex(35 + (xLength - 80)/2)
 	CSG capSide1 = new Cube(xLength*3/5, 5, servoZ/2+5).toCSG()
 								.movex(35 + (xLength - 80)/2)
-								.movey(servoY2+2.5)
+								.movey(servoY2+2.5+0.5)
 								.movez(servoZ/4+9)
 	CSG capSide2 = new Cube(xLength*3/5, 5, servoZ/2+5).toCSG()
 								.movex(35 + (xLength - 80)/2)
-								.movey(-servoY2-2.5)
+								.movey(-servoY2-2.5-0.5)
 								.movez(servoZ/4+9)
 	
 	bottomCap = bottomCap.union(capSide1)
@@ -138,12 +138,14 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.movez(-73.5)
 	bottomCap = bottomCap.toXMin()
 					 .movex(xLength/2+11 + 25*xLength/80)//figure this out
-	bottomCap = bottomCap
-				.difference(connector)
+	
 
 	//the flat end part of the cap with no sides (to keep connector in place
-	
-								
+
+	bottomCap = bottomCap
+				.movez(8)
+				.difference(connector)
+	mainThigh = mainThigh.difference(connector)
 	//visibility
 	bottomCap = bottomCap.movez(-0)
 
@@ -152,7 +154,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
  	parts.add(mainThigh)
  	parts.add(cap2)
  	parts.add(bottomCap)
- 	parts.add(connector.movez(4).movex(120))
+ 	parts.add(connector.movez(-5).movex(120))
 
 	return parts
 
@@ -352,9 +354,10 @@ public CSG theUnionNoConnector(){
 	return united
 }
 	
-public ArrayList<CSG> createBaseLink(CSG servo, CSG hornRef, int xLength){
+public CSG createBaseLink(CSG servo, CSG hornRef, int xLength){
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
-	println vitaminData
+
+
 
 //these numbers can be used as universal reference numbers
 int servoX = vitaminData.get("flangeLongDimention")//32
@@ -384,12 +387,8 @@ CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
 								.movex(46.3 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
 
-CSG connector = createConnector(servo, hornRef, xLength)
 
-ArrayList<CSG> parts = new ArrayList<CSG>()
-parts.add(mainLeg)
-parts.add(connector)
-return parts
+return mainLeg
 
 
 
