@@ -142,19 +142,42 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 	//the flat end part of the cap with no sides (to keep connector in place
 
+
+
+int cylVal = 4
+	CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
+								.movez(-19.5)
+								.movex(33)
+								
+	//subtracting the correct horn from the connector
+	CSG hornCube = new Cube(10,10,10).toCSG()
+	//CSG halfHorn = hornRef.intersect(hornCube)
+	//halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
+	//hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
+	//CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(5)).makeKeepaway(2)
+	//				.movex(-(8))
+
+	connHole = connHole.toXMin()
+				    .toZMin()
+				    .movex(160)
+				    .movez(-32)
+
+	bottomCap.union(connHole)
+
 	bottomCap = bottomCap
 				.movez(8)
 				.difference(connector)
 	mainThigh = mainThigh.difference(connector)
 	//visibility
-	bottomCap = bottomCap.movez(-0)
+	bottomCap = bottomCap.movez(0*-20)
 
 	
 							
  	parts.add(mainThigh)
  	parts.add(cap2)
  	parts.add(bottomCap)
- 	parts.add(connector.movez(-5).movex(120))
+ 	parts.add(connector.movez(-5).movex(120).movex(100))
+ 	parts.add(connHole)
 
 	return parts
 
@@ -168,8 +191,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 	//Recreation of the CSGs from the first part, mainLeg
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
 	int servoX = vitaminData.get("flangeLongDimention")//32
-	int servoY = vitaminData.get("servoThinDimentionThickness")
-	int servoZ = vitaminData.get("servoShaftSideHeight")
+	int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
 
@@ -194,11 +216,11 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 				 .union(decor2)
 				 .union(decor3)
 				 
-	//keyHole is to be subtracted: connHole subtracted from horn
-	int cylVal = 2
+	//keyHole is to be subtracted: connHole subtracted from horn (the cylinder hole)
+	int cylVal = 4
 	CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
 								.movez(-19.5)
-								.movex(34)
+								.movex(33)
 								
 	//subtracting the correct horn from the connector
 	CSG hornCube = new Cube(10,10,10).toCSG()
