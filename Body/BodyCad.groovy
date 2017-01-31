@@ -51,12 +51,18 @@ CSG makeRib(double height, double width, double materialThickness, CSG spine)
 //FOR RIB TO ATTACH TO C CHANNELS
 CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 {
+	CSG screwType = Vitamins.get("capScrew","8#32");
+	
 	CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
 	CSG center = new Cube(2.5, height, 50 + materialThickness).toCSG().toZMin();
 	base = base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
 	//Making attach point for vex parts
-	CSG screwType = Vitamins.get("capScrew","8#32");
-	CSG attachPoint = new Cylinder(screwType.get("outerDiameter"), screwType.get("outerDiameter"), 5);
+	double outerDiameter = Vitamins.getConfiguration("capScrew","8#32").outerDiameter;
+	CSG attachPoint = new Cylinder(outerDiameter, outerDiameter, 5).toCSG();
+	CSG attachPoint2 = attachPoint.clone();
+
+	attachPoint = attachPoint.movey(width / 3)
+	attachPoint2 = attachPoint2.movey(-width / 3)
 	
 	return base;
 }
