@@ -149,18 +149,10 @@ int cylVal = 3.8
 	CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
 								.movez(-19.5)
 								.movex(33)
-								
-	//subtracting the correct horn from the connector
-	CSG hornCube = new Cube(10,10,10).toCSG()
-	//CSG halfHorn = hornRef.intersect(hornCube)
-	//halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
-	//hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
-	//CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(5)).makeKeepaway(2)
-	//				.movex(-(8))
 
 	connHole = connHole.toXMin()
 				    .toZMin()
-				    .movex(166+ 3.6/2*(xLength-100))
+				    .movex(166+ 3.6/2*(xLength-100))//to be accounted for paramaterizing
 				    .movez(-32.5)
 
 	bottomCap = bottomCap.movez(8)
