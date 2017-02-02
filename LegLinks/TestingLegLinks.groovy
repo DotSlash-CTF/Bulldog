@@ -18,7 +18,7 @@ CSG servo = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 .get( "hobbyServo","hv6214mg")//old is towerProMG91
             
 CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
-.get( "hobbyServoHorn","standardMicro1")
+.get( "hobbyServoHorn","hv6214mg_1")
 
 //shortest is 50, largest is 180
 int length = 80

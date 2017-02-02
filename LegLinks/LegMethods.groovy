@@ -183,12 +183,17 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 
 	//Recreation of the CSGs from the first part, mainLeg
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
+	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServoHorn","hv6214mg_1")
+	print("horn" + vitaminData2)
+	int hornRad = vitaminData2.get("hornBaseDiameter")//13.48
+	int hornThick = vitaminData2.get("hornThickness")//6.6
+	int hornLeng = vitaminData2.get("hornLength")//23.0
 	int servoX = vitaminData.get("flangeLongDimention")//32
 	int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
 
-	int thickness = 10
+	int thickness = 5
 								
 	CSG connector = new Cube((xLength - 80)/2 + 61, servoY*8/7,thickness).toCSG()
 								   .movez(-18.5+thickness/5)
@@ -196,18 +201,17 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 				 				   .movex(20)
 				 				   
 	//fancifying, could be removed if we want the connectors shorter
-	CSG decor1 = new Cylinder(8,8,thickness,(int)50).toCSG()
+	CSG decor1 = new Cylinder(hornRad+2,hornRad+2,thickness,(int)50).toCSG()
 								.movez(-21.5)
-								.movex(24)
-	CSG decor2 = new Cylinder(8,8,thickness,(int)50).toCSG()
+								.movex(24+hornRad-7.7)
+	CSG decor2 = new Cylinder(hornRad/2+2,hornRad/2+2,thickness,(int)50).toCSG()
 								.movez(-21.5)
-								.movex(39)
+								.movex(37+hornRad-7.7)
 	CSG decor3 = new Cylinder(8,8,thickness,(int)50).toCSG()
 								.movez(-21.5)
 								.movex(54)
 	connector = connector.union(decor1)
 				 .union(decor2)
-				 .union(decor3)
 				 
 	//keyHole is to be subtracted: connHole subtracted from horn (the cylinder hole)
 	int cylVal = 4
