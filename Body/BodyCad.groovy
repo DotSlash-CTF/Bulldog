@@ -57,14 +57,23 @@ CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 	CSG center = new Cube(2.5, height, 50 + materialThickness).toCSG().toZMin();
 	base = base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
 	//Making attach point for vex parts
-	double outerDiameter = Vitamins.getConfiguration("capScrew","8#32").outerDiameter;
-	CSG attachPoint = new Cylinder(outerDiameter, outerDiameter, 5).toCSG();
+	double outerRadius = Vitamins.getConfiguration("capScrew","8#32").outerDiameter / 2;
+	CSG attachPoint = new Cylinder(outerRadius * 2, 3, 30).toCSG().difference(new Cylinder(outerRadius, 5, 30).toCSG());
 	CSG attachPoint2 = attachPoint.clone();
 
-	attachPoint = attachPoint.movey(width / 3)
-	attachPoint2 = attachPoint2.movey(-width / 3)
+	attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) / 2 + 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //NOT PERFECTLY PARAMETERIZED
+	attachPoint2 = attachPoint2.movey( (spine.getMaxY() - spine.getMinY()) / 2 - 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //DITTO
+
+	for(int i = 0; i < 4; i++)
+	{
+		base = base.difference(attachPoint.hull().movez(3 * i)).difference(attachPoint2.hull().movez(3 * i))
+	}
+
+	//base = base.difference(attachPoint.hull()).difference(attachPoint.hull().scalez(5)).difference(attachPoint2.hull()).difference(attachPoint2.hull().movez(3))
+	attachPoint = attachPoint.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey(- (spine.getMaxY() - spine.getMinY()) / 2 + 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2))
+	attachPoint2 = attachPoint2.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey( (spine.getMaxY() - spine.getMinY()) / 2 - 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2))
 	
-	return base;
+	return base.union(attachPoint).union(attachPoint2);
 }
 
 CSG makeRibCage(double[][] ribVals, double matThickness, CSG spine)
@@ -110,10 +119,11 @@ ribs = ribs		.setParameter(matThickness)
 				//.setParameter(bodyWidth)
 				//.setParameter(bodyLength)
 				.setRegenerate({makeVexRibCage(ribVals, matThickness.getMM(), mainBody.hull())})
+				//.setManufactuing({CSG arg0 -> arg0.difference()}) //typo on purpose
 //cChannel = cChannel.movey((cChannel.getMaxY()-cChannel.getMinY())/2)
 
 CSG center = new Cube(5, 240, 5).toCSG().toZMin()
-return [ribs, centerOnAxes(mainBody)];
-//return ribs;
+//return [ribs, centerOnAxes(mainBody)];
+return ribs;
 //return makeRib(160, 240, 5, mainBody);
 //return [cChannel,mainBody]
