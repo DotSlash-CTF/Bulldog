@@ -66,15 +66,15 @@ connector2.setManufactuing({CSG arg0 ->
 			})
 
 
-ArrayList<CSG> totalParts = thigh ;
+ArrayList<CSG> totalParts = thigh;
 totalParts.add(connector)
 for(int i = 0; i < shoulder.size(); i++)
 {
-	totalParts.add(shoulder.get(i))
+	//totalParts.add(shoulder.get(i))
 }
 for(int i = 0; i < rotatedLink.size(); i++)
 {
-	totalParts.add(rotatedLink.get(i))
+	//totalParts.add(rotatedLink.get(i))
 }
-totalParts.add(baseLink)
+//totalParts.add(baseLink)
 return totalParts

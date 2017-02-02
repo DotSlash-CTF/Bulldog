@@ -193,7 +193,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
 
-	int thickness = 5
+	int thickness = 10
 								
 	CSG connector = new Cube((xLength - 80)/2 + 61, servoY*8/7,thickness).toCSG()
 								   .movez(-18.5+thickness/5)
@@ -220,11 +220,11 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 								.movex(33)
 								
 	//subtracting the correct horn from the connector
-	CSG hornCube = new Cube(10,10,10).toCSG()
+	CSG hornCube = new Cube(14,12,10).toCSG().toZMin().toYMin()// 12 to adjust horn subtraction
 	CSG halfHorn = hornRef.intersect(hornCube)
 	halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
 	hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
-	CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(5)).makeKeepaway(2)
+	CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(3)).makeKeepaway(2)
 					.movex(-(8))
 	
 	connector = connector
