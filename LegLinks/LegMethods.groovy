@@ -201,15 +201,12 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 				 				   .movex(20)
 				 				   
 	//fancifying, could be removed if we want the connectors shorter
-	CSG decor1 = new Cylinder(hornRad+2,hornRad+2,thickness,(int)50).toCSG()
+	CSG decor1 = new Cylinder(hornRad+1,thickness,(int)50).toCSG()
 								.movez(-21.5)
 								.movex(24+hornRad-7.7)
 	CSG decor2 = new Cylinder(hornRad/2+2,hornRad/2+2,thickness,(int)50).toCSG()
 								.movez(-21.5)
 								.movex(37+hornRad-7.7)
-	CSG decor3 = new Cylinder(8,8,thickness,(int)50).toCSG()
-								.movez(-21.5)
-								.movex(54)
 	connector = connector.union(decor1)
 				 .union(decor2)
 				 
@@ -220,7 +217,8 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 								.movex(33)
 								
 	//subtracting the correct horn from the connector
-	CSG hornCube = new Cube(14,12,10).toCSG().toZMin().toYMin()// 12 to adjust horn subtraction
+	CSG hornCube = new Cube(14,11,10).toCSG().toZMin().toYMin()// 12 to adjust horn subtraction
+	hornRef = hornRef.makeKeepaway(0.5)
 	CSG halfHorn = hornRef.intersect(hornCube)
 	halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
 	hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
