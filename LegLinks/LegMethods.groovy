@@ -103,7 +103,6 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	ArrayList<CSG> parts = new ArrayList<CSG>()
 	mainThigh = mainThigh.movex(xLength + 25*xLength/80) //two links are 5/16*xLength length apart
 						   		.movez(-13)
-						   		//.difference(connector)
 						   		.movez(13)
 	servo1 = servo1.movex(xLength + 25*xLength/80)
 	//replicates parts from mainLeg part to have a similar thigh
@@ -113,26 +112,28 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	int bottMainLeng = xLength*2.7/5
 	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
 							.movez(servoZ/2+2.5+2.5)
-							.movex(35 + (xLength - 80)/2)
+							.toXMin()
+							.movex(15 + (xLength - 80)/2)
 	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG()
-								.movex(35 + (xLength - 80)/2)
+								.toXMin()
+								.movex(15 + (xLength - 80)/2)
 								.movey(servoY2+2.5+0.5)
 								.movez(servoZ/4+9)
 	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG()
-								.movex(35 + (xLength - 80)/2)
+								.toXMin()
+								.movex(15 + (xLength - 80)/2)
 								.movey(-servoY2-2.5-0.5)
 								.movez(servoZ/4+9)
 	
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
 	CSG bottCap2 = new Cube(xLength, 5+servoY2*2, 2.5).toCSG()
+								.toXMin()
 								.movez(servoZ/2+6+4.25)
-								.movex(55 + (xLength - 80)/2)
+								.movex(15 + (xLength - 80)/2)
 	bottomCap = bottomCap.union(bottCap2)
 	
 	//see original value declaration above
-	int value = -(25*xLength/80)//(27.5 + (xLength - 80)/2)
-	bottomCap = bottomCap.movex(value)
 	bottomCap = bottomCap
 				.movez(-60)
 				.rotx(180)
@@ -161,6 +162,8 @@ int cylVal = 3.8
 	bottomCap = bottomCap
 				.difference(connector)
 	mainThigh = mainThigh.difference(connector)
+
+	
 	//visibility
 	bottomCap = bottomCap.movez(-7)
 
@@ -226,7 +229,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 					.movex(-(8))
 	
 	connector = connector
-				 .difference(keyHole.movez(2))//moved it up 2
+				 .difference(keyHole.movez(1))//moved subtraction up 1
 				 .movez(-10)
 
 	connHole = connHole.movez(-12)
