@@ -110,24 +110,24 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
 
 
-	
-	CSG bottomCap = new Cube(xLength*3/5, servoY2*2+1, 13).toCSG()
+	int bottMainLeng = xLength*2.7/5
+	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
 							.movez(servoZ/2+2.5+2.5)
 							.movex(35 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(xLength*3/5, 5, servoZ/2+5).toCSG()
+	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG()
 								.movex(35 + (xLength - 80)/2)
 								.movey(servoY2+2.5+0.5)
 								.movez(servoZ/4+9)
-	CSG capSide2 = new Cube(xLength*3/5, 5, servoZ/2+5).toCSG()
+	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG()
 								.movex(35 + (xLength - 80)/2)
 								.movey(-servoY2-2.5-0.5)
 								.movez(servoZ/4+9)
 	
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
-	CSG bottCap2 = new Cube(xLength*2/5, 5+servoY2*2, 2.5).toCSG()
+	CSG bottCap2 = new Cube(xLength, 5+servoY2*2, 2.5).toCSG()
 								.movez(servoZ/2+6+4.25)
-								.movex(75 + (xLength - 80)/2)
+								.movex(55 + (xLength - 80)/2)
 	bottomCap = bottomCap.union(bottCap2)
 	
 	//see original value declaration above
@@ -226,7 +226,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 					.movex(-(8))
 	
 	connector = connector
-				 .difference(keyHole)
+				 .difference(keyHole.movez(2))//moved it up 2
 				 .movez(-10)
 
 	connHole = connHole.movez(-12)
