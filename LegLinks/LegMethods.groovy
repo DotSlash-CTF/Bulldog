@@ -114,12 +114,12 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 							.movez(servoZ/2+2.5+2.5)
 							.toXMin()
 							.movex(15 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG()
+	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() //move in
 								.toXMin()
 								.movex(15 + (xLength - 80)/2)
 								.movey(servoY2+2.5+0.5)
 								.movez(servoZ/4+9)
-	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG()
+	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() //move in
 								.toXMin()
 								.movex(15 + (xLength - 80)/2)
 								.movey(-servoY2-2.5-0.5)
