@@ -25,7 +25,7 @@
 	<name>basePan</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>8</index>
+	<index>1</index>
 	<scale>0.33</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
@@ -133,7 +133,7 @@
 	<name>elbow</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>1</index>
+	<index>11</index>
 	<scale>0.33</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>15.223880597014928</lowerLimit>
@@ -415,7 +415,7 @@
 	<name>basePan</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>7</index>
+	<index>1</index>
 	<scale>0.33</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
