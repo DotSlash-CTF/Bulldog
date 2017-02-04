@@ -33,7 +33,7 @@ servo = servo								.scalex(1.08)
 //create the main part of the leg that will have an indent in the shape of the servo
 CSG sub1 = new Cube(servoX+3, servoY+1.5, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9)
 CSG screwHole = new Cylinder(1.25,10,(int)25).toCSG()//move then subtract
-								  .movex(-7 + (xLength - 80)/2)
+								  .movex(-9 + (xLength - 80)/2)
 								  .movey(-5)
 								  .movez(-20)
 
