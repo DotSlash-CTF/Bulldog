@@ -70,7 +70,7 @@ ArrayList<CSG> totalParts = thigh;
 totalParts.add(connector)
 for(int i = 0; i < shoulder.size(); i++)
 {
-	//totalParts.add(shoulder.get(i))
+	totalParts.add(shoulder.get(i))
 }
 for(int i = 0; i < rotatedLink.size(); i++)
 {

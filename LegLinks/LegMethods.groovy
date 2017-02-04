@@ -31,12 +31,19 @@ servo = servo								.scalex(1.08)
 										.movex(servoX/2 + (xLength - 80)/2)
 
 //create the main part of the leg that will have an indent in the shape of the servo
-CSG sub1 = new Cube(servoX+3, servoY+1.75, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9)
+CSG sub1 = new Cube(servoX+3, servoY+1.5, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9)
+CSG screwHole = new Cylinder(1.25,10,(int)25).toCSG()//move then subtract
+								  .movex(-7 + (xLength - 80)/2)
+								  .movey(-5)
+								  .movez(-20)
+
 
 CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
 mainLeg =mainLeg.difference(servo)
 mainLeg =mainLeg.difference(sub1)
-
+mainLeg =mainLeg.difference(screwHole)
+screwHole = screwHole.movey(10)
+mainLeg =mainLeg.difference(screwHole)
 
 //union barriers that will stop the cap (below) from moving onto the main leg
 CSG barrier1 = new Cube(2, servoY*2, 2) .toCSG()
@@ -44,7 +51,7 @@ CSG barrier1 = new Cube(2, servoY*2, 2) .toCSG()
 								.movex(-xLength/6.8 + (xLength - 80)/2-1.5)
 CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
 								.movez(servoZ/2+2)
-								.movex(46.3 + (xLength - 80)/2)
+								.movex(47.65 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
 
 //create the cap that will encapsulate the servo
@@ -65,13 +72,13 @@ cap = cap.union(capSide2)
 cap = cap.movex(0.5)
 					
 //move for visibility
-//cap = cap.movez(100)
+cap = cap.movez(200)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
-parts.add(servo)
+parts.add(servo.setColor(javafx.scene.paint.Color.CYAN).movez(200))//delete
 parts.add(cap)
-//parts.add(sub1)
+//parts.add(screwHole)
 
 return parts
 
@@ -114,15 +121,15 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 							.movez(servoZ/2+2.5+2.5)
 							.toXMin()
 							.movex(15 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() //move in
+	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() 
 								.toXMin()
 								.movex(15 + (xLength - 80)/2)
-								.movey(servoY2+2.5+0.5)
+								.movey(servoY2+2.6)
 								.movez(servoZ/4+9)
-	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() //move in
+	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() 
 								.toXMin()
 								.movex(15 + (xLength - 80)/2)
-								.movey(-servoY2-2.5-0.5)
+								.movey(-servoY2-2.6)
 								.movez(servoZ/4+9)
 	
 	bottomCap = bottomCap.union(capSide1)
