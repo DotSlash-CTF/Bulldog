@@ -111,6 +111,14 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	mainThigh = mainThigh.movex(xLength + 25*xLength/80) //two links are 5/16*xLength length apart
 						   		.movez(-13)
 						   		.movez(13)
+
+	CSG screwHole = new Cylinder(1.25,30,(int)25).toCSG()//move then subtract
+								  .movex(-9 + (xLength - 80)/2)
+								  .movey(-5)
+								  .movez(-20)
+								  .movex(xLength + 25*xLength/80)
+								  .movez(-20)
+								  
 	servo1 = servo1.movex(xLength + 25*xLength/80)
 	//replicates parts from mainLeg part to have a similar thigh
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
@@ -169,9 +177,13 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.difference(connector)
 	mainThigh = mainThigh.difference(connector)
 
+	//holes below so that cap can be screwed in
+	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(10)
+	bottomCap = bottomCap.difference(screwHole)
 	
 	//visibility
-	bottomCap = bottomCap.movez(-7)
+	bottomCap = bottomCap.movez(-30)
 
 	
 							
@@ -294,6 +306,7 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
 
+	
 	//side cap creation
 	CSG bottomCap = new Cube(xLength*3/5, servoY2*2+2, 12).toCSG()
 							.movez(servoZ/2+2.5)

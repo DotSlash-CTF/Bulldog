@@ -21,7 +21,7 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 .get( "hobbyServoHorn","hv6214mg_1")
 
 //shortest is 50, largest is 180
-int length = 80
+int length = 110
 
 CSG baseLink = remoteLegPiece.createBaseLink(servo, horn, length)
 
