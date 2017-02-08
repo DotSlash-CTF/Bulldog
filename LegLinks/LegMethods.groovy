@@ -472,6 +472,18 @@ cap = cap.union(capSide2)
 return cap;
 }
 
+
+public CSG createBaseLink2(CSG servo, CSG hornRef, int xLength, boolean normFalseRotTrue){
+
+	if(normFalseRotTrue == false)
+	{
+		CSG mainLeg = createThigh(servo, hornRef, xLength).get(0)
+	}
+	else{
+		
+	}
+return mainLeg
+}
 }
 
 return new legPiece()
