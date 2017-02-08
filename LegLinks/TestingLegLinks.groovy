@@ -74,7 +74,7 @@ for(int i = 0; i < shoulder.size(); i++)
 }
 for(int i = 0; i < rotatedLink.size(); i++)
 {
-	//totalParts.add(rotatedLink.get(i))
+	totalParts.add(rotatedLink.get(i))
 }
-//totalParts.add(baseLink)
+totalParts.add(baseLink)
 return totalParts
