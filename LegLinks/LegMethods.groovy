@@ -38,7 +38,9 @@ CSG screwHole = new Cylinder(1.25,10,(int)25).toCSG()//move then subtract
 								  .movez(-20)
 
 
-CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
+//CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
+
+CSG mainLeg = new RoundedCube(xLength, servoY*2, servoZ+1).cornerRadius(0.3).toCSG().movez(1).movex(11) 
 mainLeg =mainLeg.difference(servo)
 mainLeg =mainLeg.difference(sub1)
 mainLeg =mainLeg.difference(screwHole)
@@ -46,10 +48,10 @@ screwHole = screwHole.movey(10)
 mainLeg =mainLeg.difference(screwHole)
 
 //union barriers that will stop the cap (below) from moving onto the main leg
-CSG barrier1 = new Cube(2, servoY*2, 2) .toCSG()
+CSG barrier1 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
 								.movez(servoZ/2+2)
 								.movex(-xLength/6.8 + (xLength - 80)/2-1.5)
-CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
+CSG barrier2 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
 								.movez(servoZ/2+2)
 								.movex(47.65 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
