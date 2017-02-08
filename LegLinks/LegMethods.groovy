@@ -163,7 +163,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 
 
 
-	CSG connHole = new Cylinder(4,4.5,(int)50).toCSG()
+	CSG connHole = new Cylinder(3.5,4.5,(int)50).toCSG()
 								.movez(-19.5)
 								.movex(33)
 
