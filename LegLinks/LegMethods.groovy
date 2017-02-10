@@ -46,6 +46,11 @@ mainLeg =mainLeg.difference(sub1)
 mainLeg =mainLeg.difference(screwHole)
 screwHole = screwHole.movey(10)
 mainLeg =mainLeg.difference(screwHole)
+screwHole = screwHole.movey(servoY2+1-10).movex(20+xLength-80)
+mainLeg =mainLeg.difference(screwHole)
+screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
+mainLeg =mainLeg.difference(screwHole)
+	
 
 //union barriers that will stop the cap (below) from moving onto the main leg
 CSG barrier1 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
@@ -182,6 +187,10 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	//holes below so that cap can be screwed in
 	bottomCap = bottomCap.difference(screwHole)
 	screwHole = screwHole.movey(10)
+	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(servoY2+1-10).movex(20+xLength-80)
+	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
 	bottomCap = bottomCap.difference(screwHole)
 	
 	//visibility
