@@ -56,8 +56,8 @@ CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 	CSG attachPoint = new Cylinder(outerRadius * 2, 3, 30).toCSG().difference(screwType.movez(2.5));
 	CSG attachPoint2 = attachPoint.clone();
 
-	attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) / 2 + 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //NOT PERFECTLY PARAMETERIZED
-	attachPoint2 = attachPoint2.movey( (spine.getMaxY() - spine.getMinY()) / 2 - 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //DITTO
+	attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //NOT PERFECTLY PARAMETERIZED
+	attachPoint2 = attachPoint2.movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //DITTO
 
 	for(int i = 0; i < 4; i++)
 	{
@@ -65,8 +65,8 @@ CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 	}
 
 	//base = base.difference(attachPoint.hull()).difference(attachPoint.hull().scalez(5)).difference(attachPoint2.hull()).difference(attachPoint2.hull().movez(3))
-	attachPoint = attachPoint.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey(- (spine.getMaxY() - spine.getMinY()) / 2 + 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2))
-	attachPoint2 = attachPoint2.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey( (spine.getMaxY() - spine.getMinY()) / 2 - 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2))
+	attachPoint = attachPoint.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey(- (spine.getMaxY() - spine.getMinY()) * (89 / 224)).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius))
+	attachPoint2 = attachPoint2.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224)).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius))
 	
 	base = base.union(attachPoint).union(attachPoint2);
 	return base.difference(new Cube(100, 100, 100).toCSG().toZMin().movez(-100))
