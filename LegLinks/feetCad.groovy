@@ -47,130 +47,16 @@ class Feet implements ICadGenerator, IParameterChanged{
 		//Creating the horn
 		double servoTop = servoReference.getMaxZ()
 		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
-		
-			//variable setup
-			HashMap<String, Object>  vitaminData = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-			ArrayList<CSG> parts = new ArrayList<CSG>()
-			int servoX = vitaminData.get("flangeLongDimention")//32
-			int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
-			int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
-			int xLength = dh.getR() * (16.0/21.0);
 
-			//creating servo cutout
-			CSG servo = servoReference
-							.scalex(1.08)
-							.rotz(90)
-							.rotx(180)
-							.movez(-7)
-							.movez(1.4)
-							.movex(servoX + (xLength - 80)/2)
+		def remoteLegPiece = ScriptingEngine.gitScriptRun(
+          					"https://github.com/DotSlash-CTF/Bulldog.git",
+          					"LegLinks/LegMethods.groovy",
+          					null
+          					);
 
-			//creating servo hole and main leg piece
-			CSG sub1 = new Cube(servoX+3, servoY+1.75, servoZ).toCSG()
-			CSG mainLeg = new Cube(xLength, servoY*2, servoZ+1).toCSG().movez(1).movex(11) 
-			mainLeg =mainLeg.difference(servo)
-			mainLeg =mainLeg.difference(sub1.movex(servoX-2.7 + (xLength - 80)/2).movez(7.9))
-
-			//creating barrier to keep cap from moving onto main leg piece
-			CSG barrier1 = new Cube(2, servoY*2, 2) .toCSG()
-								.movez(servoZ/2+2)
-								.movex(10.8 + (xLength - 80)/2)
-			CSG barrier2 = new Cube(2, servoY*2, 2) .toCSG()
-								.movez(servoZ/2+2)
-								.movex(47.8 + (xLength - 80)/2)
-			mainLeg = mainLeg.union(barrier1).union(barrier2)
-
-			//creating cap to hold servo
-			CSG cap = new Cube(34.8, servoY*8/3.5, 5).toCSG()
-							.movez(servoZ/2+2.5)
-							.movex(28.0 + (xLength - 80)/2)
-			CSG capSide1 = new Cube(34.8, 5, servoZ/2).toCSG()
-								.movex(28.0 + (xLength - 80)/2)
-								.movey(servoY+2.5)
-								.movez(servoZ/4+5)
-			CSG capSide2 = new Cube(34.8, 5, servoZ/2).toCSG()
-								.movex(28.0 + (xLength - 80)/2)
-								.movey(-servoY-2.5)
-								.movez(servoZ/4+5)
-			cap = cap.union(capSide1)
-			cap = cap.union(capSide2)
-
-			//adding link pieces to parts list
-			parts.add(mainLeg)
-			parts.add(cap)
-
-			//create conector base piece
-			int thickness = 10						
-			CSG connector = new Cube((xLength - 80)/2 + 61, servoY*8/7,thickness).toCSG()
-								   .movez(-18.5+thickness/5)
-				 				   .toXMin()
-				 				   .movex(20)
-
-			//making pretty bumpy thingies
-			CSG decor1 = new Cylinder(8,8,thickness,(int)50).toCSG()
-								.movez(-21.5)
-								.movex(24)
-			CSG decor2 = new Cylinder(8,8,thickness,(int)50).toCSG()
-								.movez(-21.5)
-								.movex(39)
-			CSG decor3 = new Cylinder(8,8,thickness,(int)50).toCSG()
-								.movez(-21.5)
-								.movex(54)
-			connector = connector.union(decor1)
-				 				.union(decor2)
-				 				.union(decor3)
-			//making holes
-			//keyHole is to be subtracted: connHole subtracted from horn
-			int cylVal = 2
-			CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
-								.movez(-19.5)
-								.movex(34)
-			//subtracting the correct horn from the connector
-			CSG hornCube = new Cube(10,10,10).toCSG()
-			CSG halfHorn = horn.intersect(hornCube)
-			halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
-			horn = horn.rotz(90).movex(servoX).movez(-17)
-			CSG keyHole = connHole.union(horn).union(halfHorn.movez(5)).makeKeepaway(2)
-						.movex(-(8))
-			connector = connector
-						.difference(keyHole)
-						.movez(-10)
-			connHole = connHole.movez(-12)
-						.movex(-(8.5)) 	
-			connector = connector.difference(connHole)
-
-			//create connector end key
-			int endLength = (xLength - 80)/2 + 61 +20
-			CSG connectorEnd1 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
-									.movex(endLength)
-									.movey(6)
-						   			.movez(-32.5)
-			CSG connectorEnd2 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
-									.movex(endLength)
-									.movey(-6)
-						   			.movez(-32.5)
-			CSG connectorEnds = connectorEnd1.hull(connectorEnd2)
-									.movez(1)
-			CSG endCyl = new Cylinder(2,2,14,(int)40).toCSG()
-									.rotx(90)
-									.movez(-20)
-									.movex(endLength)
-									.movey(-7)
-			connectorEnds = connectorEnds.hull(endCyl)
-			connector = connector.union(connectorEnds)
-
-			//move connector into proper position
-			connector = connector.rotx(180).toZMin().toXMin()
-
-			//add connector to parts list
-			//parts.add(connector)	
-
-		//add parts to cad generator list
-		for(int i = 0; i < parts.size(); i++)
-		{
-			CSG part = parts.get(i).toXMax()
-			defaultCadGen.add(allCad, part, dh.getListener())
-		}
+          CSG piece = remoteLegPiece.createBaseLink(servoReference, horn, dh.getR())
+		defaultCadGen.add(allCad, piece, dh.getListener())
+          
 		return allCad;
 	}
 	@Override 
