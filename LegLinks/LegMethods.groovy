@@ -78,7 +78,7 @@ cap = cap.movez(200)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
-parts.add(servo.setColor(javafx.scene.paint.Color.CYAN).movez(200))//delete
+parts.add(servo.setColor(javafx.scene.paint.Color.CYAN).movex(-servoX/2).movez(100))//delete
 parts.add(cap)
 //parts.add(screwHole)
 
@@ -449,6 +449,7 @@ CSG barrier2 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
 								.movex(47.65 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
 
+mainLeg = mainLeg.movex(-servoX/2)
 return mainLeg
 
 

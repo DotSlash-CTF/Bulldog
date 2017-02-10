@@ -25,8 +25,6 @@ int length = 80
 
 CSG baseLink = remoteLegPiece.createBaseLink(servo, horn, length)
 
-baseLink = baseLink.movey(50)
-
 ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
 
 ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
