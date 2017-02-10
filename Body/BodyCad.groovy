@@ -5,7 +5,7 @@ import com.neuronrobotics.bowlerstudio.vitamins.*;
 LengthParameter bodyLength 		= new LengthParameter("Body Length",100,[200,0])
 LengthParameter bodyWidth 		= new LengthParameter("Body Width",50,[200,0])
 LengthParameter matThickness 		= new LengthParameter("Material Thickness",10,[200,0])
-double[][] ribVals = [[200, 100, -20],  [200, 100, 30]];
+double[][] ribVals = [[150, 100, -20]]//,  [200, 100, 30]];
 
 CSG solidRectFromCSG(CSG start)
 {
@@ -36,11 +36,6 @@ CSG centerOnAxes(CSG start)
 	return centerOnY(centerOnX(centerOnZ(start)));
 }
 
-void getBodyOffsetLength(double bodyLength)
-{
-	
-}
-
 CSG makeRib(double height, double width, double materialThickness, CSG spine)
 {
 	CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
@@ -51,14 +46,14 @@ CSG makeRib(double height, double width, double materialThickness, CSG spine)
 //FOR RIB TO ATTACH TO C CHANNELS
 CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 {
-	CSG screwType = Vitamins.get("capScrew","8#32");
+	CSG screwType = Vitamins.get("capScrew","8#32").makeKeepaway(1.0);
 	
 	CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
 	CSG center = new Cube(2.5, height, 50 + materialThickness).toCSG().toZMin();
 	base = base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
 	//Making attach point for vex parts
 	double outerRadius = Vitamins.getConfiguration("capScrew","8#32").outerDiameter / 2;
-	CSG attachPoint = new Cylinder(outerRadius * 2, 3, 30).toCSG().difference(new Cylinder(outerRadius, 5, 30).toCSG());
+	CSG attachPoint = new Cylinder(outerRadius * 2, 3, 30).toCSG().difference(screwType.movez(2.5));
 	CSG attachPoint2 = attachPoint.clone();
 
 	attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) / 2 + 6.5 ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //NOT PERFECTLY PARAMETERIZED
