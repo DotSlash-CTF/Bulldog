@@ -46,9 +46,9 @@ mainLeg =mainLeg.difference(sub1)
 mainLeg =mainLeg.difference(screwHole)
 screwHole = screwHole.movey(10)
 mainLeg =mainLeg.difference(screwHole)
-screwHole = screwHole.movey(servoY2+1-10).movex(20+xLength-80)
+screwHole = screwHole.movey(20.1+1-10).movex(20+xLength-80)
 mainLeg =mainLeg.difference(screwHole)
-screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
+screwHole = screwHole.movey(-20.1+9-10-20.1+9)//20.1 is servo2
 mainLeg =mainLeg.difference(screwHole)
 	
 
@@ -110,7 +110,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	int servoX = vitaminData.get("flangeLongDimention")
 	int servoY = vitaminData.get("servoThinDimentionThickness")
 	int servoZ = vitaminData.get("servoShaftSideHeight")
-	int servoY2 = vitaminData2.get("servoThinDimentionThickness")
+	int servoY2 = vitaminData2.get("servoThinDimentionThickness")//20.1
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
 	connector = connector.movez(9)
@@ -136,12 +136,12 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 							.movez(servoZ/2+2.5+2.5)
 							.toXMin()
 							.movex(15 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() 
+	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
 								.toXMin()
 								.movex(15 + (xLength - 80)/2)
 								.movey(servoY2+2.6)
 								.movez(servoZ/4+9)
-	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+5).toCSG() 
+	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
 								.toXMin()
 								.movex(15 + (xLength - 80)/2)
 								.movey(-servoY2-2.6)
@@ -149,9 +149,9 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	
 	bottomCap = bottomCap.union(capSide1)
 	bottomCap = bottomCap.union(capSide2)
-	CSG bottCap2 = new Cube(xLength, 5+servoY2*2, 2.5).toCSG()
+	CSG bottCap2 = new Cube(xLength, 5+servoY2*2, 5).toCSG()
 								.toXMin()
-								.movez(servoZ/2+6+4.25)
+								.movez(servoZ/2+6+4.25+1.25)
 								.movex(15 + (xLength - 80)/2)
 	bottomCap = bottomCap.union(bottCap2)
 	
@@ -184,14 +184,24 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.difference(connector)
 	mainThigh = mainThigh.difference(connector)
 
+	CSG screwHole2 = new Cylinder(3,30,(int)25).toCSG()//move then subtract
+								  .movex(-9 + (xLength - 80)/2)
+								  .movey(-5)
+								  .movez(-20)
+								  .movex(xLength + 25*xLength/80)
+								  .movez(-40)
+								  .movey(servoY2+1).movex(20+xLength-80)
 	//holes below so that cap can be screwed in
 	bottomCap = bottomCap.difference(screwHole)
 	screwHole = screwHole.movey(10)
 	bottomCap = bottomCap.difference(screwHole)
 	screwHole = screwHole.movey(servoY2+1-10).movex(20+xLength-80)
 	bottomCap = bottomCap.difference(screwHole)
+	bottomCap = bottomCap.difference(screwHole2)
 	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
+	screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
 	bottomCap = bottomCap.difference(screwHole)
+	bottomCap = bottomCap.difference(screwHole2)
 	
 	//visibility
 	bottomCap = bottomCap.movez(-30)
