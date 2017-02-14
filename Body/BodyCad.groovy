@@ -1,10 +1,9 @@
-
 import eu.mihosoft.vrl.v3d.parametrics.*;
 import com.neuronrobotics.bowlerstudio.vitamins.*;
 
 LengthParameter bodyLength 		= new LengthParameter("Body Length",100,[200,0])
 LengthParameter bodyWidth 		= new LengthParameter("Body Width",50,[200,0])
-LengthParameter matThickness 		= new LengthParameter("Material Thickness",10,[200,0])
+LengthParameter matThickness 		= new LengthParameter("Material Thickness",2.5,[200,0])
 double[][] ribVals = [[150, 100, -20]]//,  [200, 100, 30]];
 
 CSG solidRectFromCSG(CSG start)
@@ -56,12 +55,12 @@ CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
 	CSG attachPoint = new Cylinder(outerRadius * 2, 3, 30).toCSG().difference(screwType.movez(2.5));
 	CSG attachPoint2 = attachPoint.clone();
 
-	attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //NOT PERFECTLY PARAMETERIZED
-	attachPoint2 = attachPoint2.movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(2) //DITTO
+	attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius) //NOT PERFECTLY PARAMETERIZED
+	attachPoint2 = attachPoint2.movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius) //DITTO
 
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i < 6; i++)
 	{
-		base = base.difference(attachPoint.hull().movez(3 * i)).difference(attachPoint2.hull().movez(3 * i))
+		base = base.difference(attachPoint.hull().movez(2 * i)).difference(attachPoint2.hull().movez(2 * i))
 	}
 
 	//base = base.difference(attachPoint.hull()).difference(attachPoint.hull().scalez(5)).difference(attachPoint2.hull()).difference(attachPoint2.hull().movez(3))
