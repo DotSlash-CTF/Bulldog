@@ -43,7 +43,9 @@ class Feet implements ICadGenerator, IParameterChanged{
 		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
 		// creating the servo
 		CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-		servoReference = servoReference.rotz(90).movez(-servoReference.getMaxZ())
+		//servoReference = servoReference.rotz(90).movez(-servoReference.getMaxZ())
+		servoReference = servoReference.rotx(90)
+		
 		//Creating the horn
 		double servoTop = servoReference.getMaxZ()
 		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
@@ -55,7 +57,7 @@ class Feet implements ICadGenerator, IParameterChanged{
           					);
 
           CSG piece = remoteLegPiece.createBaseLink(servoReference, horn, (int) dh.getR(), linkIndex == 0)
-		defaultCadGen.add(allCad, piece, dh.getListener())
+		defaultCadGen.add(allCad, piece.rotx(180).movex(-2*dh.getR()), dh.getListener())
           
 		return allCad;
 	}
