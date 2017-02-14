@@ -53,6 +53,7 @@ mainLeg =mainLeg.difference(screwHole)
 	
 
 //union barriers that will stop the cap (below) from moving onto the main leg
+/*
 CSG barrier1 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
 								.movez(servoZ/2+2)
 								.movex(-xLength/6.8 + (xLength - 80)/2-1.5)
@@ -60,6 +61,7 @@ CSG barrier2 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
 								.movez(servoZ/2+2)
 								.movex(47.65 + (xLength - 80)/2)
 mainLeg = mainLeg.union(barrier1).union(barrier2)
+*/
 
 //create the cap that will encapsulate the servo
 int capLength = 46.3 + xLength/6.8 -1 ;
@@ -425,9 +427,9 @@ public CSG theUnionNoConnector(){
 	return united
 }
 	
-public CSG createBaseLink(CSG servo, CSG hornRef, int xLength){
+public CSG createBaseLink2(CSG servo, CSG hornRef, int xLength){
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
-println vitaminData
+
 
 ArrayList<CSG> parts = new ArrayList<CSG>()
 
@@ -493,14 +495,27 @@ return cap;
 }
 
 
-public CSG createBaseLink2(CSG servo, CSG hornRef, int xLength, boolean normFalseRotTrue){
+public CSG createBaseLink(CSG servo, CSG hornRef, int xLength, boolean normFalseRotTrue){
+		HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
 
+ArrayList<CSG> parts = new ArrayList<CSG>()
+
+//these numbers can be used as universal reference numbers
+int servoX = vitaminData.get("flangeLongDimention")//32
+int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
+int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
+	CSG mainLeg;
 	if(normFalseRotTrue == false)
 	{
-		CSG mainLeg = createThigh(servo, hornRef, xLength).get(0)
+		 mainLeg = createThigh(servo, hornRef, xLength).get(0)
 	}
 	else{
-		
+		 mainLeg = rotatedLegLink(servo, hornRef, xLength).get(0)
+		 										.rotx(-90)
+		 										.toXMin()
+		 										.movex(-servoX/2-(xLength/2-11))
+		 										.movez(-servoZ/2+0.5)
+		 										.movey(70)
 	}
 return mainLeg
 }
