@@ -43,7 +43,7 @@ class Feet implements ICadGenerator, IParameterChanged{
 		LinkConfiguration conf = d.getLinkConfiguration(linkIndex);
 		// creating the servo
 		CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-		.transformed(new Transform().rotZ(90))
+		servoReference = servoReference.rotz(90).movez(-servoReference.getMaxZ())
 		//Creating the horn
 		double servoTop = servoReference.getMaxZ()
 		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
