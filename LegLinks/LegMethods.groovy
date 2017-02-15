@@ -516,6 +516,7 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 		 										.movex(-servoX/2-(xLength/2-11))
 		 										.movez(-servoZ/2+0.5)
 		 										.movey(70)
+		 										.movex(1.75*xLength-7)//to align
 	}
 return mainLeg
 }
