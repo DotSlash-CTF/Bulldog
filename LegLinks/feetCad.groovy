@@ -57,7 +57,7 @@ class Feet implements ICadGenerator, IParameterChanged{
           					);
 
           CSG piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
-		defaultCadGen.add(allCad, piece.rotx(180).movex(-1.75*dh.getR()), dh.getListener())
+		defaultCadGen.add(allCad, piece.rotx(180).movez(-23.5).movex(-1.75*dh.getR()+5), dh.getListener())
           
 		return allCad;
 	}
