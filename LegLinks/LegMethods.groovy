@@ -510,7 +510,7 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 		 mainLeg = createThigh(servo, hornRef, xLength).get(0)
 	}
 	else{
-		 mainLeg = rotatedLegLink(servo, hornRef, xLength).get(0)
+		 mainLeg =  rotatedLegLink(servo, hornRef, xLength).get(0)
 		 										.rotx(-90)
 		 										.toXMin()
 		 										.movex(-servoX/2-(xLength/2-11))

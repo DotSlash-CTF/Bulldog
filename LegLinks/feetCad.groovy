@@ -55,11 +55,17 @@ class Feet implements ICadGenerator, IParameterChanged{
           					"LegLinks/LegMethods.groovy",
           					null
           					);
-
-          CSG piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
+          CSG piece;
+          if(linkIndex < 2){
+          	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
+          }
+          else{
+          	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
+          }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
+          
           //CSG conn = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
 		defaultCadGen.add(allCad, piece.rotx(180).movez(-23.5).movex(-1.75*dh.getR()+5), dh.getListener())
-          
+          servoReference = servoReference.movez(100)
 		return allCad;
 	}
 	@Override 
