@@ -10,4 +10,7 @@ bone3 = bone3.difference(connector2).setColor(javafx.scene.paint.Color.WHITE)
 
 CSG hornAttachment = new Cylinder(10, 10, 20, (int) 30).toCSG().movez(-20)
 
-return[bone1, bone2, bone3, connector1, connector2, hornAttachment]
+CSG tail = bone1.union(bone2.union(bone3.union(connector1.union(connector2.union(hornAttachment
+)))))
+
+return tail.toZMin()
