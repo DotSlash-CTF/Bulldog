@@ -1020,8 +1020,8 @@
 		</vitamin>
 		<vitamin>
 			<name>shaft</name>
-			<type>hobbyServoHorn</type>
-			<id>standardMicro1</id>
+			<type>ballBearing</type>
+			<id>null</id>
 		</vitamin>
 
 	</vitamins>
