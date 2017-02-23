@@ -1020,8 +1020,8 @@
 		</vitamin>
 		<vitamin>
 			<name>shaft</name>
-			<type>ballBearing</type>
-			<id>null</id>
+			<type>hobbyServoHorn</type>
+			<id>hv6214mg_1</id>
 		</vitamin>
 
 	</vitamins>
