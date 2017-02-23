@@ -46,7 +46,7 @@ mainLeg =mainLeg.difference(sub1)
 mainLeg =mainLeg.difference(screwHole)
 screwHole = screwHole.movey(10)
 mainLeg =mainLeg.difference(screwHole)
-screwHole = screwHole.movey(20.1+1-10).movex(20+xLength-80)
+screwHole = screwHole.movey(20.1+1-10).movex(20)
 mainLeg =mainLeg.difference(screwHole)
 screwHole = screwHole.movey(-20.1+9-10-20.1+9)//20.1 is servo2
 mainLeg =mainLeg.difference(screwHole)
@@ -190,20 +190,23 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 								  .movex(-9 + (xLength - 80)/2)
 								  .movey(-5)
 								  .movez(-20)
-								  .movex(xLength + 25*xLength/80)
+								  .movex(xLength + 25*(xLength/80))
 								  .movez(-40)
-								  .movey(servoY2+1).movex(20+xLength-80)
+								  .movey(servoY2+1).movex(20)
 	//holes below so that cap can be screwed in
 	bottomCap = bottomCap.difference(screwHole)
 	screwHole = screwHole.movey(10)
 	bottomCap = bottomCap.difference(screwHole)
-	screwHole = screwHole.movey(servoY2+1-10).movex(20+xLength-80)
+	screwHole = screwHole.movey(servoY2+1-10).movex(20+(-xLength+80)/80)//+20*xLength/80)
 	bottomCap = bottomCap.difference(screwHole)
-	bottomCap = bottomCap.difference(screwHole2)
 	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
-	screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
 	bottomCap = bottomCap.difference(screwHole)
-	bottomCap = bottomCap.difference(screwHole2)
+	
+	if(xLength < 84){
+		bottomCap = bottomCap.difference(screwHole2)
+		screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
+		bottomCap = bottomCap.difference(screwHole2)
+	}
 	
 	//visibility
 	bottomCap = bottomCap.movez(-30)
