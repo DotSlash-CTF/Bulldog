@@ -94,7 +94,7 @@ class Headmaker implements IParameterChanged{
 									headDiameter.getMM()/2,
 									thickness.getMM(),(int)30).toCSG() // a one line Cylinder
 															
-			CSG mechPlate	=baseHead.scalex(2*snoutLen.getMM()/headDiameter.getMM())
+			CSG mechPlate = baseHead.scalex(2*snoutLen.getMM() / headDiameter.getMM())
 									.intersect(new Cube(
 										snoutLen.getMM()+JawSideWidth.getMM(),
 										headDiameter.getMM(),
@@ -106,8 +106,21 @@ class Headmaker implements IParameterChanged{
 										.union(baseHead)
 										.hull()
 					)
+			
+			CSG mechPlateJaw = baseHead.scalex((2*snoutLen.getMM() + 15) / headDiameter.getMM())
+									.intersect(new Cube(
+										snoutLen.getMM()+JawSideWidth.getMM() + 100,
+										headDiameter.getMM(),
+										thickness.getMM()*2)
+										.noCenter()
+										.toCSG()
+										.movey(- headDiameter.getMM()/2)
+										.movex(- JawSideWidth.getMM())
+										.union(baseHead)
+										.hull()
+					)
 									
-			CSG bottomJaw = mechPlate.difference(
+			CSG bottomJaw = mechPlateJaw.difference(
 				new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,
 							headDiameter.getMM()/2- thickness.getMM()*4,
 							thickness.getMM(),(int)30).toCSG()
