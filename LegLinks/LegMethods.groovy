@@ -363,11 +363,27 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 				.movez(-73.5)
 	bottomCap = bottomCap
 				.movex(xLength/2+11 + 25*xLength/80+32.0/2)//figure this out
+//experiment
+	CSG screwHole2 = new Cylinder(3,30,(int)25).toCSG()//move then subtract
+								  .movex(-9 + (xLength - 80)/2)
+								  .movey(-5)
+								  .movez(-20)
+								  .movex(xLength + 25*xLength/80)
+								  .movez(-40)
+								  .movey(servoY2+1).movex(20+xLength-80)
+	//holes below so that cap can be screwed in
 	
-
+//above
 	bottomCap = bottomCap.difference(screwHole)
 	screwHole = screwHole.movey(10)
 	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(servoY2+1-10).movex(20+xLength-80)
+	bottomCap = bottomCap.difference(screwHole)
+	bottomCap = bottomCap.difference(screwHole2)
+	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
+	screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
+	bottomCap = bottomCap.difference(screwHole)
+	bottomCap = bottomCap.difference(screwHole2)
 	bottomCap = bottomCap.movez(-50)
 	bottomCap = bottomCap
 					.rotx(90)

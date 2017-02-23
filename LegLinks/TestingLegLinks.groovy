@@ -79,6 +79,6 @@ for(int i = 0; i < rotatedLink.size(); i++)
 {
 	totalParts.add(rotatedLink.get(i))
 }
-totalParts.add(baseLink)
-totalParts.add(baseLink2)
+//totalParts.add(baseLink)
+//totalParts.add(baseLink2)
 return totalParts
