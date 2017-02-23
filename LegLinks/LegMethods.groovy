@@ -85,7 +85,7 @@ cap = cap.movez(200)
 
 //add parts to the arraylist of parts
 parts.add(mainLeg);
-parts.add(servo.setColor(javafx.scene.paint.Color.CYAN).movex(-servoX/2).movez(100))//delete
+parts.add(servo.setColor(javafx.scene.paint.Color.CYAN).movex(-servoX/2).movez(200))//delete
 parts.add(cap)
 //parts.add(screwHole)
 
