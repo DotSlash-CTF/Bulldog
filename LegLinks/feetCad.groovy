@@ -57,10 +57,10 @@ class Feet implements ICadGenerator, IParameterChanged{
           					);
           CSG piece;
           if(linkIndex < 2){
-          	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
+          	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR() - 30, linkIndex == 0)
           }
           else{
-          	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
+          	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR() - 30).movex(dh.getR())
           }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           
           //CSG conn = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
