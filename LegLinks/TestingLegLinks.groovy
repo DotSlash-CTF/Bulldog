@@ -21,7 +21,8 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 .get( "hobbyServoHorn","hv6214mg_1")
 
 //shortest is 50, largest is 180
-int length = 90
+int length = 80
+int rotLength = 80
 boolean normFalseRotTrue = false
 
 CSG baseLink2 = remoteLegPiece.createBaseLink(servo, horn, length, true)
@@ -34,7 +35,7 @@ ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
 
 ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
 
-ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, length)
+ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
 
 
