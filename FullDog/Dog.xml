@@ -9,7 +9,7 @@
 		<file>Walking.groovy</file>
 	</driveEngine>
 
-<name>DogRobot</name>
+<name>DogRobot1</name>
 <leg>
 
 <name>DefaultLeg</name>
@@ -265,7 +265,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>80.0</Radius>
+		<Radius>155.0</Radius>
 		<Alpha>-89.97</Alpha>
 	</DHParameters>
 
@@ -318,8 +318,8 @@
 
 	<DHParameters>
 		<Delta>0.0</Delta>
-		<Theta>0.01</Theta>
-		<Radius>160.0</Radius>
+		<Theta>-29.999999999999996</Theta>
+		<Radius>170.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -373,7 +373,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>200.0</Radius>
+		<Radius>80.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -460,7 +460,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>80.0</Radius>
+		<Radius>155.0</Radius>
 		<Alpha>-89.97</Alpha>
 	</DHParameters>
 
@@ -475,7 +475,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>183.18656716417908</staticOffset>
+	<staticOffset>183.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -513,8 +513,8 @@
 
 	<DHParameters>
 		<Delta>0.0</Delta>
-		<Theta>0.01</Theta>
-		<Radius>160.0</Radius>
+		<Theta>-29.999999999999996</Theta>
+		<Radius>170.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -568,7 +568,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>200.0</Radius>
+		<Radius>80.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
