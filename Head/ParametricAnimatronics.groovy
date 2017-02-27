@@ -137,6 +137,13 @@ class Headmaker implements IParameterChanged{
 					.movex(- JawSideWidth.getMM())
 					
 				)
+			bottomJaw = bottomJaw.scalez(100).intersect(
+				bottomJaw.union(
+					bottomJaw.scalez(100).intersect(
+						new Cube(100,1000,10).toCSG().movex(80)
+					)
+				).hull()
+			)
 				
 							
 			BowlerStudioController.setCsg([bottomJaw]);
