@@ -179,18 +179,15 @@ return new ICadGenerator(){
 
 	private CSG reverseDHValues(CSG incoming,DHLink dh ){
 		println "Reversing "+dh
-		return incoming
-			.rotx(Math.toDegrees(-dh.getAlpha()))
-			.movex(dh.getR()/2)		
+		TransformNR step = new TransformNR(dh.DhStep(0))
+		Transform move = TransformFactory.nrToCSG(step)
+		return incoming.transformed(move)
 	}
 	
 	private CSG moveDHValues(CSG incoming,DHLink dh ){
-		return incoming.transformed(new Transform().translateZ(-dh.getD()))
-		.transformed(new Transform().rotZ(-Math.toDegrees(dh.getTheta())))
-		.transformed(new Transform().rotZ((90+Math.toDegrees(dh.getTheta()))))
-		.transformed(new Transform().translateX(-dh.getR()))
-		.transformed(new Transform().rotX(Math.toDegrees(dh.getAlpha())));
-		
+		TransformNR step = new TransformNR(dh.DhStep(0)).inverse()
+		Transform move = TransformFactory.nrToCSG(step)
+		return incoming.transformed(move)
 	}
 
 
