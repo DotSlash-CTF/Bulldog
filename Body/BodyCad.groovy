@@ -97,6 +97,28 @@ CSG makeVexRibCage(double[][] ribVals, double matThickness, CSG spine)
 	return ribs;
 }
 
+public ArrayList<CSG> generateBody(MobileBase base ){
+	
+	println "Generating body"
+
+	CSG cChannelRef = Vitamins.get("vexCchannel", "5x20")
+	
+	ArrayList<CSG>  bodyParts = new ArrayList<CSG>()
+	ArrayList<CSG> attachmentParts = new ArrayList<CSG>()
+	for(DHParameterKinematics l:base.getLegs()){
+		TransformNR position = l.getRobotToFiducialTransform();
+		Transform csgTrans = TransformFactory.nrToCSG(position)
+		for(CSG attachment:	generateCad(l,0)){
+			CSG movedCorner = attachment
+				.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
+			attachmentParts.add(movedCorner)
+		}
+	}
+		
+	
+	return bodyParts;
+}
+
 //CSG mainBody = new Cube(bodyLength, bodyWidth, matThickness).toCSG()
 CSG mainBody = centerOnAxes(Vitamins.get("vexCchannel","5x10").rotz(90))
 .union(centerOnAxes(Vitamins.get("vexCchannel","5x10").rotz(90).rotx(180)).movez(75))
@@ -120,6 +142,6 @@ ribs = ribs		.setParameter(matThickness)
 
 CSG center = new Cube(5, 240, 5).toCSG().toZMin()
 //return [ribs, centerOnAxes(mainBody)];
-return ribs.difference(new Cube(100, 100, 100).toCSG().toZMin().movez(-100));
+return ribs.difference(new Cube(100, 100, 100).toCSG().toZMin().movez(-100)).union(mainBody);
 //return makeRib(160, 240, 5, mainBody);
 //return [cChannel,mainBody]
