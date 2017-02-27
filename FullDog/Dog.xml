@@ -655,7 +655,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.0</Theta>
-		<Radius>80.0</Radius>
+		<Radius>150.0</Radius>
 		<Alpha>-90.0</Alpha>
 	</DHParameters>
 
@@ -709,7 +709,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.0</Theta>
-		<Radius>120.0</Radius>
+		<Radius>140.0</Radius>
 		<Alpha>0.0</Alpha>
 	</DHParameters>
 
@@ -763,7 +763,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.0</Theta>
-		<Radius>160.0</Radius>
+		<Radius>120.0</Radius>
 		<Alpha>0.0</Alpha>
 	</DHParameters>
 
