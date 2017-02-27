@@ -135,8 +135,8 @@ class Headmaker implements IParameterChanged{
 					.toXMax()
 					.movey(- headDiameter.getMM()/2)
 					.movex(- JawSideWidth.getMM())
-					
 				)
+				
 			bottomJaw = bottomJaw.scalez(100).intersect(
 				bottomJaw.union(
 					bottomJaw.scalez(100).intersect(
