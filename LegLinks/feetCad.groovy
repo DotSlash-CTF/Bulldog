@@ -61,6 +61,7 @@ class Feet implements ICadGenerator, IParameterChanged{
           }
           else{
           	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR() - 30).movex(dh.getR())
+          	piece = piece.union(new Sphere(10).toCSG())
           }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           
           //CSG conn = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
