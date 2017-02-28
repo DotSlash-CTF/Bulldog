@@ -133,7 +133,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	cap2 = cap2.movex((connectorLength.getMM()+33.5) + (xLength - 80)/2)
 
 
-	int bottMainLeng = xLength*2.7/5
+	int bottMainLeng = 3+xLength/2+(xLength-80)/2//xLength*2.7/5
 	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
 							.movez(servoZ/2+2.5+2.5)
 							.toXMin()
@@ -202,11 +202,10 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
 	bottomCap = bottomCap.difference(screwHole)
 	
-	if(xLength < 84){
 		bottomCap = bottomCap.difference(screwHole2)
 		screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
 		bottomCap = bottomCap.difference(screwHole2)
-	}
+	
 	
 	//visibility
 	bottomCap = bottomCap.movez(-30)
