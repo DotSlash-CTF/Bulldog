@@ -138,7 +138,7 @@ class Headmaker implements IParameterChanged{
 				bottomJaw = bottomJaw.union(testing.get(i));
 			}
 			
-			bottomJaw = bottomJaw.difference(
+			bottomJaw = bottomJaw.intersect(mechPlateJaw.difference(
 				new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,
 							headDiameter.getMM()/2- thickness.getMM()*4,
 							thickness.getMM(),(int)30).toCSG()
@@ -153,16 +153,9 @@ class Headmaker implements IParameterChanged{
 					.toXMax()
 					.movey(- headDiameter.getMM()/2)
 					.movex(- JawSideWidth.getMM())
-			)
+			).scalez(100))
 			
-			bottomJaw = bottomJaw.scalez(100).intersect(
-				bottomJaw.union(
-					bottomJaw.scalez(100).intersect(
-						//new Cube(100,1000,10).toCSG().movex(80)
-						testing
-					)
-				).hull()
-			)
+			bottomJaw = bottomJaw.scalez(100).intersect(bottomJaw)
 							
 			BowlerStudioController.setCsg([bottomJaw]);
 			mechPlate=mechPlate 
