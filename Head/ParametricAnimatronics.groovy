@@ -1,6 +1,8 @@
 import eu.mihosoft.vrl.v3d.parametrics.*;
 import com.neuronrobotics.bowlerstudio.vitamins.Vitamins;
 import eu.mihosoft.vrl.v3d.Transform;
+import eu.mihosoft.vrl.v3d.Extrude;
+
 class Headmaker implements IParameterChanged{
 	boolean makeCutsheetStorage = false
 	HashMap<Double,CSG> eyeCache=new HashMap<>();
@@ -119,8 +121,24 @@ class Headmaker implements IParameterChanged{
 										.union(baseHead)
 										.hull()
 					)
-									
-			CSG bottomJaw = mechPlateJaw.difference(
+
+			CSG bezSlice = new Cube(5, 200, 10).toCSG().movex(-20)
+			ArrayList<CSG> parts = new ArrayList<CSG>()
+			int numParts = 100
+			for(int i=0;i<numParts;i++){
+				parts.add(bezSlice)
+			}
+			
+			ArrayList<CSG> testing = Extrude.bezier(parts,[0,0,0],[100,0,0],[140,0,15]).collect{
+				it
+			}
+
+			CSG bottomJaw = testing.get(0);
+			for (int i = 1; i < testing.size(); i++) {
+				bottomJaw = bottomJaw.union(testing.get(i));
+			}
+			
+			bottomJaw = bottomJaw.difference(
 				new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,
 							headDiameter.getMM()/2- thickness.getMM()*4,
 							thickness.getMM(),(int)30).toCSG()
@@ -135,16 +153,16 @@ class Headmaker implements IParameterChanged{
 					.toXMax()
 					.movey(- headDiameter.getMM()/2)
 					.movex(- JawSideWidth.getMM())
-				)
-				
+			)
+			
 			bottomJaw = bottomJaw.scalez(100).intersect(
 				bottomJaw.union(
 					bottomJaw.scalez(100).intersect(
-						new Cube(100,1000,10).toCSG().movex(80)
+						//new Cube(100,1000,10).toCSG().movex(80)
+						testing
 					)
 				).hull()
 			)
-				
 							
 			BowlerStudioController.setCsg([bottomJaw]);
 			mechPlate=mechPlate 
