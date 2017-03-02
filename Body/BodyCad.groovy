@@ -35,6 +35,16 @@ CSG centerOnAxes(CSG start)
 	return centerOnY(centerOnX(centerOnZ(start)));
 }
 
+CSG createCChannel(int secLength) //Number of 5x panels - width of 62.5, length of 62.5 * secLength
+{
+	CSG toReturn = new Cube(0.1, 0.1, 0.1).toCSG();
+	for(int i = 0; i < secLength; i++)
+	{
+		toReturn = toReturn.union(Vitamins.get("vexCchannel", "5x5").movey(i * 62.5))
+	}
+	return toReturn;
+}
+
 CSG makeRib(double height, double width, double materialThickness, CSG spine)
 {
 	CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
@@ -101,9 +111,14 @@ public ArrayList<CSG> generateBody(MobileBase base ){
 	
 	println "Generating body"
 
-	CSG cChannelRef = Vitamins.get("vexCchannel", "5x20")
+	int numPanels = 4;
+	CSG cChannelRef = createCChannel(numPanels); //double long
+
+	//Messy way of populating corners... no real good way to fix
+	ArrayList<ArrayList<Double>> corners = { {31.25, 62.5 * numPanels}, {-31.25, 62.5 * numPanels}, {-31.25, -62.5 * numPanels}, {31.25, 62.5 * numPanels} }; //x, y
+	ArrayList<CSG> topLinks = new ArrayList<CSG>();
 	
-	ArrayList<CSG>  bodyParts = new ArrayList<CSG>()
+	ArrayList<CSG> bodyParts = new ArrayList<CSG>()
 	ArrayList<CSG> attachmentParts = new ArrayList<CSG>()
 	for(DHParameterKinematics l:base.getLegs()){
 		TransformNR position = l.getRobotToFiducialTransform();
@@ -112,16 +127,26 @@ public ArrayList<CSG> generateBody(MobileBase base ){
 			CSG movedCorner = attachment
 				.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
 			attachmentParts.add(movedCorner)
+			topLinks.add(movedCorner);
 		}
 	}
+
+	for(ArrayList<Double> coords : corners)
+	{
+		CSG cornerBlock = new Cube(35, 35, 35).toCSG().movex(coords.get(0)).movey(coords.get(1));
+	}
+	print "in generateBody"
+
+	
+	
 		
 	
 	return bodyParts;
 }
 
 //CSG mainBody = new Cube(bodyLength, bodyWidth, matThickness).toCSG()
-CSG mainBody = centerOnAxes(Vitamins.get("vexCchannel","5x10").rotz(90))
-.union(centerOnAxes(Vitamins.get("vexCchannel","5x10").rotz(90).rotx(180)).movez(75))
+CSG mainBody = centerOnAxes(createCChannel(2).rotz(90))
+.union(centerOnAxes(createCChannel(2).rotz(90).rotx(180)).movez(75))
 
 /*
 mainBody = mainBody	.setParameter(bodyLength)
