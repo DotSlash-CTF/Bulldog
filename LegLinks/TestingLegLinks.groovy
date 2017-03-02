@@ -21,21 +21,19 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 .get( "hobbyServoHorn","hv6214mg_1")
 
 //shortest is 50, largest is 180
-int length = 120
+int length = 80
 int rotLength = 80
 boolean normFalseRotTrue = false
 
-CSG baseLink2 = remoteLegPiece.createBaseLink(servo, horn, length, true)
 
-CSG baseLink = remoteLegPiece.createBaseLink(servo, horn, length, normFalseRotTrue)
-baseLink = baseLink.movey(50)
-baseLink2 = baseLink2.movey(50)
+//ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
 
-ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
+ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length)
 
-ArrayList<CSG> thigh = remoteLegPiece.createThigh(servo, horn, length)
+ArrayList<CSG> basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
-ArrayList<CSG> rotatedLink = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
+ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, length)
+
 
 
 
@@ -44,21 +42,21 @@ CSG connector2 = remoteLegPiece.createConnector(servo, horn, length)
 conector2 = connector2.movex(20)
 connector = connector.makeKeepaway(-2)
 					
-for(int i = 0; i < thigh.size(); i++)
+for(int i = 0; i < basePan.size(); i++)
 {
-	thigh.get(i).setManufactuing({CSG arg0 ->
+	basePan.get(i).setManufactuing({CSG arg0 ->
 								return arg0.toZMin();
 			})
 }
-for(int i = 0; i < shoulder.size(); i++)
+for(int i = 0; i < imobile.size(); i++)
 {
-	shoulder.get(i).setManufactuing({CSG arg0 ->
+	imobile.get(i).setManufactuing({CSG arg0 ->
 								return arg0.toZMin();
 			})
 }
-for(int i = 0; i < rotatedLink.size(); i++)
+for(int i = 0; i < baseTilt.size(); i++)
 {
-	rotatedLink.get(i).setManufactuing({CSG arg0 ->
+	baseTilt.get(i).setManufactuing({CSG arg0 ->
 								return arg0.toZMin();
 			})
 }
@@ -70,16 +68,16 @@ connector2.setManufactuing({CSG arg0 ->
 			})
 
 
-ArrayList<CSG> totalParts = thigh;
+ArrayList<CSG> totalParts = imobile;
 totalParts.add(connector)
-for(int i = 0; i < shoulder.size(); i++)
+
+for(int i = 0; i < basePan.size(); i++)
 {
-	totalParts.add(shoulder.get(i))
+	totalParts.add(basePan.get(i).movex(length))
 }
-for(int i = 0; i < rotatedLink.size(); i++)
+for(int i = 0; i < baseTilt.size(); i++)
 {
-	totalParts.add(rotatedLink.get(i))
+	totalParts.add(baseTilt.get(i).movex(2*(rotLength)))
 }
-//totalParts.add(baseLink)
-//totalParts.add(baseLink2)
+
 return totalParts
