@@ -81,7 +81,36 @@ for(int i = 0; i < baseTilt.size(); i++)
 	totalParts.add(baseTilt.get(i).movex(2*(baseTiltL)))
 }
 
-//again:
+//again for back leg:
+length = 80
+rotLength = 120
+baseTiltL = 105
+
+imobile = remoteLegPiece.createThigh(servo, horn, length)
+
+basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
+
+baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL)
+
+for(int i = 0; i < basePan.size(); i++)
+{
+	basePan.get(i).setManufactuing({CSG arg0 ->
+								return arg0.toZMin();
+			})
+}
+for(int i = 0; i < imobile.size(); i++)
+{
+	imobile.get(i).setManufactuing({CSG arg0 ->
+								return arg0.toZMin();
+			})
+}
+for(int i = 0; i < baseTilt.size(); i++)
+{
+	baseTilt.get(i).setManufactuing({CSG arg0 ->
+								return arg0.toZMin();
+			})
+}
+
 for(int i = 0; i < imobile.size(); i++)
 {
 	totalParts.add(imobile.get(i).movey(-75))
