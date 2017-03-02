@@ -331,7 +331,7 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
 
-int bottMainLeng = xLength*2.7/5/*
+	int bottMainLeng = 3+xLength/2+(xLength-80)/2/*
 	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
 							.movez(servoZ/2+2.5+2.5)
 							.toXMin()
@@ -451,9 +451,9 @@ int bottMainLeng = xLength*2.7/5/*
 								  .movex(-9 + (xLength - 80)/2)
 								  .movey(-5)
 								  .movez(-20)
-								  .movex(xLength + 25*xLength/80)
+								  .movex(xLength + 25*(xLength/80))
 								  .movez(-40)
-								  .movey(servoY2+1).movex(20+xLength-80)
+								  .movey(servoY2+1).movex(20)
 	//holes below so that cap can be screwed in
 	
 //above
@@ -464,12 +464,11 @@ int bottMainLeng = xLength*2.7/5/*
 	bottomCap = bottomCap.difference(screwHole)
 	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
 	bottomCap = bottomCap.difference(screwHole)
-	
-	if(xLength < 84){
+
 		bottomCap = bottomCap.difference(screwHole2)
 		screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
 		bottomCap = bottomCap.difference(screwHole2)
-	}
+	
 	
 	bottomCap = bottomCap.movez(-50)
 	bottomCap = bottomCap
