@@ -15,7 +15,7 @@ class legPiece{
  */
 public ArrayList<CSG> createShoulder(CSG servo, int xLength){
 HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
-println vitaminData
+//println vitaminData
 
 ArrayList<CSG> parts = new ArrayList<CSG>()
 
@@ -230,7 +230,7 @@ public CSG createConnector(CSG servo, CSG hornRef, int xLength){
 	//Recreation of the CSGs from the first part, mainLeg
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
 	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServoHorn","hv6214mg_1")
-	print("horn" + vitaminData2)
+	//print("horn" + vitaminData2)
 	int hornRad = vitaminData2.get("hornBaseDiameter")//13.48
 	int hornThick = vitaminData2.get("hornThickness")//6.6
 	int hornLeng = vitaminData2.get("hornLength")//23.0

@@ -22,7 +22,8 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 
 //shortest is 50, largest is 180
 int length = 80
-int rotLength = 80
+int rotLength = 120
+int baseTiltL = 105
 boolean normFalseRotTrue = false
 
 
@@ -32,7 +33,7 @@ ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length)
 
 ArrayList<CSG> basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
-ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, length)
+ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL)
 
 
 
@@ -69,7 +70,7 @@ connector2.setManufactuing({CSG arg0 ->
 
 
 ArrayList<CSG> totalParts = imobile;
-totalParts.add(connector)
+//totalParts.add(connector)
 
 for(int i = 0; i < basePan.size(); i++)
 {
@@ -77,7 +78,20 @@ for(int i = 0; i < basePan.size(); i++)
 }
 for(int i = 0; i < baseTilt.size(); i++)
 {
-	totalParts.add(baseTilt.get(i).movex(2*(rotLength)))
+	totalParts.add(baseTilt.get(i).movex(2*(baseTiltL)))
 }
 
+//again:
+for(int i = 0; i < imobile.size(); i++)
+{
+	totalParts.add(imobile.get(i).movey(-75))
+}
+for(int i = 0; i < basePan.size(); i++)
+{
+	totalParts.add(basePan.get(i).movex(length).movey(-75))
+}
+for(int i = 0; i < baseTilt.size(); i++)
+{
+	totalParts.add(baseTilt.get(i).movex(2*(baseTiltL)).movey(-75))
+}
 return totalParts
