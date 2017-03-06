@@ -22,8 +22,8 @@ CSG horn = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 
 //shortest is 50, largest is 180
 int length = 80
-int rotLength = 120
-int baseTiltL = 105
+int rotLength = 80//80--100
+int baseTiltL = 104//104--130
 boolean normFalseRotTrue = false
 
 
@@ -83,8 +83,8 @@ for(int i = 0; i < baseTilt.size(); i++)
 
 //again for back leg:
 length = 80
-rotLength = 105
-baseTiltL = 130
+rotLength = 92//92--115
+baseTiltL = 96//96--120
 
 imobile = remoteLegPiece.createThigh(servo, horn, length)
 

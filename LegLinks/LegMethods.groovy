@@ -186,7 +186,7 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
 				.difference(connector)
 	mainThigh = mainThigh.difference(connector)
 
-	CSG screwHole2 = new Cylinder(3,30,(int)25).toCSG()//move then subtract
+	CSG screwHole2 = new Cylinder(3,30,(int)23).toCSG()//move then subtract
 								  .movex(-9 + (xLength - 80)/2)
 								  .movey(-5)
 								  .movez(-20)
