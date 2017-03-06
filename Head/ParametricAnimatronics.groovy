@@ -122,40 +122,38 @@ class Headmaker implements IParameterChanged{
 										.hull()
 					)
 
-			CSG bezSlice = new Cube(5, 200, 10).toCSG().movex(-20)
+			CSG bezSlice = new Cube(5, 200, 5).toCSG().movex(-20)
 			ArrayList<CSG> parts = new ArrayList<CSG>()
 			int numParts = 100
 			for(int i=0;i<numParts;i++){
 				parts.add(bezSlice)
 			}
-			
-			ArrayList<CSG> testing = Extrude.bezier(parts,[0,0,0],[100,0,0],[140,0,15]).collect{
-				it
+						
+			ArrayList<CSG> testing = Extrude.bezier(parts,[0,0,0],[100,0,0],[140,0,30]).collect{
+				it.movez(0)
 			}
-
+			
 			CSG bottomJaw = testing.get(0);
 			for (int i = 1; i < testing.size(); i++) {
 				bottomJaw = bottomJaw.union(testing.get(i));
 			}
-			
+	
 			bottomJaw = bottomJaw.intersect(mechPlateJaw.difference(
-				new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,
-							headDiameter.getMM()/2- thickness.getMM()*4,
-							thickness.getMM(),(int)30).toCSG()
-								.scalex(2*snoutLen.getMM()/headDiameter.getMM())
-									,
-				new Cube(
-					snoutLen.getMM()+JawSideWidth.getMM(),
-					headDiameter.getMM(),
-					thickness.getMM()*2)
-					.noCenter()
-					.toCSG()
-					.toXMax()
-					.movey(- headDiameter.getMM()/2)
-					.movex(- JawSideWidth.getMM())
-			).scalez(100))
-			
-			bottomJaw = bottomJaw.scalez(100).intersect(bottomJaw)
+					new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,
+								headDiameter.getMM()/2- thickness.getMM()*4,
+								thickness.getMM(),(int)30).toCSG()
+									.scalex(2*snoutLen.getMM()/headDiameter.getMM())
+										,
+					new Cube(
+						snoutLen.getMM()+JawSideWidth.getMM(),
+						headDiameter.getMM(),
+						thickness.getMM()*2)
+						.noCenter()
+						.toCSG()
+						.toXMax()
+						.movey(- headDiameter.getMM()/2)
+						.movex(- JawSideWidth.getMM())
+				).scalez(100).movez(-5))
 							
 			BowlerStudioController.setCsg([bottomJaw]);
 			mechPlate=mechPlate 
@@ -423,6 +421,8 @@ class Headmaker implements IParameterChanged{
 				.union(mechLinkageAttach.movey(-eyeCenter.getMM()/2))
 				.difference(bolt.movey(eyeCenter.getMM()/2))
 				.difference(bolt.movey(-eyeCenter.getMM()/2))
+
+				//MAYBE HERE 1
 		
 			
 				
@@ -776,6 +776,9 @@ class Headmaker implements IParameterChanged{
 									).hull()
 							return it
 						})
+						.difference(new Cube(100, 10, 30).toCSG().movez(130))
+
+						//MAYBE HERE 2
 			
 			CSG eyeRingPlate = eyeRings.get(0)
 			/*
