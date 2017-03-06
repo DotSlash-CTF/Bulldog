@@ -133,10 +133,10 @@ class Headmaker implements IParameterChanged{
 				it.movez(0)
 			}
 			
-			CSG bottomJaw = testing.get(0);
-			for (int i = 1; i < testing.size(); i++) {
-				bottomJaw = bottomJaw.union(testing.get(i));
-			}
+			// CSG bottomJaw = testing.get(0);
+			//for (int i = 1; i < testing.size(); i++) {
+			//	bottomJaw = bottomJaw.union(testing.get(i));
+			//}
 	
 			bottomJaw = bottomJaw.intersect(mechPlateJaw.difference(
 					new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,

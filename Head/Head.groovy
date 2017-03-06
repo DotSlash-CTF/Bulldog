@@ -1,5 +1,7 @@
 import eu.mihosoft.vrl.v3d.parametrics.*;
 import com.neuronrobotics.bowlerstudio.vitamins.Vitamins;
+import java.nio.file.Paths;
+import eu.mihosoft.vrl.v3d.FileUtil;
 
 
 CSGDatabase.clear()//set up the database to force only the default values in
@@ -33,13 +35,17 @@ StringParameter boltSizeParam 			= new StringParameter("Bolt Size","8#32",Vitami
 
 
 def headParts  = (ArrayList<CSG> )ScriptingEngine.gitScriptRun(
-	"https://github.com/madhephaestus/ParametricAnimatronics.git", 
-	"AnimatronicHead.groovy" ,  
+	"https://github.com/DotSlash-CTF/Bulldog.git", 
+	"Head/ParametricAnimatronics.groovy" ,
 	[false] )
 println "Creating cutsheet"
 ArrayList<CSG> sheetParts = new ArrayList<>()
+println headParts.size()
 for(int i=0;i<headParts.size()-7;i++){
 	sheetParts.add(headParts.get(i))
+	String filename =ScriptingEngine.getWorkspace().getAbsolutePath()+"/STL/CopiedStl_" + i + ".stl";
+	FileUtil.write(Paths.get(filename), headParts.get(i).prepForManufacturing().toStlString());
+	println "STL EXPORT to "+filename
 }
 
 def allParts = 	sheetParts.collect { it.prepForManufacturing() } 
