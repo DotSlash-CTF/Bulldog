@@ -97,7 +97,7 @@ return new ICadGenerator(){
 						return arg0.toZMin();
 					}
 				});
-		add(bodyParts,bodyPlate,base.getRootListener())
+		add(bodyParts,bodyPlate.movez(-100),base.getRootListener())
 		
 		bodyMap.put(legStr,bodyParts)
 
