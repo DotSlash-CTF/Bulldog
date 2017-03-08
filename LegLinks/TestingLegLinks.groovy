@@ -26,21 +26,17 @@ int rotLength = 80//80--100
 int baseTiltL = 104//104--130
 boolean normFalseRotTrue = false
 
+CSG foot = remoteLegPiece.createFoot(servo, horn, length)
+CSG connector = remoteLegPiece.createConnector(servo, horn, length)
 
-//ArrayList<CSG> shoulder = remoteLegPiece.createShoulder(servo, length)
-
-ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length)
+ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length, connector)
 
 ArrayList<CSG> basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
-ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL)
+ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, foot)
 
 
-
-
-CSG connector = remoteLegPiece.createConnector(servo, horn, length)
-CSG connector2 = remoteLegPiece.createConnector(servo, horn, length)
-conector2 = connector2.movex(20)
+foot = foot.movex(20)
 connector = connector.makeKeepaway(-2)
 					
 for(int i = 0; i < basePan.size(); i++)
@@ -64,13 +60,10 @@ for(int i = 0; i < baseTilt.size(); i++)
 connector.setManufactuing({CSG arg0 ->
 						return arg0.toZMin();
 			})
-connector2.setManufactuing({CSG arg0 ->
-						return arg0.toZMin();
-			})
 
 
 ArrayList<CSG> totalParts = imobile;
-//totalParts.add(connector)
+totalParts.add(foot.movex(400))
 
 for(int i = 0; i < basePan.size(); i++)
 {
@@ -86,11 +79,11 @@ length = 80
 rotLength = 92//92--115
 baseTiltL = 96//96--120
 
-imobile = remoteLegPiece.createThigh(servo, horn, length)
+imobile = remoteLegPiece.createThigh(servo, horn, length, connector)
 
 basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
-baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL)
+baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, foot)
 
 for(int i = 0; i < basePan.size(); i++)
 {

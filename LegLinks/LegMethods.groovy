@@ -98,14 +98,14 @@ return parts
  * Creates a link that will rotate parallel with the link attached to it
  * Uses the base design of shoulder above
  */
-public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength){
+public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength, CSG connector){
 
 	//Recreation of the CSGs from the first part, mainLeg
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	CSG mainThigh = shoulderParts.get(0)
 	CSG cap2 = shoulderParts.get(2)
 	CSG servo1 = shoulderParts.get(1)//delete
-	CSG connector = createConnector(servo, hornRef, xLength).movez(18)
+	connector = connector.movez(18)
 	
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
 	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServo","hv6214mg")//current servo
@@ -327,71 +327,13 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	int servoZ = vitaminData.get("servoShaftSideHeight")
 	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServo","hv6214mg")//current servo
 	int servoY2 = vitaminData2.get("servoThinDimentionThickness")
+	CSG connector = createConnector(servo, hornRef, xLength)
 	
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
-	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength)
+	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength, connector)
 
-	int bottMainLeng = 3+xLength/2+(xLength-80)/2/*
-	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
-							.movez(servoZ/2+2.5+2.5)
-							.toXMin()
-							.movex(15 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
-								.toXMin()
-								.movex(15 + (xLength - 80)/2)
-								.movey(servoY2+2.6)
-								.movez(servoZ/4+9)
-	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
-								.toXMin()
-								.movex(15 + (xLength - 80)/2)
-								.movey(-servoY2-2.6)
-								.movez(servoZ/4+9)
+	int bottMainLeng = 3+xLength/2+(xLength-80)/2
 	
-	bottomCap = bottomCap.union(capSide1)
-	bottomCap = bottomCap.union(capSide2)
-	CSG bottCap2 = new Cube(xLength, 5+servoY2*2, 5).toCSG()
-								.toXMin()
-								.movez(servoZ/2+6+4.25+1.25)
-								.movex(15 + (xLength - 80)/2)
-	bottomCap = bottomCap.union(bottCap2)
-	
-	//see original value declaration above
-	bottomCap = bottomCap
-				.movez(-60)
-				.rotx(180)
-				.movez(-73.5)
-	bottomCap = bottomCap.toXMin()
-					 .movex(xLength/2+11 + 25*xLength/80)//figure this out
-	
-
-	//the flat end part of the cap with no sides (to keep connector in place
-
-
-
-	CSG connHole = new Cylinder(3.5,4.5,(int)50).toCSG()
-								.movez(-19.5)
-								.movex(33)
-
-	connHole = connHole.toXMin()
-				    .toZMin()
-				    .movex(166+ 3.6/2*(xLength-100))//to be accounted for paramaterizing
-				    .movez(-32.5)
-
-	bottomCap = bottomCap.movez(8)
-					 .union(connHole)
-
-					 CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
-							.movez(servoZ/2+2.5+2.5)
-							.toXMin()
-							.movex(15 + (xLength - 80)/2)
-	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
-								.toXMin()
-								.movex(15 + (xLength - 80)/2)
-								.movey(servoY2+2.6)
-								.movez(servoZ/4+9)
-
-*/
-	///////////
 	//side cap creation
 	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
 							.movez(servoZ/2+2.5+2.5)
@@ -484,7 +426,7 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	rotatedLink = rotatedLink.movex(xLength + 25*xLength/80)
 	bottomCap = bottomCap.toXMin()
 					 .movex(xLength/2+11 + 25*xLength/80)
-	CSG connector = createConnector(servo, hornRef, xLength).toZMin()
+	connector = connector.toZMin()
 
 	connector = connector.movez(-servoY*8/14)//connector height = servoY*8/7
 
@@ -622,6 +564,98 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 	}
 return mainLeg
 }
+
+public CSG createFoot(CSG servo, CSG hornRef, int xLength){
+
+	//Recreation of the CSGs from the first part, mainLeg
+	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
+	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServoHorn","hv6214mg_1")
+	//print("horn" + vitaminData2)
+	int hornRad = vitaminData2.get("hornBaseDiameter")//13.48
+	int hornThick = vitaminData2.get("hornThickness")//6.6
+	int hornLeng = vitaminData2.get("hornLength")//23.0
+	int servoX = vitaminData.get("flangeLongDimention")//32
+	int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
+	
+	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
+
+	int thickness = 10
+								
+	CSG connector = new Cube((xLength - 80)/2 + 61, servoY*8/7,thickness).toCSG()
+								   .movez(-18.5+thickness/5)
+				 				   .toXMin()
+				 				   .movex(20)
+				 				   
+	//fancifying, could be removed if we want the connectors shorter
+	CSG decor1 = new Cylinder(hornRad+1,thickness,(int)50).toCSG()
+								.movez(-21.5)
+								.movex(24+hornRad-7.7)
+	CSG decor2 = new Cylinder(hornRad/2+2,hornRad/2+2,thickness,(int)50).toCSG()
+								.movez(-21.5)
+								.movex(37+hornRad-7.7)
+	connector = connector.union(decor1)
+				 .union(decor2)
+				 
+	//keyHole is to be subtracted: connHole subtracted from horn (the cylinder hole)
+	int cylVal = 4
+	CSG connHole = new Cylinder(cylVal,cylVal,4.5,(int)50).toCSG()
+								.movez(-19.5)
+								.movex(33)
+								
+	//subtracting the correct horn from the connector
+	CSG hornCube = new Cube(14,11,10).toCSG().toZMin().toYMin()// 12 to adjust horn subtraction
+	hornRef = hornRef.makeKeepaway(0.5)
+	CSG halfHorn = hornRef.intersect(hornCube)
+	halfHorn = halfHorn.rotz(90).movex(servoX).movez(-17)
+	hornRef = hornRef.rotz(90).movex(servoX).movez(-17)
+	CSG keyHole = connHole.union(hornRef).union(halfHorn.movez(3)).makeKeepaway(2)
+					.movex(-(8))
+	
+	connector = connector
+				 .difference(keyHole.movez(1))//moved subtraction up 1
+				 .movez(-10)
+
+	connHole = connHole.movez(-12)
+				.movex(-(8.5)) 
+				
+	connector = connector.difference(connHole)
+
+	int endLength = (xLength - 80)/2 + 61 +20 - 2
+	CSG footEnd = new Sphere(15).toCSG()
+							.movex(endLength)
+							.movez(-25.5)
+	CSG connectorEnd1 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
+									.movex(endLength)
+									.movey(6)
+						   			.movez(-32.5)
+	CSG connectorEnd2 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
+									.movex(endLength)
+									.movey(-6)
+						   			.movez(-32.5)
+	CSG connectorEnds = connectorEnd1.hull(connectorEnd2)
+							.movez(1)
+	
+	CSG endCyl = new Cylinder(2,2,14,(int)40).toCSG()
+			.rotx(90)
+			.movez(-20)
+			.movex(endLength)
+			.movey(-7)
+			 connectorEnds = connectorEnds.hull(endCyl)
+	connector = connector.union(footEnd)
+	connector = connector
+		 connector.setManufactuing({CSG arg0 ->
+ 				return arg0.toZMin()
+ })
+ 
+	connector.setParameter(connectorLength)// add any parameters that are not used to create a primitive
+		    .setRegenerate({ createConnector(Vitamins.getConfiguration( "hobbyServo","towerProMG91"))})
+		    
+	connector = connector.movez(-20).toXMin().movex(servoX-10 + (xLength - 80)/2)
+
+	
+	return connector
+}
+
 }
 
 return new legPiece()

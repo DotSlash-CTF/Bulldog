@@ -55,17 +55,19 @@ class Feet implements ICadGenerator, IParameterChanged{
           					"LegLinks/LegMethods.groovy",
           					null
           					);
+
+          CSG foot = remoteLegPiece.createFoot(servo, horn, length)
+		CSG connector = remoteLegPiece.createConnector(servo, horn, length)
           CSG piece;///eventually need to subtract a little legnth, maybe like 30 for connector
           if(linkIndex < 2){
           	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
           }
           else{
-          	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
+          	piece = remoteLegPiece.createFoot(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
           	defaultCadGen.add(allCad, (defaultCadGen.moveDHValues(new Sphere(10).toCSG(), dh)).movex(dh.getR()), dh.getListener())
           }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           
-          //CSG conn = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
-		defaultCadGen.add(allCad, piece.rotx(180).movez(-23.5).movex(-1.75*dh.getR()+5), dh.getListener())
+          defaultCadGen.add(allCad, piece.rotx(180).movez(-23.5).movex(-1.75*dh.getR()+5), dh.getListener())
           servoReference = servoReference.movez(100)
 		return allCad;
 	}
