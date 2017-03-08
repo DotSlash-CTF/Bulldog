@@ -55,12 +55,12 @@ class Feet implements ICadGenerator, IParameterChanged{
           					"LegLinks/LegMethods.groovy",
           					null
           					);
-          CSG piece;
+          CSG piece;///eventually need to subtract a little legnth, maybe like 30 for connector
           if(linkIndex < 2){
-          	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR() - 30, linkIndex == 0)
+          	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0)
           }
           else{
-          	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR() - 30).movex(dh.getR())
+          	piece = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
           	defaultCadGen.add(allCad, (defaultCadGen.moveDHValues(new Sphere(10).toCSG(), dh)).movex(dh.getR()), dh.getListener())
           }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           
