@@ -539,7 +539,7 @@ return cap;
 }
 
 
-public CSG createBaseLink(CSG servo, CSG hornRef, int xLength, boolean normFalseRotTrue){
+public CSG createBaseLink(CSG servo, CSG hornRef, int xLength, boolean normFalseRotTrue, CSG connector){
 		HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","hv6214mg") //replace with servo type 
 
 ArrayList<CSG> parts = new ArrayList<CSG>()
@@ -551,7 +551,7 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 	CSG mainLeg;
 	if(normFalseRotTrue == false)
 	{
-		 mainLeg = createThigh(servo, hornRef, xLength).get(0)
+		 mainLeg = createThigh(servo, hornRef, xLength, connector).get(0)
 	}
 	else{
 		 mainLeg =  rotatedLegLink(servo, hornRef, xLength).get(0)
