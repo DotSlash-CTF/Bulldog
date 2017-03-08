@@ -14,8 +14,8 @@
 
 <name>DefaultLeg</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -36,19 +36,20 @@
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	    <name>electroMechanical</name>
-	    <type>hobbyServo</type>
-	    <id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -89,19 +90,20 @@
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -142,19 +144,20 @@
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -186,9 +189,9 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </ZframeToRAS>
 
 <baseToZframe>
@@ -206,8 +209,8 @@
 
 <name>DefaultLeg2</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -228,19 +231,20 @@
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -281,19 +285,20 @@
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -334,19 +339,20 @@
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -378,19 +384,19 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </ZframeToRAS>
 
 <baseToZframe>
 	<x>199.99999999999994</x>
 	<y>-119.99999999999993</y>
 	<z>310.00000000000006</z>
-	<rotw>0.07925843266449964</rotw>
-	<rotx>-0.7026508422210522</rotx>
-	<roty>0.07925844988490705</roty>
-	<rotz>0.7026508422210516</rotz>
+	<rotw>0.07925842421656268</rotw>
+	<rotx>-0.7026507673274438</rotx>
+	<roty>0.07925844143696825</roty>
+	<rotz>0.7026507673274431</rotz>
 </baseToZframe>
 
 </leg>
@@ -398,8 +404,8 @@
 
 <name>DefaultLeg3</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -420,19 +426,20 @@
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -473,19 +480,20 @@
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -526,19 +534,20 @@
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -570,19 +579,19 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </ZframeToRAS>
 
 <baseToZframe>
 	<x>199.99999999999994</x>
 	<y>120.00000000000007</y>
 	<z>310.00000000000006</z>
-	<rotw>0.07919711046363208</rotw>
-	<rotx>0.7026577614666388</rotx>
-	<roty>0.07919712878715471</roty>
-	<rotz>-0.7026577614666388</rotz>
+	<rotw>0.07919710147426526</rotw>
+	<rotx>0.7026576817105931</rotx>
+	<roty>0.0791971197977858</roty>
+	<rotz>-0.7026576817105931</rotz>
 </baseToZframe>
 
 </leg>
@@ -590,8 +599,8 @@
 
 <name>DefaultLeg4</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>feetCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
@@ -612,19 +621,20 @@
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -665,19 +675,20 @@
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -718,19 +729,20 @@
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>hv6214mg</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standard4</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>hv6214mg</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standard4</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -762,9 +774,9 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </ZframeToRAS>
 
 <baseToZframe>
@@ -804,19 +816,20 @@
 	<indexLatch>235</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>standardMicro</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standardMicro1</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>standardMicro</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standardMicro1</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -857,19 +870,20 @@
 	<indexLatch>128</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>standardMicro</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standardMicro1</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>standardMicro</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standardMicro1</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -910,19 +924,20 @@
 	<indexLatch>121</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
 	<homingTPS>10000000</homingTPS>
-	<vitamins>
-	<vitamin>
-	<name>electroMechanical</name>
-	<type>hobbyServo</type>
-	<id>standardMicro</id>
-	</vitamin>
-	<vitamin>
-	<name>shaft</name>
-	<type>hobbyServoHorn</type>
-	<id>standardMicro1</id>
-	</vitamin>
 
-</vitamins>
+	<vitamins>
+		<vitamin>
+			<name>electroMechanical</name>
+			<type>hobbyServo</type>
+			<id>standardMicro</id>
+		</vitamin>
+		<vitamin>
+			<name>shaft</name>
+			<type>hobbyServoHorn</type>
+			<id>standardMicro1</id>
+		</vitamin>
+
+	</vitamins>
 	<passive>false</passive>
 	<mass>0.01</mass>
 	<centerOfMassFromCentroid>	<x>0.0</x>
@@ -954,9 +969,9 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </ZframeToRAS>
 
 <baseToZframe>
@@ -976,9 +991,9 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </ZframeToRAS>
 
 <baseToZframe>
@@ -986,25 +1001,29 @@
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
-	<rotx>0.0</rotx>
-	<roty>0.0</roty>
-	<rotz>0.0</rotz>
+	<rotx>-0.0</rotx>
+	<roty>-0.0</roty>
+	<rotz>-0.0</rotz>
 </baseToZframe>
-<mass>0.01</mass>
-<centerOfMassFromCentroid>	<x>0.0</x>
+	<mass>0.01</mass>
+	<centerOfMassFromCentroid>	<x>0.0</x>
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
 	<rotx>0.0</rotx>
 	<roty>0.0</roty>
 	<rotz>0.0</rotz></centerOfMassFromCentroid>
-<imuFromCentroid>	<x>0.0</x>
+	<imuFromCentroid>	<x>0.0</x>
 	<y>0.0</y>
 	<z>0.0</z>
 	<rotw>1.0</rotw>
 	<rotx>0.0</rotx>
 	<roty>0.0</roty>
 	<rotz>0.0</rotz></imuFromCentroid>
+
+<vitamins>
+
+</vitamins>
 
 </mobilebase>
 
