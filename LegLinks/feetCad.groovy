@@ -64,7 +64,6 @@ class Feet implements ICadGenerator, IParameterChanged{
           }
           else{
           	piece = remoteLegPiece.createFoot(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
-          	defaultCadGen.add(allCad, (defaultCadGen.moveDHValues(new Sphere(10).toCSG(), dh)).movex(dh.getR()), dh.getListener())
           }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           
           defaultCadGen.add(allCad, piece.rotx(180).movez(-23.5).movex(-1.75*dh.getR()+5), dh.getListener())
