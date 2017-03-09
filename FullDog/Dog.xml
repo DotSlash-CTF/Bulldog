@@ -610,7 +610,7 @@
 	<name>basePan</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>11</index>
+	<index>10</index>
 	<scale>0.33</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
@@ -664,13 +664,13 @@
 	<name>baseTilt</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>10</index>
+	<index>11</index>
 	<scale>0.33</scale>
-	<upperLimit>255.0</upperLimit>
+	<upperLimit>241.67910447761193</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>188.3955223880597</staticOffset>
+	<staticOffset>89.44029850746271</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
