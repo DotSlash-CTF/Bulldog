@@ -18,6 +18,7 @@ return new ICadGenerator(){
 	LengthParameter eyeCenter 		= new LengthParameter("Eye Center Distance",headDiameter.getMM()/2,[headDiameter.getMM(),headDiameter.getMM()/2])
 	StringParameter servoSizeParam 			= new StringParameter("hobbyServo Default","towerProMG91",Vitamins.listVitaminSizes("hobbyServo"))
 	StringParameter boltSizeParam 			= new StringParameter("Bolt Size","M3",Vitamins.listVitaminSizes("capScrew"))
+	LengthParameter matThickness = new LengthParameter("Material Thickness",2.5,[200,0])
 
 	HashMap<String, Object>  boltMeasurments = Vitamins.getConfiguration( "capScrew",boltSizeParam.getStrValue())
 	HashMap<String, Object>  nutMeasurments = Vitamins.getConfiguration( "nut",boltSizeParam.getStrValue())
@@ -25,6 +26,7 @@ return new ICadGenerator(){
 	double boltDimeMeasurment = boltMeasurments.get("outerDiameter")
 	double nutDimeMeasurment = nutMeasurments.get("width")
 	double nutThickMeasurment = nutMeasurments.get("height")
+	double[][] ribVals = [[150, 100, -20],  [200, 100, 30]];
 	DHParameterKinematics neck=null;
 	/**
 	 * Gets the all dh chains.
@@ -44,75 +46,57 @@ return new ICadGenerator(){
 	
 	@Override 
 	public ArrayList<CSG> generateBody(MobileBase base ){
-		
-		String legStr =""
-		for(DHParameterKinematics l:getLimbDHChains(base)){
-			legStr+=l.getRobotToFiducialTransform(). getXml();
-		}
-		if(bodyMap.get(legStr)!=null){
-			println "Body cached"
-			for(CSG csg:bodyMap.get(legStr))
-				csg.setManipulator(base.getRootListener());
-			return bodyMap.get(legStr)
-		}
-		println "Generating body"
-		ArrayList<CSG> cutouts=new ArrayList<>();
-		ArrayList<CSG> attach=new ArrayList<>();
-		
-		ArrayList<CSG>  bodyParts = new ArrayList<CSG>()
-		double bodyHeight = 0;
-		ArrayList<CSG> attachmentParts = new ArrayList<CSG>()
-		for(DHParameterKinematics l:base.getLegs()){
-			TransformNR position = l.getRobotToFiducialTransform();
-			Transform csgTrans = TransformFactory.nrToCSG(position)
-			for(CSG attachment:	generateCad(l,0)){
-				CSG movedCorner = attachment
-					.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
-				attachmentParts.add(movedCorner)
-				if(movedCorner.getMaxZ()>bodyHeight){
-					bodyHeight=movedCorner.getMaxZ()
-				}
-			}
-		}
-		
-		CSG bodyBlob = attachmentParts
-						.get(0)
-						.union(attachmentParts)
-		CSG bodyExtrude = bodyBlob
-						.movez(bodyHeight+thickness.getMM())
-						.union(bodyBlob)
-						.hull()
-		//add(bodyParts,bodyExtrude,base.getRootListener())
-		CSG bodyCube = new Cube(	(-bodyExtrude.getMinX()+bodyExtrude.getMaxX())*2,// X dimention
-								 (-bodyExtrude.getMinY()+bodyExtrude.getMaxY())*2,// Y dimention
-								thickness.getMM()//  Z dimention
-							).toCSG()// this converts from the geometry to an object we can work with
-							.movez(bodyHeight-thickness.getMM())// recess the body plate to overlap with the connection interface from the limbs
-		//add(bodyParts,bodyCube,base.getRootListener())					
-		
-		CSG bodyPlate=bodyCube	
-					.intersect(bodyExtrude)
-		bodyPlate.setManufactuing(new PrepForManufacturing() {
-					public CSG prep(CSG arg0) {
-						return arg0.toZMin();
-					}
-				});
-		add(bodyParts,bodyPlate.movez(-100),base.getRootListener())
-		
-		bodyMap.put(legStr,bodyParts)
+	//println base.getInstance()
+	println "Generating body"
 
-		for(CSG vitamin: bodyParts){
-			vitamin.setManufactuing({CSG arg0 ->
+	int numPanels = 4;
+	CSG cChannelRef = centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
+	CSG mainBody    = cChannelRef.union(cChannelRef.rotx(180).movez(62.5))
+
+	//Messy way of populating corners... no real good way to fix
+	ArrayList<ArrayList<Double>> corners = [ [62.5 * numPanels/2, 31.25], [62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, 31.25] ]; //x, y
+	ArrayList<CSG> topLinks = new ArrayList<CSG>();
 	
-				return new Cube(	0.001,// X dimention
-								0.001,// Y dimention
-								0.001//  Z dimention
-								).toCSG()// this converts from the geometry to an object we can work with
-								.toZMin()
-			});
+	ArrayList<CSG> bodyParts = new ArrayList<CSG>()
+	ArrayList<CSG> attachmentParts = new ArrayList<CSG>()
+	def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
+	for(DHParameterKinematics l:base.getLegs()){
+		TransformNR position = l.getRobotToFiducialTransform();
+		Transform csgTrans = TransformFactory.nrToCSG(position)
+		for(CSG attachment:	generateCad(l,0)){
+			//CSG movedCorner = attachment
+			//	.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
+			CSG movedCorner1 = new Cube(25, 25, 25).toCSG().transformed(csgTrans);
+			//CSG movedCorner = remoteLegPiece.createBaseLink2(CSG servo, CSG hornRef, 80)
+			CSG movedCorner2 = remoteLegPiece.createBaseLink2(movedCorner1, movedCorner1, 80 )
+			attachmentParts.add(movedCorner2.setColor(javafx.scene.paint.Color.AQUA))
+			topLinks.add(movedCorner2);
 		}
-		return bodyParts;
 	}
+
+	for(ArrayList<Double> coords : corners)
+	{
+		CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1));
+		attachmentParts.add(cornerBlock)
+	}
+	print "in generateBody"
+	for(ArrayList<Double> coords : corners)
+	{
+		print coords[0] + " : x"
+		println coords[1] + " : y"
+	}
+	
+
+	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), mainBody.hull()).movez(100), base.getRootListener());
+	add(bodyParts, mainBody.movez(100), 	  base.getRootListener())
+	add(bodyParts, attachmentParts, base.getRootListener())
+	
+		
+	
+	return bodyParts;
+	}
+
+
 	@Override 
 	public ArrayList<CSG> generateCad(DHParameterKinematics sourceLimb, int linkIndex) {
 		
@@ -195,5 +179,115 @@ return new ICadGenerator(){
 		object.setManipulator(dh);
 		csg.add(object);
 		BowlerStudioController.addCsg(object);
+	}
+	private add(ArrayList<CSG> csg, ArrayList<CSG> objects, Affine dh)
+	{
+		for(CSG e : objects)
+		{
+			e.setManipulator(dh);
+			csg.add(e);
+			BowlerStudioController.addCsg(e);
+		}
+	}
+
+	private CSG solidRectFromCSG(CSG start)
+	{
+		double xDist = start.getMaxX() - start.getMinX();
+		double yDist = start.getMaxY() - start.getMinY();
+		double zDist = start.getMaxZ() - start.getMinZ();
+
+		return new Cube(xDist, yDist, zDist).toCSG()
+	}
+
+	private CSG centerOnX(CSG start)
+	{
+		double yWidth = start.getMaxY() - start.getMinY();
+		return start.toYMin().movey(-(yWidth / 2));
+	}
+	private CSG centerOnY(CSG start)
+	{
+		double xWidth = start.getMaxX() - start.getMinX();
+		return start.toXMin().movex(-(xWidth / 2));
+	}
+	private CSG centerOnZ(CSG start)
+	{
+		double zWidth = start.getMaxZ() - start.getMinZ();
+		return start.toZMin().movez(-(zWidth / 2));
+	}
+	private CSG centerOnAxes(CSG start)
+	{
+		return centerOnY(centerOnX(centerOnZ(start)));
+	}
+
+	private CSG createCChannel(int secLength) //Number of 5x panels - width of 62.5, length of 62.5 * secLength
+	{
+		CSG toReturn = new Cube(0.1, 0.1, 0.1).toCSG();
+		for(int i = 0; i < secLength; i++)
+		{
+			toReturn = toReturn.union(Vitamins.get("vexCchannel", "5x5").movey(i * 62.5))
+		}
+		return toReturn;
+	}
+
+	private CSG makeRib(double height, double width, double materialThickness, CSG spine)
+	{
+		CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
+		CSG center = new Cube(height, 2.5, materialThickness).toCSG().toZMin();
+		return base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
+	}
+
+	//FOR RIB TO ATTACH TO C CHANNELS
+	private CSG makeVexRib(double height, double width, double materialThickness, CSG spine)
+	{
+		CSG screwType = Vitamins.get("capScrew","8#32").makeKeepaway(1.0);
+		
+		CSG base = new Cylinder(1, 1, materialThickness, (int) 30).toCSG();
+		CSG center = new Cube(2.5, height, 50 + materialThickness).toCSG().toZMin();
+		base = base.scalex(height / 2).scaley(width / 2).difference(center).roty(90).difference(spine);
+		//Making attach point for vex parts
+		double outerRadius = Vitamins.getConfiguration("capScrew","8#32").outerDiameter / 2;
+		CSG attachPoint = new Cylinder(outerRadius * 2, 3, 30).toCSG().difference(screwType.movez(2.5));
+		CSG attachPoint2 = attachPoint.clone();
+	
+		attachPoint = attachPoint.movey(- (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius) //NOT PERFECTLY PARAMETERIZED
+		attachPoint2 = attachPoint2.movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224) ).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius) //DITTO
+
+		for(int i = 0; i < 6; i++)
+		{
+			base = base.difference(attachPoint.hull().movez(2 * i)).difference(attachPoint2.hull().movez(2 * i))
+		}
+
+		//base = base.difference(attachPoint.hull()).difference(attachPoint.hull().scalez(5)).difference(attachPoint2.hull()).difference(attachPoint2.hull().movez(3))
+		attachPoint = attachPoint.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey(- (spine.getMaxY() - spine.getMinY()) * (89 / 224)).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius))
+		attachPoint2 = attachPoint2.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224)).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius))
+	
+		base = base.union(attachPoint).union(attachPoint2);
+		return base.difference(new Cube(100, 100, 100).toCSG().toZMin().movez(-100))
+	}
+
+	private CSG makeRibCage(double[][] ribVals, double matThickness, CSG spine)
+	{
+		spine = solidRectFromCSG(spine)
+		CSG ribs = makeRib(ribVals[0][0], ribVals[0][1], matThickness, spine).movex(ribVals[0][2]); 
+		println("Rib with dimensions " + ribVals[0][0] + " " + ribVals[0][1] + " " + matThickness + " " + ribVals[0][2]);
+		for(int i = 1; i < ribVals.length; i++)
+		{
+			ribs = ribs.union(makeRib(ribVals[i][0], ribVals[i][1], matThickness, spine).movex(ribVals[i][2]));
+			println("Rib with dimensions " + ribVals[i][0] + " " + ribVals[i][1] + " " + matThickness + " " + ribVals[i][2]);
+		}
+		return ribs;
+	}
+
+	private CSG makeVexRibCage(double[][] ribVals, double matThickness, CSG spine)
+	{
+		spine = solidRectFromCSG(spine)
+		CSG ribs = makeVexRib(ribVals[0][0], ribVals[0][1], matThickness, spine).movex(ribVals[0][2]); 
+		println("Rib with dimensions " + ribVals[0][0] + " " + ribVals[0][1] + " " + matThickness + " " + ribVals[0][2]);
+		for(int i = 1; i < ribVals.length; i++)
+		{
+			ribs = ribs.union(makeVexRib(ribVals[i][0], ribVals[i][1], matThickness, spine).movex(ribVals[i][2]));
+			println("Rib with dimensions " + ribVals[i][0] + " " + ribVals[i][1] + " " + matThickness + " " + ribVals[i][2]);
+		}
+		return ribs;
 	}
 };

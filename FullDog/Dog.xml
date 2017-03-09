@@ -1,8 +1,8 @@
 <root>
 <mobilebase>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/laser-cut-robot.git</git>
-		<file>laserCutCad.groovy</file>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
+		<file>FullDog/laserCutCad.groovy</file>
 	</cadEngine>
 	<driveEngine>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
