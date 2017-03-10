@@ -1089,9 +1089,9 @@ class Headmaker implements IParameterChanged{
 			println "getting Eye cached"
 			return eyeCache.get(diameter).clone()
 		}
-		CSG fastEye = new Sphere(diameter/2).toCSG()
-		eyeCache.put(diameter,fastEye)
-		return fastEye
+		//CSG fastEye = new Sphere(diameter/2).toCSG()
+		//eyeCache.put(diameter,fastEye)
+		//return fastEye
 		double cupOffset = 4
 		ballJointKeepAway= ballJointKeepAway
 						.union(
