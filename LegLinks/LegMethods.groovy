@@ -327,7 +327,7 @@ public ArrayList<CSG> rotatedLegLink(CSG servo, CSG hornRef, int xLength){
 	int servoZ = vitaminData.get("servoShaftSideHeight")
 	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServo","hv6214mg")//current servo
 	int servoY2 = vitaminData2.get("servoThinDimentionThickness")
-	CSG connector = createConnector(servo, hornRef, xLength)
+	CSG connector = createConnector(servo, hornRef, xLength).roty(180)
 	
 	ArrayList<CSG> shoulderParts = createShoulder(servo, xLength)
 	ArrayList<CSG> thighParts = createThigh(servo, hornRef, xLength, connector)
