@@ -51,7 +51,7 @@ return new ICadGenerator(){
 
 	int numPanels = 4;
 	CSG cChannelRef = centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
-	CSG mainBody    = cChannelRef.union(cChannelRef.rotx(180).movez(62.5))
+	CSG mainBody    = cChannelRef.union(cChannelRef.rotx(180).movez(62.5)) //two, sandwich style
 
 	//Messy way of populating corners... no real good way to fix
 	ArrayList<ArrayList<Double>> corners = [ [62.5 * numPanels/2, 31.25], [62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, 31.25] ]; //x, y
@@ -59,18 +59,38 @@ return new ICadGenerator(){
 	
 	ArrayList<CSG> bodyParts = new ArrayList<CSG>()
 	ArrayList<CSG> attachmentParts = new ArrayList<CSG>()
+
+	double maxZ = 0;
+	
 	def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
 	for(DHParameterKinematics l:base.getLegs()){
 		TransformNR position = l.getRobotToFiducialTransform();
-		Transform csgTrans = TransformFactory.nrToCSG(position)
+		Transform csgTrans = TransformFactory.nrToCSG(position);
+
+		double thisZ = position.getZ();
+		if(thisZ > maxZ)
+			maxZ = thisZ;
+
+		DHParameterKinematics sourceLimb=l
+		LinkConfiguration conf = sourceLimb.getLinkConfiguration(0);
+		ArrayList<DHLink> dhLinks=sourceLimb.getChain().getLinks();
+		DHLink dh = dhLinks.get(0);
+		HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
+		CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
+								.rotz(180+Math.toDegrees(dh.getTheta()))
+		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
+		
+		double servoNub = servoMeasurments.tipOfShaftToBottomOfFlange - servoMeasurments.bottomOfFlangeToTopOfBody
+		double servoTop = servoReference.getMaxZ()-servoNub
 		for(CSG attachment:	generateCad(l,0)){
+			//println "attach:" + attachment.toString()
 			//CSG movedCorner = attachment
 			//	.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
 			CSG movedCorner1 = new Cube(25, 25, 25).toCSG().transformed(csgTrans);
 			//CSG movedCorner = remoteLegPiece.createBaseLink2(CSG servo, CSG hornRef, 80)
-			CSG movedCorner2 = remoteLegPiece.createBaseLink2(movedCorner1, movedCorner1, 80 )
-			attachmentParts.add(movedCorner2.setColor(javafx.scene.paint.Color.AQUA))
-			topLinks.add(movedCorner2);
+			CSG movedCorner2 = remoteLegPiece.createBaseLink2(servoReference, horn, 80 )
+			attachmentParts.add(movedCorner2.transformed(csgTrans).setColor(javafx.scene.paint.Color.AQUA))
+			topLinks.add(movedCorner2.transformed(csgTrans));
 		}
 	}
 
@@ -87,7 +107,7 @@ return new ICadGenerator(){
 	}
 	
 
-	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), mainBody.hull()).movez(100), base.getRootListener());
+	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), mainBody.hull()).movez(maxZ), base.getRootListener());
 	add(bodyParts, mainBody.movez(100), 	  base.getRootListener())
 	add(bodyParts, attachmentParts, base.getRootListener())
 	
