@@ -610,13 +610,13 @@
 	<name>basePan</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>10</index>
-	<scale>0.33</scale>
+	<index>9</index>
+	<scale>0.529</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>107.06716417910447</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -665,12 +665,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>11</index>
-	<scale>0.33</scale>
+	<scale>0.529</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>172.40476720873247</staticOffset>
+	<staticOffset>80.422421474716</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -718,8 +718,8 @@
 	<name>elbow</name>
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>9</index>
-	<scale>0.33</scale>
+	<index>10</index>
+	<scale>0.529</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>15.223880597014928</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
