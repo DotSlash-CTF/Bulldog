@@ -1540,5 +1540,9 @@ CSG ballJointKeepAway = ballJointParts.get(1)
 //return new Headmaker().getEye(46,ballJointKeepAway)
 //return new Headmaker().getEyeLinkageCup()
 //
-return new Headmaker().makeHead(false)	
+ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
+for (int i = 0; i < fullHead.size(); i++) {
+	fullHead.set(i, fullHead.get(i).scale(1.15))
+}
+return fullHead
 //return new Headmaker().eyeLid(new LengthParameter("Left Eye Diameter",35,[200,29]).getMM())
