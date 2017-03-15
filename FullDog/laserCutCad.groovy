@@ -51,7 +51,9 @@ return new ICadGenerator(){
 
 	int numPanels = 4;
 	CSG cChannelRef = centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
-	CSG mainBody    = cChannelRef.union(cChannelRef.rotx(180).movez(62.5)) //two, sandwich style
+	CSG crossChannel = centerOnAxes(Vitamins.get("vexCchannel", "2x20")).movex(numPanels * 62.5/2).movez(0.8+62.5+12.5).movey(6.25);
+
+	CSG mainBody    = cChannelRef.union(cChannelRef.rotx(180).movez(62.5)).union(crossChannel).union(crossChannel.movex(-numPanels * 62.5));
 
 	//Messy way of populating corners... no real good way to fix
 	ArrayList<ArrayList<Double>> corners = [ [62.5 * numPanels/2, 31.25], [62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, 31.25] ]; //x, y
@@ -97,7 +99,7 @@ return new ICadGenerator(){
 	for(ArrayList<Double> coords : corners)
 	{
 		CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1));
-		attachmentParts.add(cornerBlock)
+		attachmentParts.add(cornerBlock.movez(maxZ + 62.5))
 	}
 	print "in generateBody"
 	for(ArrayList<Double> coords : corners)
@@ -105,10 +107,10 @@ return new ICadGenerator(){
 		print coords[0] + " : x"
 		println coords[1] + " : y"
 	}
-	
+
 
 	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), mainBody.hull()).movez(maxZ), base.getRootListener());
-	add(bodyParts, mainBody.movez(100), 	  base.getRootListener())
+	add(bodyParts, mainBody.movez(maxZ), 	  base.getRootListener())
 	add(bodyParts, attachmentParts, base.getRootListener())
 	
 		
