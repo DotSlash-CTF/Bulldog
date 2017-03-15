@@ -46,23 +46,29 @@ return new ICadGenerator(){
 	
 	@Override 
 	public ArrayList<CSG> generateBody(MobileBase base ){
-	//println base.getInstance()
 	println "Generating body"
 
-	int numPanels = 4;
-	CSG cChannelRef = centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
-	CSG crossChannel = centerOnAxes(Vitamins.get("vexCchannel", "2x20")).movex(numPanels * 62.5/2).movez(0.8+62.5+12.5).movey(6.25);
+	//Final values
+	double numPanels	= 6;
+	double unitLength 	= 62.5;
+	double maxZ 		= 0;
 
-	CSG mainBody    = cChannelRef.union(cChannelRef.rotx(180).movez(62.5)).union(crossChannel).union(crossChannel.movex(-numPanels * 62.5));
+	//Body CSGs 
+	CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
+	CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20")).movex(numPanels * unitLength/2).movez(0.8+1.2*unitLength).movey(6.25);
+	CSG spine 		= cChannelRef.union(cChannelRef.rotx(180).movez(unitLength));
+	CSG mainBody    	= spine.union(crossChannel).union(crossChannel.movex(-numPanels * unitLength));
 
-	//Messy way of populating corners... no real good way to fix
-	ArrayList<ArrayList<Double>> corners = [ [62.5 * numPanels/2, 31.25], [62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, -31.25], [-62.5 * numPanels/2, 31.25] ]; //x, y
+	//Utilities
+	def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
+
+	//Arrays
+	ArrayList<ArrayList<Double>> corners = [ [unitLength * numPanels/2, unitLength/2], [unitLength * numPanels/2, -unitLength/2], [-unitLength * numPanels/2, -unitLength/2], [-unitLength * numPanels/2, unitLength/2] ]; //x, y
 	ArrayList<CSG> topLinks = new ArrayList<CSG>();
-	
-	ArrayList<CSG> bodyParts = new ArrayList<CSG>()
-	ArrayList<CSG> attachmentParts = new ArrayList<CSG>()
+	ArrayList<CSG> bodyParts = new ArrayList<CSG>();
+	ArrayList<CSG> attachmentParts = new ArrayList<CSG>();
 
-	double maxZ = 0;
+	
 	
 	def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
 	for(DHParameterKinematics l:base.getLegs()){
@@ -85,7 +91,7 @@ return new ICadGenerator(){
 		double servoNub = servoMeasurments.tipOfShaftToBottomOfFlange - servoMeasurments.bottomOfFlangeToTopOfBody
 		double servoTop = servoReference.getMaxZ()-servoNub
 		for(CSG attachment:	generateCad(l,0)){
-			//println "attach:" + attachment.toString()
+			println "attach:" + attachment.toString()
 			//CSG movedCorner = attachment
 			//	.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
 			CSG movedCorner1 = new Cube(25, 25, 25).toCSG().transformed(csgTrans);
@@ -96,11 +102,22 @@ return new ICadGenerator(){
 		}
 	}
 
+	
 	for(ArrayList<Double> coords : corners)
 	{
 		CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1));
-		attachmentParts.add(cornerBlock.movez(maxZ + 62.5))
+		attachmentParts.add(cornerBlock.movez(maxZ + unitLength / 2))
+
+		/*
+		int minDist = 99999;
+		int currDist = 0;
+		for(int i = 0; i < 4; i++)
+		{
+			currDist = sqrt( Math.pow(coords.get(0) - ) )
+		}
+		*/
 	}
+	
 	print "in generateBody"
 	for(ArrayList<Double> coords : corners)
 	{
@@ -109,7 +126,7 @@ return new ICadGenerator(){
 	}
 
 
-	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), mainBody.hull()).movez(maxZ), base.getRootListener());
+	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(maxZ), base.getRootListener());
 	add(bodyParts, mainBody.movez(maxZ), 	  base.getRootListener())
 	add(bodyParts, attachmentParts, base.getRootListener())
 	
