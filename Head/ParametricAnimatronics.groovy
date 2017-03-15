@@ -2,6 +2,8 @@ import eu.mihosoft.vrl.v3d.parametrics.*;
 import com.neuronrobotics.bowlerstudio.vitamins.Vitamins;
 import eu.mihosoft.vrl.v3d.Transform;
 import eu.mihosoft.vrl.v3d.Extrude;
+import java.nio.file.Paths;
+import eu.mihosoft.vrl.v3d.FileUtil;
 
 class Headmaker implements IParameterChanged{
 	boolean makeCutsheetStorage = false
@@ -1543,6 +1545,14 @@ CSG ballJointKeepAway = ballJointParts.get(1)
 ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
 for (int i = 0; i < fullHead.size(); i++) {
 	fullHead.set(i, fullHead.get(i).scale(1.15))
+	String filename =ScriptingEngine.getWorkspace().getAbsolutePath()+"/HeadStl" + i + ".stl";
+	//FileUtil.write(Paths.get(filename), fullHead.get(i).toStlString());
+	println "STL EXPORT to "+filename
 }
-return fullHead
+
+def allParts = fullHead.collect { it.prepForManufacturing() } 
+CSG cutSheet = allParts.get(0).union(allParts)
+return cutSheet
+
+//return fullHead
 //return new Headmaker().eyeLid(new LengthParameter("Left Eye Diameter",35,[200,29]).getMM())
