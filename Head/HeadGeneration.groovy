@@ -1543,15 +1543,15 @@ CSG ballJointKeepAway = ballJointParts.get(1)
 //return new Headmaker().getEyeLinkageCup()
 //
 ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
-for (int i = 0; i < fullHead.size(); i++) {
+/*for (int i = 0; i < fullHead.size(); i++) {
 	fullHead.set(i, fullHead.get(i).scale(1.15))
 	String filename =ScriptingEngine.getWorkspace().getAbsolutePath()+"/HeadStl" + i + ".stl";
-	//FileUtil.write(Paths.get(filename), fullHead.get(i).toStlString());
-	//println "STL EXPORT to "+filename
+	FileUtil.write(Paths.get(filename), fullHead.get(i).toStlString());
+	println "STL EXPORT to "+filename
 }
 
 def allParts = fullHead.collect { it.prepForManufacturing() } 
-CSG cutSheet = allParts.get(0).union(allParts)
+CSG cutSheet = allParts.get(0).union(allParts)*/
 return fullHead
 
 //return fullHead
