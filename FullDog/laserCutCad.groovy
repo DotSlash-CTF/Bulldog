@@ -70,7 +70,6 @@ return new ICadGenerator(){
 
 	
 	
-	def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
 	for(DHParameterKinematics l:base.getLegs()){
 		TransformNR position = l.getRobotToFiducialTransform();
 		Transform csgTrans = TransformFactory.nrToCSG(position);
@@ -258,7 +257,7 @@ return new ICadGenerator(){
 		return centerOnY(centerOnX(centerOnZ(start)));
 	}
 
-	private CSG createCChannel(int secLength) //Number of 5x panels - width of 62.5, length of 62.5 * secLength
+	private CSG createCChannel(double secLength) //Number of 5x panels - width of 62.5, length of 62.5 * secLength
 	{
 		CSG toReturn = new Cube(0.1, 0.1, 0.1).toCSG();
 		for(int i = 0; i < secLength; i++)
