@@ -1547,12 +1547,12 @@ for (int i = 0; i < fullHead.size(); i++) {
 	fullHead.set(i, fullHead.get(i).scale(1.15))
 	String filename =ScriptingEngine.getWorkspace().getAbsolutePath()+"/HeadStl" + i + ".stl";
 	//FileUtil.write(Paths.get(filename), fullHead.get(i).toStlString());
-	println "STL EXPORT to "+filename
+	//println "STL EXPORT to "+filename
 }
 
 def allParts = fullHead.collect { it.prepForManufacturing() } 
 CSG cutSheet = allParts.get(0).union(allParts)
-return cutSheet
+return fullHead
 
 //return fullHead
 //return new Headmaker().eyeLid(new LengthParameter("Left Eye Diameter",35,[200,29]).getMM())
