@@ -8,21 +8,27 @@ import eu.mihosoft.vrl.v3d.FileUtil;
 class Neck {
 	ArrayList<CSG> makeNeck() {
 		ArrayList<CSG> fullHead = new ArrayList<CSG>()
-		
-		CSG channel = Vitamins.get("vexCchannel", "2x20")
-		CSG panServo = Vitamins.get( "hobbyServo","hv6214mg")
 
 		CSG base = createBase()
-
-		fullHead.add(channel)
-		fullHead.add(panServo)
+		
 		fullHead.add(base)
 		return [fullHead]
 	}
 
 	private CSG createBase() {
-		CSG base = new Cube(40, 70, 20).toCSG()
-		base = base.movez(10).movey(100)
+		int xSize = 40
+		int ySize = 70
+		int zSize = 35
+		
+		CSG base = new Cube(xSize, ySize, zSize).toCSG()
+		base = base.movez(zSize/2).movey(100).movex(5)
+		
+		CSG channel = Vitamins.get("vexCchannel", "2x20")
+		CSG panServo = Vitamins.get( "hobbyServo","hv6214mg")
+		panServo = panServo.movey(110).movez(30)
+
+		base = base.difference(panServo)
+		base = base.union(channel)
 		
 		return base
 	}
