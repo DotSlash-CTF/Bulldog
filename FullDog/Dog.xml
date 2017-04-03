@@ -70,7 +70,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>60.0</Radius>
+		<Radius>120.0</Radius>
 		<Alpha>-89.97</Alpha>
 	</DHParameters>
 
@@ -124,7 +124,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>120.0</Radius>
+		<Radius>112.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -178,7 +178,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>160.0</Radius>
+		<Radius>96.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -195,13 +195,13 @@
 </ZframeToRAS>
 
 <baseToZframe>
-	<x>-200.00000000000006</x>
+	<x>-200.0</x>
 	<y>80.00000000000006</y>
-	<z>259.99999999999994</z>
-	<rotw>0.702661135646815</rotw>
-	<rotx>0.07916646039534943</rotx>
-	<roty>0.7026611356468148</roty>
-	<rotz>-0.07916646039534948</rotz>
+	<z>232.0</z>
+	<rotw>0.7071067811865476</rotw>
+	<rotx>-0.0</rotx>
+	<roty>0.7071067811865475</roty>
+	<rotz>-0.0</rotz>
 </baseToZframe>
 
 </leg>
@@ -265,7 +265,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>60.0</Radius>
+		<Radius>100.0</Radius>
 		<Alpha>-89.97</Alpha>
 	</DHParameters>
 
@@ -319,7 +319,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>160.0</Radius>
+		<Radius>123.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -373,7 +373,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>200.0</Radius>
+		<Radius>61.5</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -392,11 +392,11 @@
 <baseToZframe>
 	<x>199.99999999999994</x>
 	<y>-119.99999999999993</y>
-	<z>310.00000000000006</z>
-	<rotw>0.07925842421656268</rotw>
-	<rotx>-0.7026507673274438</rotx>
-	<roty>0.07925844143696825</roty>
-	<rotz>0.7026507673274431</rotz>
+	<z>223.0</z>
+	<rotw>0.7071067811865476</rotw>
+	<rotx>-0.0</rotx>
+	<roty>0.7071067811865475</roty>
+	<rotz>-0.0</rotz>
 </baseToZframe>
 
 </leg>
@@ -460,7 +460,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>60.0</Radius>
+		<Radius>100.0</Radius>
 		<Alpha>-89.97</Alpha>
 	</DHParameters>
 
@@ -514,7 +514,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>160.0</Radius>
+		<Radius>123.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -568,7 +568,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>200.0</Radius>
+		<Radius>61.5</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -587,11 +587,11 @@
 <baseToZframe>
 	<x>199.99999999999994</x>
 	<y>120.00000000000007</y>
-	<z>310.00000000000006</z>
-	<rotw>0.07919710147426526</rotw>
-	<rotx>0.7026576817105931</rotx>
-	<roty>0.0791971197977858</roty>
-	<rotz>-0.7026576817105931</rotz>
+	<z>223.0</z>
+	<rotw>0.7071067811865476</rotw>
+	<rotx>-0.0</rotx>
+	<roty>0.7071067811865475</roty>
+	<rotz>-0.0</rotz>
 </baseToZframe>
 
 </leg>
@@ -655,7 +655,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>60.0</Radius>
+		<Radius>120.0</Radius>
 		<Alpha>-90.01</Alpha>
 	</DHParameters>
 
@@ -709,7 +709,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>0.01</Theta>
-		<Radius>120.0</Radius>
+		<Radius>112.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -763,7 +763,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.0</Theta>
-		<Radius>160.0</Radius>
+		<Radius>96.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -780,13 +780,13 @@
 </ZframeToRAS>
 
 <baseToZframe>
-	<x>-200.00000000000006</x>
+	<x>-200.0</x>
 	<y>-79.99999999999994</y>
-	<z>259.99999999999994</z>
-	<rotw>0.7051320916686236</rotw>
-	<rotx>-0.05280845859359916</rotx>
-	<roty>0.7051320916686236</roty>
-	<rotz>0.05280845859359908</rotz>
+	<z>232.0</z>
+	<rotw>0.7071067811865476</rotw>
+	<rotx>-0.0</rotx>
+	<roty>0.7071067811865475</roty>
+	<rotz>-0.0</rotz>
 </baseToZframe>
 
 </leg>
