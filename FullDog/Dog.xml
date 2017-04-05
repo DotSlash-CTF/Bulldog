@@ -26,12 +26,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>2</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>110.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -80,12 +80,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>1</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>192.7014925373134</staticOffset>
+	<staticOffset>83.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -134,12 +134,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>0</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
-	<lowerLimit>15.223880597014928</lowerLimit>
+	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>181.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -221,12 +221,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>5</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>110.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -275,12 +275,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>4</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>211.7313432835821</staticOffset>
+	<staticOffset>83.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -329,12 +329,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>3</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
-	<lowerLimit>15.223880597014928</lowerLimit>
+	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>181.09</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -416,12 +416,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>8</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>110.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -470,12 +470,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>7</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>183.18656716417908</staticOffset>
+	<staticOffset>83.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -524,12 +524,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>6</index>
-	<scale>0.33</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
-	<lowerLimit>15.223880597014928</lowerLimit>
+	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>128.0</staticOffset>
+	<staticOffset>181.09</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
