@@ -103,7 +103,7 @@ int milisInASec = 1000;
 long time = System.currentTimeMillis();
 
 
-    
+/* 
 
 Timer timer = new Timer();
 timer.schedule(new TimerTask() {
@@ -111,7 +111,7 @@ timer.schedule(new TimerTask() {
     public void run() {
 	//counter ++;
 	if (counter < 5) {
-	/*
+	
 		if (position > 164) {
 			direction = false;
 		}
@@ -121,7 +121,7 @@ timer.schedule(new TimerTask() {
 		
 		counter ++;
 		values = WalkMotion(joystickVal, minimum, maximum, direction, position);
-		*/
+		
 		//position = values;
 		if (dir) {
 			valuesPan= 160;
@@ -150,6 +150,8 @@ timer.schedule(new TimerTask() {
     System.out.println(counter);
     }
 }, 0, milisInASec);
+
+*/
 
 // This will update for the current minute, it will be updated again in at most one minute.
 

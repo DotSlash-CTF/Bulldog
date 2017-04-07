@@ -12,7 +12,7 @@
 <name>DogRobot</name>
 <leg>
 
-<name>BackLeft</name>
+<name>DefaultLeg</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -85,7 +85,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>83.0</staticOffset>
+	<staticOffset>86.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -207,7 +207,7 @@
 </leg>
 <leg>
 
-<name>FrontRight</name>
+<name>DefaultLeg2</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -275,12 +275,12 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>4</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>83.0</staticOffset>
+	<staticOffset>100.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -329,7 +329,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>3</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -402,7 +402,7 @@
 </leg>
 <leg>
 
-<name>FrontLeft</name>
+<name>DefaultLeg3</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -475,7 +475,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>83.0</staticOffset>
+	<staticOffset>105.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -597,7 +597,7 @@
 </leg>
 <leg>
 
-<name>BackRight</name>
+<name>DefaultLeg4</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -665,7 +665,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>11</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -719,7 +719,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>10</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
