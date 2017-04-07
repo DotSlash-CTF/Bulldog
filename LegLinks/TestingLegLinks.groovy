@@ -33,7 +33,7 @@ ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length, connect
 
 ArrayList<CSG> basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
-ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, foot)
+ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, connector.movex(23))
 
 
 foot = foot.movex(20)
@@ -83,7 +83,7 @@ imobile = remoteLegPiece.createThigh(servo, horn, length, connector)
 
 basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
-baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, foot)
+baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, connector.movex(17))
 
 for(int i = 0; i < basePan.size(); i++)
 {

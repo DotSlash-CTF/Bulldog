@@ -56,14 +56,13 @@ class Feet implements ICadGenerator, IParameterChanged{
           					null
           					);
 
-          CSG foot = remoteLegPiece.createFoot(servoReference.movey(-3), horn, (int) dh.getR())
-		CSG connector = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
+          CSG connector = remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           CSG piece;///eventually need to subtract a little length, maybe like 30 for connector
           if(linkIndex < 2){
           	piece = remoteLegPiece.createBaseLink(servoReference.movey(-3), horn, (int) dh.getR(), linkIndex == 0, connector)
           }
           else{
-          	piece = remoteLegPiece.createFoot(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/3.75)
+          	piece = remoteLegPiece.createFoot(servoReference.movey(-3), horn, (int) dh.getR()).movex(dh.getR()/2)//3.75
           }//remoteLegPiece.createConnector(servoReference.movey(-3), horn, (int) dh.getR())
           
           defaultCadGen.add(allCad, piece.rotx(180).movez(-23.5).movex(-1.75*dh.getR()+5), dh.getListener())
