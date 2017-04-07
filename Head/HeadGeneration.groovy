@@ -756,22 +756,7 @@ class Headmaker implements IParameterChanged{
 			CSG rightSupportPin =  rightSupport.get(0)
 			
 
-			def eyeRingsList = generateEyeRings(upperHeadPart,eyeXdistance-eyeLidPinDiam*3/2,eyeHeight)
-			CSG eyeRings = eyeRingsList.get(0)
-			println "Merging eye rings"
-			for (int i = 1; i < eyeRingsList.size(); i++) {
-				eyeRings.union(eyeRingsList.get(i))
-			}
-
-			if (performMinkowski == true) {
-				ArrayList<CSG> eyeRingsMink = eyeRings.minkowski(new Cube(0.5).toCSG())
-				int eyeRingsIndex = 0;
-				for (CSG c : eyeRingsMink) {
-					eyeRings = eyeRings.difference(eyeRingsMink)
-					println "Minkowski operation: Eye Rings " + eyeRingsIndex + " of " + eyeRingsMink.size();
-					eyeRingsIndex = eyeRingsIndex + 1
-				}
-			}
+			def eyeRings = generateEyeRings(upperHeadPart,eyeXdistance-eyeLidPinDiam*3/2,eyeHeight)
 			
 			mechPlate = mechPlate
 						.difference(eyeRings)
@@ -798,19 +783,34 @@ class Headmaker implements IParameterChanged{
 						})
 						.difference(new Cube(100, 10, 30).toCSG().movez(130))
 
-			if (performMinkowski == true) {
+			if (performMinkowski == false) {
+				println "Started upperHeadMinkowski"
 				ArrayList<CSG> upperHeadPartMink = upperHeadPart.minkowski(new Cube(0.5).toCSG())
-				int index = 0;
+				int index = 1;
 				for (CSG c : upperHeadPartMink) {
 					upperHeadPart = upperHeadPart.difference(c)
 					println "Minkowki operation: Upper Head " + index + " of " + upperHeadPartMink.size();
 					index = index + 1;
 				}
+				println "Finished upperHeadMinkowski"
 			}
 
 						//MAYBE HERE 2
 			
 			CSG eyeRingPlate = eyeRings.get(0)
+
+			if (performMinkowski == true) {
+				println "Starting eyeRingMinkowski"
+				ArrayList<CSG> eyeRingsMink = eyeRingPlate.minkowski(new Cube(0.5).toCSG())
+				int eyeRingsIndex = 0;
+				for (CSG c : eyeRingsMink) {
+					eyeRingPlate = eyeRingPlate.difference(eyeRingsMink)
+					println "Minkowski operation: Eye Rings " + eyeRingsIndex + " of " + eyeRingsMink.size();
+					eyeRingsIndex = eyeRingsIndex + 1
+				}
+				println "Finished eyeRingMinkowski"
+			}
+			
 			/*
 			def eyeLids = [eyeLid(leyeDiam.getMM())
 						.transformed(lEyeLocation),
