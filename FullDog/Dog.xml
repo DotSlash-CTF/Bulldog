@@ -12,7 +12,7 @@
 <name>DogRobot</name>
 <leg>
 
-<name>DefaultLeg</name>
+<name>BackLeft</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -207,7 +207,7 @@
 </leg>
 <leg>
 
-<name>DefaultLeg2</name>
+<name>FrontRight</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -402,7 +402,7 @@
 </leg>
 <leg>
 
-<name>DefaultLeg3</name>
+<name>FrontLeft</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
@@ -597,7 +597,7 @@
 </leg>
 <leg>
 
-<name>DefaultLeg4</name>
+<name>BackRight</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
