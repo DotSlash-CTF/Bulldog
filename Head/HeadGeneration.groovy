@@ -802,7 +802,8 @@ class Headmaker implements IParameterChanged{
 			if (performMinkowski == true) {
 				println "Starting eyeRingMinkowski"
 				ArrayList<CSG> eyeRingsMink = eyeRingPlate.minkowski(new Cube(0.5).toCSG())
-				int eyeRingsIndex = 0;
+				int eyeRingsIndex = 1;
+				println "Looping eyeRingsMink"
 				for (CSG c : eyeRingsMink) {
 					eyeRingPlate = eyeRingPlate.difference(eyeRingsMink)
 					println "Minkowski operation: Eye Rings " + eyeRingsIndex + " of " + eyeRingsMink.size();
