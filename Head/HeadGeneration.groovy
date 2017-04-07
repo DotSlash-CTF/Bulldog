@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import eu.mihosoft.vrl.v3d.FileUtil;
 
 class Headmaker implements IParameterChanged{
+	boolean performMinkowski = true;
+	
 	boolean makeCutsheetStorage = false
 	HashMap<Double,CSG> eyeCache=new HashMap<>();
 	HashMap<String,Double> previousValue = new HashMap<>();
@@ -754,7 +756,23 @@ class Headmaker implements IParameterChanged{
 			CSG rightSupportPin =  rightSupport.get(0)
 			
 
-			def eyeRings  = generateEyeRings(upperHeadPart,eyeXdistance-eyeLidPinDiam*3/2,eyeHeight)
+			def eyeRingsList = generateEyeRings(upperHeadPart,eyeXdistance-eyeLidPinDiam*3/2,eyeHeight)
+			CSG eyeRings = eyeRingsList.get(0)
+			println "Merging eye rings"
+			for (int i = 1; i < eyeRingsList.size(); i++) {
+				eyeRings.union(eyeRingsList.get(i))
+			}
+
+			if (performMinkowski == true) {
+				ArrayList<CSG> eyeRingsMink = eyeRings.minkowski(new Cube(0.5).toCSG())
+				int eyeRingsIndex = 0;
+				for (CSG c : eyeRingsMink) {
+					eyeRings = eyeRings.difference(eyeRingsMink)
+					println "Minkowski operation: Eye Rings " + eyeRingsIndex + " of " + eyeRingsMink.size();
+					eyeRingsIndex = eyeRingsIndex + 1
+				}
+			}
+			
 			mechPlate = mechPlate
 						.difference(eyeRings)
 			eyePlate = eyePlate
@@ -779,6 +797,16 @@ class Headmaker implements IParameterChanged{
 							return it
 						})
 						.difference(new Cube(100, 10, 30).toCSG().movez(130))
+
+			if (performMinkowski == true) {
+				ArrayList<CSG> upperHeadPartMink = upperHeadPart.minkowski(new Cube(0.5).toCSG())
+				int index = 0;
+				for (CSG c : upperHeadPartMink) {
+					upperHeadPart = upperHeadPart.difference(c)
+					println "Minkowki operation: Upper Head " + index + " of " + upperHeadPartMink.size();
+					index = index + 1;
+				}
+			}
 
 						//MAYBE HERE 2
 			
@@ -1553,6 +1581,3 @@ ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
 def allParts = fullHead.collect { it.prepForManufacturing() } 
 CSG cutSheet = allParts.get(0).union(allParts)*/
 return fullHead
-
-//return fullHead
-//return new Headmaker().eyeLid(new LengthParameter("Left Eye Diameter",35,[200,29]).getMM())
