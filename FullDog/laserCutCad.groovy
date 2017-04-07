@@ -45,93 +45,133 @@ return new ICadGenerator(){
 	}
 	
 	@Override 
-	public ArrayList<CSG> generateBody(MobileBase base ){
-	println "Generating body"
-
-	//Final values
-	double numPanels	= 6;
-	double unitLength 	= 62.5;
-	double maxZ 		= 0;
-
-	//Body CSGs 
-	CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
-	CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20")).movex(numPanels * unitLength/2).movez(0.8+1.2*unitLength).movey(6.25);
-	CSG spine 		= cChannelRef.union(cChannelRef.rotx(180).movez(unitLength));
-	CSG mainBody    	= spine.union(crossChannel).union(crossChannel.movex(-numPanels * unitLength));
-
-	//Utilities
-	def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
-
-	//Arrays
-	ArrayList<ArrayList<Double>> corners = [ [unitLength * numPanels/2, unitLength/2], [unitLength * numPanels/2, -unitLength/2], [-unitLength * numPanels/2, -unitLength/2], [-unitLength * numPanels/2, unitLength/2] ]; //x, y
-	ArrayList<CSG> topLinks = new ArrayList<CSG>();
-	ArrayList<CSG> bodyParts = new ArrayList<CSG>();
-	ArrayList<CSG> attachmentParts = new ArrayList<CSG>();
-
-	
-	
-	for(DHParameterKinematics l:base.getLegs()){
-		TransformNR position = l.getRobotToFiducialTransform();
-		Transform csgTrans = TransformFactory.nrToCSG(position);
-
-		double thisZ = position.getZ();
-		if(thisZ > maxZ)
-			maxZ = thisZ;
-
-		DHParameterKinematics sourceLimb=l
-		LinkConfiguration conf = sourceLimb.getLinkConfiguration(0);
-		ArrayList<DHLink> dhLinks=sourceLimb.getChain().getLinks();
-		DHLink dh = dhLinks.get(0);
-		HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-		CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-								.rotz(180+Math.toDegrees(dh.getTheta()))
-		CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
-		
-		double servoNub = servoMeasurments.tipOfShaftToBottomOfFlange - servoMeasurments.bottomOfFlangeToTopOfBody
-		double servoTop = servoReference.getMaxZ()-servoNub
-		for(CSG attachment:	generateCad(l,0)){
-			println "attach:" + attachment.toString()
-			//CSG movedCorner = attachment
-			//	.transformed(csgTrans)// this moves the part to its placement where it will be in the final model
-			CSG movedCorner1 = new Cube(25, 25, 25).toCSG().transformed(csgTrans);
-			//CSG movedCorner = remoteLegPiece.createBaseLink2(CSG servo, CSG hornRef, 80)
-			CSG movedCorner2 = remoteLegPiece.createBaseLink2(servoReference, horn, 80 )
-			attachmentParts.add(movedCorner2.transformed(csgTrans).setColor(javafx.scene.paint.Color.AQUA))
-			topLinks.add(movedCorner2.transformed(csgTrans));
-		}
-	}
-
-	
-	for(ArrayList<Double> coords : corners)
+	public ArrayList<CSG> generateBody(MobileBase base )
 	{
-		CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1));
-		attachmentParts.add(cornerBlock.movez(maxZ + unitLength / 2))
+		println "Generating body"
+	
+		//Final values
+		double 	numPanels		= 6;
+		double 	unitLength 	= 62.5;
+		//double[] 	localMaxZ 	= {0, 0, 0, 0}; //Front right, back right, back left, front left (Clockwise from right front)
+		double[][]	topLinkCoords = new double[4][3];
+	
+		//Body CSGs 
+		CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
+		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20").roty(180)).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25);
+		CSG spine 		= cChannelRef.movez(-1.5 * unitLength).union(cChannelRef.rotx(180).movez(-0.5 * unitLength));
+		CSG mainBody    	= spine.union(crossChannel).union(crossChannel.movex(-numPanels * unitLength));
+	
+		//Utilities
+		def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
+	
+		//Arrays
+		ArrayList<ArrayList<Double>> corners = [ [-unitLength * numPanels/2, unitLength/2], [unitLength * numPanels/2, -unitLength/2], [unitLength * numPanels/2, unitLength/2], [-unitLength * numPanels/2, -unitLength/2] ]; //x, y
+		ArrayList<CSG> topLinks = new ArrayList<CSG>();
+		ArrayList<CSG> bodyParts = new ArrayList<CSG>();
+		ArrayList<CSG> attachmentParts = new ArrayList<CSG>();
+		ArrayList<CSG> immobileLinks = new ArrayList<CSG>();
+	
+		//12 Total links per leg -> we want coords for the highest link on each leg
+		int round = 0; //Three rounds per leg
+		int loc = 0; //leg -> corresponds to index for localMaxZ (back left, front right, front left, back right)
+		for(DHParameterKinematics l:base.getLegs()){
+			
+			TransformNR position = l.getRobotToFiducialTransform();
+			Transform csgTrans = TransformFactory.nrToCSG(position);
+	
+			LinkConfiguration conf = l.getLinkConfiguration(0);
+			ArrayList<DHLink> dhLinks=l.getChain().getLinks();
+			DHLink dh = dhLinks.get(0);
+			HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
+			CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
+									.rotz(180+Math.toDegrees(dh.getTheta()))
+			CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
 
-		/*
-		int minDist = 99999;
-		int currDist = 0;
+			
+			for(CSG attachment:	generateCad(l,0)){ //3x per leg, total of 12
+				CSG immobileLink = remoteLegPiece.createBaseLink2(servoReference, horn, 80);
+
+				//attachmentParts.add(attachment.transformed(csgTrans).movez(300).setColor(javafx.scene.paint.Color.AQUA))
+				
+				//println "attach:" + attachment.toString()
+				//attachmentParts.add(immobileLink.transformed(csgTrans).setColor(javafx.scene.paint.Color.AQUA));
+				topLinks.add(immobileLink.transformed(csgTrans));
+	
+				if(attachment.getBounds().getMax().z > topLinkCoords[loc][2])
+				{
+					Vector3d topLink = attachment.transformed(csgTrans).getBounds().getMax()
+					topLinkCoords[loc][0] = topLink.x
+					topLinkCoords[loc][1] = topLink.y
+					topLinkCoords[loc][2] = topLink.z
+
+					immobileLinks.add(immobileLink.transformed(csgTrans));
+		
+					println "loc: " + loc + " new coords: " + topLinkCoords[loc][0] + " " + topLinkCoords[loc][1] + " " + topLinkCoords[loc][2]
+				}
+				else
+					println attachment.getBounds().getMax().z + " failed @ loc " + loc;
+			}
+			loc++;
+			/*
+			if(++round % 2 == 0)
+			{
+				loc++;
+				round = 0;
+				//print "round is " + round + " and loc is " + loc;
+			}
+			*/
+			println "end of getLegs"
+		}
+	
+		for(double[] e : topLinkCoords)
+		{
+			println "x: " + e[0] + ", y: " + e[1] + ", z: " + e[2]
+		}
+
+		for(CSG e : immobileLinks)
+		{
+			System.out.println(e.toString());
+		}
+		
 		for(int i = 0; i < 4; i++)
 		{
-			currDist = sqrt( Math.pow(coords.get(0) - ) )
+			ArrayList<CSG> coords = corners.get(i);
+			CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1) + Math.signum(coords.get(1)) * unitLength);
+			
+	
+			
+			int minDist = 99999;
+			int minJ;
+			int currDist = 0;
+			for(int j = 0; j < 4; j++)
+			{
+				currDist = Math.sqrt( Math.pow(coords.get(0) - topLinkCoords[j][0], 2) + Math.pow(coords.get(1) - topLinkCoords[j][1], 2) )
+				if(currDist < minDist)
+				{
+					minDist = currDist;
+					minJ = j;
+				}
+			}
+			
+			attachmentParts.add(cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength).union(immobileLinks.get(i)).hull()); 
+			
 		}
-		*/
-	}
-	
-	print "in generateBody"
-	for(ArrayList<Double> coords : corners)
-	{
-		print coords[0] + " : x"
-		println coords[1] + " : y"
-	}
-
-
-	add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(maxZ), base.getRootListener());
-	add(bodyParts, mainBody.movez(maxZ), 	  base.getRootListener())
-	add(bodyParts, attachmentParts, base.getRootListener())
-	
 		
+		//print "in generateBody"
+		for(ArrayList<Double> coords : corners)
+		{
+			print coords[0] + " : x"
+			println coords[1] + " : y"
+		}
 	
-	return bodyParts;
+	
+		add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(topLinkCoords[0][2]), base.getRootListener());
+		add(bodyParts, mainBody.movez(topLinkCoords[0][2]), 	  base.getRootListener())
+		add(bodyParts, attachmentParts, base.getRootListener())
+		
+			
+		
+		return bodyParts;
 	}
 
 
@@ -307,11 +347,11 @@ return new ICadGenerator(){
 	{
 		spine = solidRectFromCSG(spine)
 		CSG ribs = makeRib(ribVals[0][0], ribVals[0][1], matThickness, spine).movex(ribVals[0][2]); 
-		println("Rib with dimensions " + ribVals[0][0] + " " + ribVals[0][1] + " " + matThickness + " " + ribVals[0][2]);
+		//println("Rib with dimensions " + ribVals[0][0] + " " + ribVals[0][1] + " " + matThickness + " " + ribVals[0][2]);
 		for(int i = 1; i < ribVals.length; i++)
 		{
 			ribs = ribs.union(makeRib(ribVals[i][0], ribVals[i][1], matThickness, spine).movex(ribVals[i][2]));
-			println("Rib with dimensions " + ribVals[i][0] + " " + ribVals[i][1] + " " + matThickness + " " + ribVals[i][2]);
+			//println("Rib with dimensions " + ribVals[i][0] + " " + ribVals[i][1] + " " + matThickness + " " + ribVals[i][2]);
 		}
 		return ribs;
 	}
@@ -320,11 +360,11 @@ return new ICadGenerator(){
 	{
 		spine = solidRectFromCSG(spine)
 		CSG ribs = makeVexRib(ribVals[0][0], ribVals[0][1], matThickness, spine).movex(ribVals[0][2]); 
-		println("Rib with dimensions " + ribVals[0][0] + " " + ribVals[0][1] + " " + matThickness + " " + ribVals[0][2]);
+		//println("Rib with dimensions " + ribVals[0][0] + " " + ribVals[0][1] + " " + matThickness + " " + ribVals[0][2]);
 		for(int i = 1; i < ribVals.length; i++)
 		{
 			ribs = ribs.union(makeVexRib(ribVals[i][0], ribVals[i][1], matThickness, spine).movex(ribVals[i][2]));
-			println("Rib with dimensions " + ribVals[i][0] + " " + ribVals[i][1] + " " + matThickness + " " + ribVals[i][2]);
+			//println("Rib with dimensions " + ribVals[i][0] + " " + ribVals[i][1] + " " + matThickness + " " + ribVals[i][2]);
 		}
 		return ribs;
 	}
