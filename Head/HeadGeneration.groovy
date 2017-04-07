@@ -7,6 +7,8 @@ import eu.mihosoft.vrl.v3d.FileUtil;
 
 class Headmaker implements IParameterChanged{
 	boolean performMinkowski = true;
+	ArrayList<CSG> mink
+	int minkIndex
 	
 	boolean makeCutsheetStorage = false
 	HashMap<Double,CSG> eyeCache=new HashMap<>();
@@ -639,7 +641,15 @@ class Headmaker implements IParameterChanged{
 			mechPlate = mechPlate.difference(jawHingeParts)
 			mechPlate = mechPlate.difference(leftSupport)
 			mechPlate = mechPlate.difference(rightSupport)
-			mechPlate = mechPlate.difference(upperHead)
+			if (performMinkowski == true) {
+				CSG mechPlateIntersect = mechPlate.intersect(upperHead)
+				mechPlateIntersect = runMinkowski(mechPlateIntersect, "mechPlate")
+				mechPlate = mechPlate.difference(mechPlateIntersect)
+			}
+			else {
+				mechPlate = mechPlate.difference(upperHead)
+			}
+			
 			if(mechPlate.touching(eyePan))
 				mechPlate = mechPlate.difference(eyePan)
 			if(mechPlate.touching(eyeTilt))
@@ -758,8 +768,14 @@ class Headmaker implements IParameterChanged{
 
 			def eyeRings = generateEyeRings(upperHeadPart,eyeXdistance-eyeLidPinDiam*3/2,eyeHeight)
 			
-			mechPlate = mechPlate
-						.difference(eyeRings)
+			if (performMinkowski == true) {
+				CSG eyeRingsIntersect = mechPlate.intersect(eyeRings)
+				eyeRingsIntersect = runMinkowski(eyeRingsIntersect, "eyeRings")
+				mechPlate = mechPlate.difference(eyeRingsIntersect)
+			}
+			else {
+				mechPlate = mechPlate.difference(eyeRings)
+			}
 			eyePlate = eyePlate
 						.difference(eyeRings.collect{
 							CSG slice = eyePlate.intersect(it)
@@ -783,7 +799,7 @@ class Headmaker implements IParameterChanged{
 						})
 						.difference(new Cube(100, 10, 30).toCSG().movez(130))
 
-			if (performMinkowski == false) {
+			/*if (performMinkowski == true) {
 				println "Started upperHeadMinkowski"
 				ArrayList<CSG> upperHeadPartMink = upperHeadPart.minkowski(new Cube(0.5).toCSG())
 				int index = 1;
@@ -793,13 +809,13 @@ class Headmaker implements IParameterChanged{
 					index = index + 1;
 				}
 				println "Finished upperHeadMinkowski"
-			}
+			}*/
 
 						//MAYBE HERE 2
 			
 			CSG eyeRingPlate = eyeRings.get(0)
 
-			if (performMinkowski == true) {
+			/*if (performMinkowski == true) {
 				println "Starting eyeRingMinkowski"
 				ArrayList<CSG> eyeRingsMink = eyeRingPlate.minkowski(new Cube(0.5).toCSG())
 				int eyeRingsIndex = 1;
@@ -809,7 +825,7 @@ class Headmaker implements IParameterChanged{
 					eyeRingsIndex = eyeRingsIndex + 1
 				}
 				println "Finished eyeRingMinkowski"
-			}
+			}*/
 			
 			/*
 			def eyeLids = [eyeLid(leyeDiam.getMM())
@@ -1556,6 +1572,19 @@ class Headmaker implements IParameterChanged{
 		
 		return upperlid
 	}
+
+	public CSG runMinkowski(CSG base, String name) {
+		println "Starting Minkowski " + name
+		mink = base.minkowski(new Cube(printerOffset.getMM()).toCSG())
+		minkIndex = 1
+		for (CSG c : mink) {
+			base = base.union(c)
+			println "Minkowski " + name + " " + minkIndex + " of " + mink.size()
+			minkIndex = minkIndex + 1
+		}
+		println "Finished Minkowski " + name
+		return base
+	}
 }
 if(args!=null)
 	return new Headmaker().makeHead(args.get(0))
@@ -1581,3 +1610,11 @@ ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
 def allParts = fullHead.collect { it.prepForManufacturing() } 
 CSG cutSheet = allParts.get(0).union(allParts)*/
 return fullHead
+
+/**
+ * Step 1: Flat full base before any holes are taken out
+ * Take collection of the list of upper head part, and .intersect with flat full base
+ * Step 2: take the .minkowksi of the intersection
+ * Step 3: write a for each loop of the minkowski, and .union with the intersection of the flat full base
+ * Step 4: .difference the entire intersection with the flat full base to create puffy holes
+ */
