@@ -161,7 +161,6 @@ class Headmaker implements IParameterChanged{
 						.movex(- JawSideWidth.getMM())
 				).scalez(100).movez(-5))
 							
-			BowlerStudioController.setCsg([bottomJaw]);
 			mechPlate=mechPlate 
 				.movez(jawHeight.getMM())
 			
@@ -619,7 +618,61 @@ class Headmaker implements IParameterChanged{
 											 				.union(it)
 											 				.hull()
 											 	}
-			eyePlate = eyePlate	.difference(upperHeadPart,upperHeadPart.movex(10))
+			if (performMinkowski == true) {
+				CSG eyePlateIntersect = eyePlate.intersect(upperHeadPart)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "upperHeadPart #1")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+			
+				eyePlateIntersect = eyePlate.intersect(upperHeadPart.movex(10))
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "upperHeadPart #2")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(bolts.movex(firstEyeBoltDistance).movey(-eyeBoltDistance).movez(eyeHeight))
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "bolts #1")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(bolts.rotz(180).movex(firstEyeBoltDistance).movey(eyeBoltDistance).movez(eyeHeight))
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "bolts #1")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(eyePan)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "eyePan")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(eyeTilt)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "eyeTilt")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(eyeBoltPan1)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "eyeBoltPan1")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(eyeBoltPan2)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "eyeBoltPan2")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(eyeKeepAway)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "eyeKeepAway")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(jawHingeParts)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "jawHingeParts")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(leftSupport)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "leftSupport")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(rightSupport)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "rightSupport")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+
+				eyePlateIntersect = eyePlate.intersect(jawKeepaway)
+				eyePlateIntersect = runMinkowski(eyePlateIntersect, "jawKeepaway")
+				eyePlate = eyePlate.difference(eyePlateIntersect)
+			}
+			else {
+				eyePlate = eyePlate.difference(upperHeadPart,upperHeadPart.movex(10))
 							.difference(bolts
 										.movex(firstEyeBoltDistance)
 										.movey(-eyeBoltDistance)
@@ -635,6 +688,7 @@ class Headmaker implements IParameterChanged{
 							.difference(leftSupport)
 							.difference(rightSupport)
 							.difference(jawKeepaway)
+			}
 			BowlerStudioController.addCsg(eyePlate)
 			
 			// Minkowski operations
@@ -695,19 +749,19 @@ class Headmaker implements IParameterChanged{
 			BowlerStudioController.addCsg(mechPlate)
 
 			if (performMinkowski == true) {
-				CSG bottomJawIntersect = mechPlate.intersect(LeftSideJaw)
+				CSG bottomJawIntersect = bottomJaw.intersect(LeftSideJaw)
 				bottomJawIntersect = runMinkowski(bottomJawIntersect, "LeftSideJaw")
 				bottomJaw = bottomJaw.difference(bottomJawIntersect)
 
-				bottomJawIntersect = mechPlate.intersect(RightSideJaw)
+				bottomJawIntersect = bottomJaw.intersect(RightSideJaw)
 				bottomJawIntersect = runMinkowski(bottomJawIntersect, "RightSideJaw")
 				bottomJaw = bottomJaw.difference(bottomJawIntersect)
 
-				bottomJawIntersect = mechPlate.intersect(tSlotTabsWithHole().rotz(90).movey(jawAttachOffset))
+				bottomJawIntersect = bottomJaw.intersect(tSlotTabsWithHole().rotz(90).movey(jawAttachOffset))
 				bottomJawIntersect = runMinkowski(bottomJawIntersect, "tSlotTabsWithHole #1")
 				bottomJaw = bottomJaw.difference(bottomJawIntersect)
 
-				bottomJawIntersect = mechPlate.intersect(tSlotTabsWithHole().rotz(90).movey(-jawAttachOffset))
+				bottomJawIntersect = bottomJaw.intersect(tSlotTabsWithHole().rotz(90).movey(-jawAttachOffset))
 				bottomJawIntersect = runMinkowski(bottomJawIntersect, "tSlotTabsWithHole #2")
 				bottomJaw = bottomJaw.difference(bottomJawIntersect)
 			}
@@ -723,6 +777,9 @@ class Headmaker implements IParameterChanged{
 										.movey(-jawAttachOffset) 	
 									)
 			}
+
+			BowlerStudioController.setCsg([bottomJaw]);
+			
 			ArrayList<CSG> washers = new ArrayList<CSG>()
 			/*
 				double eyeLinkageLength = eyemechRadius.getMM()
