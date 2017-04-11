@@ -6,8 +6,9 @@ import java.nio.file.Paths;
 import eu.mihosoft.vrl.v3d.FileUtil;
 
 class Headmaker implements IParameterChanged{
-	boolean performMinkowski = true;
-	boolean exportSTL = true;
+	boolean performMinkowski = false;
+	boolean exportSTL = false;
+	boolean fastEye = true;
 	ArrayList<CSG> mink
 	int minkIndex
 	
@@ -47,6 +48,11 @@ class Headmaker implements IParameterChanged{
 	 * change the default values in LengthParameters to make changes perminant
 	 */
 	ArrayList<CSG> makeHead(boolean makeCutSheet){
+		if (makeCutSheet == true) {
+			performMinkowski = true
+			exportSTL = true
+			fastEye = false
+		}
 		makeCutsheetStorage= makeCutSheet
 		if(cachedParts==null){
 			println "All Parts was null"
@@ -1161,9 +1167,11 @@ class Headmaker implements IParameterChanged{
 			println "getting Eye cached"
 			return eyeCache.get(diameter).clone()
 		}
-		CSG fastEye = new Sphere(diameter/2).toCSG()
-		eyeCache.put(diameter,fastEye)
-		return fastEye
+		if (fastEye == true) {
+			CSG fastEye = new Sphere(diameter/2).toCSG()
+			eyeCache.put(diameter,fastEye)
+			return fastEye
+		}
 		double cupOffset = 4
 		ballJointKeepAway= ballJointKeepAway
 						.union(
