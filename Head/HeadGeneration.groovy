@@ -620,15 +620,15 @@ class Headmaker implements IParameterChanged{
 											 				.hull()
 											 	}
 			if (performMinkowski == true) {
-				eyePlate = runMinkowski(eyePlate, upperHeadPart, "upperHeadPart #1")
-				eyePlate = runMinkowski(eyePlate, upperHeadPart.movex(10), "upperHeadPart #2")
-				eyePlate = runMinkowski(eyePlate, bolts.movex(firstEyeBoltDistance).movey(-eyeBoltDistance).movez(eyeHeight), "bolts #1")
-				eyePlate = runMinkowski(eyePlate, bolts.rotz(180).movex(firstEyeBoltDistance).movey(eyeBoltDistance).movez(eyeHeight), "bolts #1")
-				eyePlate = runMinkowski(eyePlate, eyePan, "eyePan")
-				eyePlate = runMinkowski(eyePlate, eyeTilt, "eyeTilt")
-				eyePlate = runMinkowski(eyePlate, eyeBoltPan1, "eyeBoltPan1")
-				eyePlate = runMinkowski(eyePlate, eyeBoltPan2, "eyeBoltPan2")
-				eyePlate = runMinkowski(eyePlate, eyeKeepaway, "eyeKeepAway")
+				eyePlate = runMinkowski(eyePlate, [upperHeadPart], "upperHeadPart #1")
+				eyePlate = runMinkowski(eyePlate, [upperHeadPart.movex(10)], "upperHeadPart #2")
+				eyePlate = runMinkowski(eyePlate, [bolts.movex(firstEyeBoltDistance).movey(-eyeBoltDistance).movez(eyeHeight)], "bolts #1")
+				eyePlate = runMinkowski(eyePlate, [bolts.rotz(180).movex(firstEyeBoltDistance).movey(eyeBoltDistance).movez(eyeHeight)], "bolts #1")
+				eyePlate = runMinkowski(eyePlate, [eyePan], "eyePan")
+				eyePlate = runMinkowski(eyePlate, [eyeTilt], "eyeTilt")
+				eyePlate = runMinkowski(eyePlate, [eyeBoltPan1], "eyeBoltPan1")
+				eyePlate = runMinkowski(eyePlate, [eyeBoltPan2], "eyeBoltPan2")
+				eyePlate = runMinkowski(eyePlate, [eyeKeepAway], "eyeKeepAway")
 				eyePlate = runMinkowski(eyePlate, jawHingeParts, "jawHingeParts")
 				eyePlate = runMinkowski(eyePlate, leftSupport, "leftSupport")
 				eyePlate = runMinkowski(eyePlate, rightSupport, "rightSupport")
@@ -674,7 +674,7 @@ class Headmaker implements IParameterChanged{
 			
 			if (mechPlate.touching(eyePan)) {
 				if (performMinkowski == true) {
-					mechPlate = runMinkowski(mechPlate, eyePan, "eyePan")
+					mechPlate = runMinkowski(mechPlate, [eyePan], "eyePan")
 				}
 				else {
 					mechPlate = mechPlate.difference(eyePan)
@@ -682,7 +682,7 @@ class Headmaker implements IParameterChanged{
 			}
 			if (mechPlate.touching(eyeTilt)) {
 				if (performMinkowski == true) {
-					mechPlate = runMinkowski(mechPlate, eyeTilt, "eyeTilt")
+					mechPlate = runMinkowski(mechPlate, [eyeTilt], "eyeTilt")
 				}
 				else {
 					mechPlate = mechPlate.difference(eyeTilt)
@@ -691,10 +691,10 @@ class Headmaker implements IParameterChanged{
 			BowlerStudioController.addCsg(mechPlate)
 
 			if (performMinkowski == true) {
-				bottomJaw = runMinkowski(bottomJaw, LeftSideJaw, "LeftSideJaw")
-				bottomJaw = runMinkowski(bottomJaw, RightSideJaw, "RightSideJaw")
-				bottomJaw = runMinkowski(bottomJaw, tSlotTabsWithHole().rotz(90).movey(jawAttachOffset), "tSlotTabsWithHole #1")
-				bottomJaw = runMinkowski(bottomJaw, tSlotTabsWithHole().rotz(90).movey(-jawAttachOffset), "tSlotTabsWithHole #2")
+				bottomJaw = runMinkowski(bottomJaw, [LeftSideJaw], "LeftSideJaw")
+				bottomJaw = runMinkowski(bottomJaw, [RightSideJaw], "RightSideJaw")
+				bottomJaw = runMinkowski(bottomJaw, [tSlotTabsWithHole().rotz(90).movey(jawAttachOffset)], "tSlotTabsWithHole #1")
+				bottomJaw = runMinkowski(bottomJaw, [tSlotTabsWithHole().rotz(90).movey(-jawAttachOffset)], "tSlotTabsWithHole #2")
 			}
 			else {
 				bottomJaw = bottomJaw.difference(
@@ -1604,7 +1604,7 @@ class Headmaker implements IParameterChanged{
 		return upperlid
 	}
 
-	public CSG runMinkowski(CSG base, CSG cut, String name) {
+	public CSG runMinkowski(CSG base, ArrayList<CSG> cut, String name) {
 		println "Starting Minkowski " + name
 		CSG intersect = base.intersect(cut)
 		mink = intersect.minkowski(new Cube(printerOffset.getMM()).toCSG())
