@@ -621,7 +621,7 @@ public CSG createFoot(CSG servo, CSG hornRef, double xLength){
 	connector = connector.difference(connHole)
 
 	int endLength = (xLength - 80)/2 + 61 +20 - 2
-	CSG footEnd = new Sphere(15).toCSG()
+	CSG footEnd = new Sphere(17).toCSG()
 							.movex(endLength)
 							.movez(-25.5)
 	CSG connectorEnd1 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
