@@ -565,7 +565,7 @@ int servoZ = vitaminData.get("servoShaftSideHeight")//31.5
 return mainLeg
 }
 
-public CSG createFoot(CSG servo, CSG hornRef, int xLength){
+public CSG createFoot(CSG servo, CSG hornRef, double xLength){
 
 	//Recreation of the CSGs from the first part, mainLeg
 	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
