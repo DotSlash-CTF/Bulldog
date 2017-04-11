@@ -139,11 +139,6 @@ class Headmaker implements IParameterChanged{
 			ArrayList<CSG> testing = Extrude.bezier(parts,[0,0,0],[100,0,0],[140,0,30]).collect{
 				it.movez(0)
 			}
-			
-			//CSG bottomJaw = testing.get(0);
-			//for (int i = 1; i < testing.size(); i++) {
-			//	bottomJaw = bottomJaw.union(testing.get(i));
-			//}
 	
 			CSG bottomJaw = mechPlateJaw.intersect(mechPlateJaw.difference(
 					new Cylinder(	headDiameter.getMM()/2 - thickness.getMM()*4,
