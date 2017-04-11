@@ -1607,7 +1607,7 @@ class Headmaker implements IParameterChanged{
 	public CSG runMinkowski(CSG base, CSG cut, String name) {
 		println "Starting Minkowski " + name
 		CSG intersect = base.intersect(cut)
-		mink = base.minkowski(new Cube(printerOffset.getMM()).toCSG())
+		mink = intersect.minkowski(new Cube(printerOffset.getMM()).toCSG())
 		minkIndex = 1
 		for (CSG c : mink) {
 			intersect = intersect.union(c)
