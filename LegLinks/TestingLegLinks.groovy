@@ -26,7 +26,7 @@ int rotLength = 80//80--100
 int baseTiltL = 104//104--130
 boolean normFalseRotTrue = false
 
-CSG foot = remoteLegPiece.createFoot(servo, horn, length)
+CSG foot = remoteLegPiece.createFoot(servo, horn, 61.5+61.4*2.75/3.75)//back: 96+96*2.75/3.75
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
 
 ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length, connector)
