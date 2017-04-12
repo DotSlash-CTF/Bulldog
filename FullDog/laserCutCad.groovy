@@ -59,7 +59,7 @@ return new ICadGenerator(){
 		CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
 		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20").roty(180)).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25);
 		CSG spine 		= cChannelRef.movez(-1.5 * unitLength).union(cChannelRef.rotx(180).movez(-0.5 * unitLength));
-		CSG mainBody    	= spine.union(crossChannel).union(crossChannel.movex(-numPanels * unitLength));
+		CSG mainBody    	= spine.union(crossChannel.movex(0.1 * -unitLength-0.25).movey(-6)).union(crossChannel.movex(-numPanels * unitLength + 0.1 * unitLength-0.25).movey(-6));
 	
 		//Utilities
 		def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
@@ -138,8 +138,24 @@ return new ICadGenerator(){
 			ArrayList<CSG> coords = corners.get(i);
 			CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1) + Math.signum(coords.get(1)) * unitLength);
 			
-	
+			if(i == 0) //back left
+			{
+				cornerBlock = cornerBlock/*.movey(2)*/.movex(4.5).difference(crossChannel);
+			}
+			else if(i == 1) //front right
+			{
+				cornerBlock = cornerBlock/*.movey(-9)*/.movex(-4.7).difference(crossChannel);
+			}
+			else if(i == 2) //front left
+			{
+				cornerBlock = cornerBlock/*.movey(9)*/.movex(-4.7).difference(crossChannel);
+			}
+			else if(i == 3) //back right
+			{
+				cornerBlock = cornerBlock/*.movey(-2)*/.movex(4.5).difference(crossChannel);
+			}
 			
+			/*
 			int minDist = 99999;
 			int minJ;
 			int currDist = 0;
@@ -152,6 +168,7 @@ return new ICadGenerator(){
 					minJ = j;
 				}
 			}
+			*/
 			
 			attachmentParts.add(cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength).union(immobileLinks.get(i)).hull()); 
 			
