@@ -17,7 +17,7 @@ class Neck {
 		CSG base = new Cube(xSize, ySize, zSize).toCSG()
 		CSG screw = Vitamins.get("capScrew","8#32").makeKeepaway(1.0)
 
-		base = base.movex(188).movez(zSize / 2)
+		base = base.movex(188).movez((zSize / 2) + 0.8)
 		base = base.toXMin().movex(channel.getMaxX() - ((base.getMaxX()-base.getMinX())/2)).difference(channel)
 		for (int i = 0; i < 20; i++) {
 			base = base.difference(channel)
