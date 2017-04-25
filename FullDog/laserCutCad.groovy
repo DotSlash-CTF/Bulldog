@@ -70,6 +70,7 @@ return new ICadGenerator(){
 		ArrayList<CSG> bodyParts = new ArrayList<CSG>();
 		ArrayList<CSG> attachmentParts = new ArrayList<CSG>();
 		ArrayList<CSG> immobileLinks = new ArrayList<CSG>();
+		ArrayList<CSG> savedImmLinks = new ArrayList<CSG>();
 	
 		//12 Total links per leg -> we want coords for the highest link on each leg
 		int round = 0; //Three rounds per leg
@@ -105,6 +106,7 @@ return new ICadGenerator(){
 					topLinkCoords[loc][2] = topLink.z
 
 					immobileLinks.add(immobileLink.transformed(csgTrans));
+					savedImmLinks.add(immobileLink.transformed(csgTrans));
 		
 					println "loc: " + loc + " new coords: " + topLinkCoords[loc][0] + " " + topLinkCoords[loc][1] + " " + topLinkCoords[loc][2]
 				}
@@ -112,16 +114,10 @@ return new ICadGenerator(){
 					println attachment.getBounds().getMax().z + " failed @ loc " + loc;
 			}
 			loc++;
-			/*
-			if(++round % 2 == 0)
-			{
-				loc++;
-				round = 0;
-				//print "round is " + round + " and loc is " + loc;
-			}
-			*/
 			println "end of getLegs"
 		}
+
+		/* Debug Print Block
 	
 		for(double[] e : topLinkCoords)
 		{
@@ -133,6 +129,8 @@ return new ICadGenerator(){
 			System.out.println(e.toString());
 		}
 		
+		*/
+		
 		for(int i = 0; i < 4; i++)
 		{
 			ArrayList<CSG> coords = corners.get(i);
@@ -140,37 +138,25 @@ return new ICadGenerator(){
 			
 			if(i == 0) //back left
 			{
-				cornerBlock = cornerBlock/*.movey(2)*/.movex(4.5).difference(crossChannel);
+				cornerBlock = cornerBlock/*.movey(2)*/.movex(9.4).difference(crossChannel);
 			}
 			else if(i == 1) //front right
 			{
-				cornerBlock = cornerBlock/*.movey(-9)*/.movex(-4.7).difference(crossChannel);
+				cornerBlock = cornerBlock.movey(-23.5)/*.movex(-9.4)*/.difference(crossChannel);
 			}
 			else if(i == 2) //front left
 			{
-				cornerBlock = cornerBlock/*.movey(9)*/.movex(-4.7).difference(crossChannel);
+				cornerBlock = cornerBlock.movey(23.5)/*.movex(-9.4)*/.difference(crossChannel);
 			}
 			else if(i == 3) //back right
 			{
-				cornerBlock = cornerBlock/*.movey(-2)*/.movex(4.5).difference(crossChannel);
+				cornerBlock = cornerBlock/*.movey(-2)*/.movex(9.4).difference(crossChannel);
 			}
-			
-			/*
-			int minDist = 99999;
-			int minJ;
-			int currDist = 0;
-			for(int j = 0; j < 4; j++)
-			{
-				currDist = Math.sqrt( Math.pow(coords.get(0) - topLinkCoords[j][0], 2) + Math.pow(coords.get(1) - topLinkCoords[j][1], 2) )
-				if(currDist < minDist)
-				{
-					minDist = currDist;
-					minJ = j;
-				}
-			}
-			*/
-			
-			attachmentParts.add(cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength).union(immobileLinks.get(i)).hull()); 
+
+			cornerBlock = cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength)
+			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i) ).hull() //largest piece - cornerBlock hulled to servo block
+									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
+			attachmentParts.add(hulledAttach.union(immobileLinks.get(i))); //hulledAttach includes cornerBlock
 			
 		}
 		
@@ -182,9 +168,9 @@ return new ICadGenerator(){
 		}
 	
 	
-		add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(topLinkCoords[0][2]), base.getRootListener());
-		add(bodyParts, mainBody.movez(topLinkCoords[0][2]), 	  base.getRootListener())
-		add(bodyParts, attachmentParts, base.getRootListener())
+		add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(topLinkCoords[0][2]), 	base.getRootListener());
+		add(bodyParts, mainBody.movez(topLinkCoords[0][2]), 	  										base.getRootListener())
+		add(bodyParts, attachmentParts, 															base.getRootListener())
 		
 			
 		
