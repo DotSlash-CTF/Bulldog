@@ -172,7 +172,7 @@ return new ICadGenerator(){
 	
 	
 		add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(topLinkCoords[0][2]), 	base.getRootListener());
-		//add(bodyParts, mainBody, 	  															base.getRootListener());
+		add(bodyParts, mainBody, 	  															base.getRootListener());
 		add(bodyParts, attachmentParts, 															base.getRootListener());
 		
 			
