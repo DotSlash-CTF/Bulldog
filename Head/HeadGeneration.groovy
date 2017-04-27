@@ -1634,7 +1634,7 @@ CSG ballJoint = ballJointParts.get(0)
 CSG ballJointKeepAway = ballJointParts.get(1)
 
 //
-ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
+ArrayList<CSG> fullHead = new Headmaker().makeHead(true)
 
 return fullHead
 

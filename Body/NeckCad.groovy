@@ -23,12 +23,12 @@ class Neck {
 		CSG screw = screw0.union(screw1.union(screw2.union(screw3)))
 
 		CSG servo = Vitamins.get("hobbyServo","hv6214mg")
-		CSG horn = Vitamins.get( "hobbyServo","hv6214mg_1")
+		//CSG horn = Vitamins.get("hobbyServo","hv6214mg_1")
 
 		servo = servo.rotz(90).toZMin().movex((servo.getMaxX()-servo.getMinX())/2)
 
 		base = base.movez((zSize / 2) + 0.8)
-		base = base.difference(servo)
+		base = base.difference(servo.movez(-2))
 		base = base.difference(new Cube(10, 21, 30).toCSG().movex(-24).movez(15)).difference(new Cube(10, 21, 30).toCSG().movex(24).movez(15))
 		base = base.toXMin().movex(channel.getMaxX() - ((base.getMaxX()-base.getMinX())/2)).difference(channel)
 		
@@ -36,9 +36,9 @@ class Neck {
 			base = base.difference(channel)
 		}
 
-		base = base.union(screw.roty(180).movex(channel.getMaxX()))
+		base = base.difference(screw.roty(180).movex(channel.getMaxX()))
 		
-		fullHead.add(channel)
+		//fullHead.add(channel)
 		//fullHead.add(servo)
 		fullHead.add(base)
 		return [fullHead]
@@ -58,3 +58,5 @@ class Neck {
 ArrayList<CSG> fullHead = new Neck().makeNeck()
 
 return fullHead
+
+//474 in LegMethods
