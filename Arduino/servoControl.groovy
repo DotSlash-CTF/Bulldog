@@ -28,7 +28,7 @@ if(dyiodev==null){
 	d = (DyIO) dyiodev
 }
 
-BowlerJInputDevice g=null;// Create a variable to store the device
+  BowlerJInputDevice g=null;// Create a variable to store the device
 //Check if the device already exists in the device Manager
 if(DeviceManager.getSpecificDevice(BowlerJInputDevice.class, "jogController")==null){
 	//BowlerStudio.speak("I did not find a device named jogController. Select a port to connect to the device.");
@@ -156,7 +156,7 @@ timer.schedule(new TimerTask() {
 // This will update for the current minute, it will be updated again in at most one minute.
 
 
-IJInputEventListener listener = new IJInputEventListener() {
+/* IJInputEventListener listener = new IJInputEventListener() {
 	@Override public void onEvent(Component comp, Event event1,float value, String eventString) {
 		//if (listenerCounter % 10 == 0) {
 		
@@ -228,7 +228,7 @@ g.addListeners(listener);
 // wait while the application is not stopped
 println "Running controller top level"
 
-
+*/
 public int WalkMotion (int speed, int min, int max, boolean directionLoop, int position) {
 	//Thread.sleep(600);
 	this.position = position;
@@ -289,4 +289,4 @@ try{
 }
 println "Clearing controller top level"
 //remove listener and exit
-g.removeListeners(listener)
+//g.removeListeners(listener)
