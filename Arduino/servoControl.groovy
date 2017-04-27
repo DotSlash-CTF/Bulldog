@@ -279,7 +279,7 @@ try{
 		}else{
 			move=0
 			turn=0
-			//d.flush(0)
+			d.flush(0)
 		}
 	}
 }catch (java.lang.InterruptedException ex){
@@ -289,4 +289,4 @@ try{
 }
 println "Clearing controller top level"
 //remove listener and exit
-//g.removeListeners(listener)
+g.removeListeners(listener)
