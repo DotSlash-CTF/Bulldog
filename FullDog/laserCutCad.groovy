@@ -26,7 +26,7 @@ return new ICadGenerator(){
 	double boltDimeMeasurment = boltMeasurments.get("outerDiameter")
 	double nutDimeMeasurment = nutMeasurments.get("width")
 	double nutThickMeasurment = nutMeasurments.get("height")
-	double[][] ribVals = [[150, 100, -20],  [200, 100, 30]];
+	double[][] ribVals = [[150, 100, -20],  [200, 100, 30]]; //To add a rib, just add numbers here - [height, width, xOffset]
 	DHParameterKinematics neck=null;
 	/**
 	 * Gets the all dh chains.
@@ -65,18 +65,20 @@ return new ICadGenerator(){
 		def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
 	
 		//Arrays
-		ArrayList<ArrayList<Double>> corners = [ [-unitLength * numPanels/2, unitLength/2], [unitLength * numPanels/2, -unitLength/2], [unitLength * numPanels/2, unitLength/2], [-unitLength * numPanels/2, -unitLength/2] ]; //x, y
-		ArrayList<CSG> topLinks = new ArrayList<CSG>();
-		ArrayList<CSG> bodyParts = new ArrayList<CSG>();
-		ArrayList<CSG> attachmentParts = new ArrayList<CSG>();
-		ArrayList<CSG> immobileLinks = new ArrayList<CSG>();
-		ArrayList<CSG> savedImmLinks = new ArrayList<CSG>();
+		ArrayList<CSG> bodyParts = new ArrayList<CSG>(); //The ultimate ArrayList of parts to be rendered
+		ArrayList<ArrayList<Double>> corners = [ 	[-unitLength * numPanels/2, unitLength/2], //x, y
+											[unitLength * numPanels/2, -unitLength/2], 
+											[unitLength * numPanels/2, unitLength/2], 
+											[-unitLength * numPanels/2, -unitLength/2] ]; //Pre-defined coords for placement of cornerBlocks
+		ArrayList<CSG> topLinks = new ArrayList<CSG>(); //Used solely for determining max height for moving mainBody, never added to robot
+		ArrayList<CSG> attachmentParts = new ArrayList<CSG>(); //Final shoulders - cornerBlocks hulled to links
+		ArrayList<CSG> immobileLinks = new ArrayList<CSG>(); //Just the links that hold the servos - never directly rendered
 	
 		//12 Total links per leg -> we want coords for the highest link on each leg
 		int round = 0; //Three rounds per leg
 		int loc = 0; //leg -> corresponds to index for localMaxZ (back left, front right, front left, back right)
 		for(DHParameterKinematics l:base.getLegs()){
-			
+
 			TransformNR position = l.getRobotToFiducialTransform();
 			Transform csgTrans = TransformFactory.nrToCSG(position);
 	
@@ -85,36 +87,30 @@ return new ICadGenerator(){
 			DHLink dh = dhLinks.get(0);
 			HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-									.rotz(180+Math.toDegrees(dh.getTheta()))
-			CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	
+									.rotz(180+Math.toDegrees(dh.getTheta()));
+			CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	;
 
 			
 			for(CSG attachment:	generateCad(l,0)){ //3x per leg, total of 12
 				CSG immobileLink = remoteLegPiece.createBaseLink2(servoReference, horn, 80);
-
-				//attachmentParts.add(attachment.transformed(csgTrans).movez(300).setColor(javafx.scene.paint.Color.AQUA))
-				
-				//println "attach:" + attachment.toString()
-				//attachmentParts.add(immobileLink.transformed(csgTrans).setColor(javafx.scene.paint.Color.AQUA));
 				topLinks.add(immobileLink.transformed(csgTrans));
 	
 				if(attachment.getBounds().getMax().z > topLinkCoords[loc][2])
 				{
-					Vector3d topLink = attachment.transformed(csgTrans).getBounds().getMax()
-					topLinkCoords[loc][0] = topLink.x
-					topLinkCoords[loc][1] = topLink.y
-					topLinkCoords[loc][2] = topLink.z
+					Vector3d topLink = attachment.transformed(csgTrans).getBounds().getMax();
+					topLinkCoords[loc][0] = topLink.x;
+					topLinkCoords[loc][1] = topLink.y;
+					topLinkCoords[loc][2] = topLink.z;
 
 					immobileLinks.add(immobileLink.transformed(csgTrans));
-					savedImmLinks.add(immobileLink.transformed(csgTrans));
 		
-					println "loc: " + loc + " new coords: " + topLinkCoords[loc][0] + " " + topLinkCoords[loc][1] + " " + topLinkCoords[loc][2]
+					//println "loc: " + loc + " new coords: " + topLinkCoords[loc][0] + " " + topLinkCoords[loc][1] + " " + topLinkCoords[loc][2]
 				}
-				else
-					println attachment.getBounds().getMax().z + " failed @ loc " + loc;
+				//else
+					//println attachment.getBounds().getMax().z + " failed @ loc " + loc;
 			}
 			loc++;
-			println "end of getLegs"
+			//println "end of getLegs";
 		}
 
 		/* Debug Print Block
