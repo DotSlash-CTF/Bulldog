@@ -57,7 +57,7 @@ return new ICadGenerator(){
 	
 		//Body CSGs 
 		CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
-		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20").roty(180)).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25);
+		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20").roty(180)).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25).scale(1.01);
 		CSG spine 		= cChannelRef.movez(-1.5 * unitLength).union(cChannelRef.rotx(180).movez(-0.5 * unitLength));
 		CSG mainBody    	= spine.union(crossChannel.movex(0.1 * -unitLength-0.25).movey(-6)).union(crossChannel.movex(-numPanels * unitLength + 0.1 * unitLength-0.25).movey(-6));
 	
@@ -140,7 +140,7 @@ return new ICadGenerator(){
 			
 			if(i == 0) //back left
 			{
-				cornerBlock = cornerBlock/*.movey(2)*/.movex(9.4)//.difference(crossChannel);
+				cornerBlock = cornerBlock.movey(-14.1).movex(9.4)//.difference(crossChannel);
 			}
 			else if(i == 1) //front right
 			{
@@ -152,15 +152,15 @@ return new ICadGenerator(){
 			}
 			else if(i == 3) //back right
 			{
-				cornerBlock = cornerBlock/*.movey(-2)*/.movex(9.4)//.difference(crossChannel);
+				cornerBlock = cornerBlock.movey(14.1).movex(9.4)//.difference(crossChannel);
 			}
 
 			cornerBlock = cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength)
-			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i) ).hull() //largest piece - cornerBlock hulled to servo block
+			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i).hull() ).hull() //largest piece - cornerBlock hulled to servo block
 									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
-			attachmentParts.add(hulledAttach.union(immobileLinks.get(i)).difference(mainBody).difference(mainBody.movey(9.4)).difference(mainBody.movey(-9.4)).setColor(javafx.scene.paint.Color.AQUA));
+			attachmentParts.add(hulledAttach.union(immobileLinks.get(i)).difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7)).setColor(javafx.scene.paint.Color.AQUA));
 		}
 		
 		//print "in generateBody"
@@ -172,7 +172,7 @@ return new ICadGenerator(){
 	
 	
 		add(bodyParts, makeVexRibCage(ribVals, matThickness.getMM(), spine.hull()).movez(topLinkCoords[0][2]), 	base.getRootListener());
-		add(bodyParts, mainBody, 	  															base.getRootListener());
+		//add(bodyParts, mainBody, 	  															base.getRootListener());
 		add(bodyParts, attachmentParts, 															base.getRootListener());
 		
 			
