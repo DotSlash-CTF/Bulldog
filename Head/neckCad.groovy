@@ -50,8 +50,10 @@ class HeadOnNeck implements ICadGenerator, IParameterChanged{
 			leyeDiam.setMM(60)
 			reyeDiam.setMM(60)
 			if(headParts==null)
-				headParts = (ArrayList<CSG> )ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "Head/HeadGeneration.groovy" ,  [false] )
-			
+			{
+				def headmaker = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "Head/HeadGeneration.groovy" ,  null )
+				headParts = headmaker.makeHead(false);
+			}
 			for(int i=0;i<headParts.size()-1;i++){
 				CSG part = headParts.get(i)
 				
