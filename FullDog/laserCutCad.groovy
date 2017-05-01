@@ -26,7 +26,7 @@ return new ICadGenerator(){
 	double boltDimeMeasurment = boltMeasurments.get("outerDiameter")
 	double nutDimeMeasurment = nutMeasurments.get("width")
 	double nutThickMeasurment = nutMeasurments.get("height")
-	double[][] ribVals = [[150, 100, -20],  [200, 100, 30], [150, 150, 10]]; //To add a rib, just add numbers here - [height, width, xOffset]
+	double[][] ribVals = [[200, 230, 50], [250, 230, 125], [150, 130, -50]]; //To add a rib, just add numbers here - [height, width, xOffset]
 	DHParameterKinematics neck=null;
 	/**
 	 * Gets the all dh chains.
