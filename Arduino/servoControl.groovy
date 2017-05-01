@@ -156,7 +156,7 @@ timer.schedule(new TimerTask() {
 // This will update for the current minute, it will be updated again in at most one minute.
 
 
-/* IJInputEventListener listener = new IJInputEventListener() {
+ IJInputEventListener listener = new IJInputEventListener() {
 	@Override public void onEvent(Component comp, Event event1,float value, String eventString) {
 		//if (listenerCounter % 10 == 0) {
 		
@@ -181,7 +181,7 @@ timer.schedule(new TimerTask() {
 				//Thread.sleep(25);
 				
 				//Thread.sleep(600);
-				//pan.getChannel().setCachedValue(values);
+				jaw.getChannel().setCachedValue(val);
 				
 				
 				
@@ -228,7 +228,7 @@ g.addListeners(listener);
 // wait while the application is not stopped
 println "Running controller top level"
 
-*/
+
 public int WalkMotion (int speed, int min, int max, boolean directionLoop, int position) {
 	//Thread.sleep(600);
 	this.position = position;
