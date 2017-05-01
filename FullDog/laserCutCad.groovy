@@ -26,7 +26,7 @@ return new ICadGenerator(){
 	double boltDimeMeasurment = boltMeasurments.get("outerDiameter")
 	double nutDimeMeasurment = nutMeasurments.get("width")
 	double nutThickMeasurment = nutMeasurments.get("height")
-	double[][] ribVals = [[150, 100, -20],  [200, 100, 30]]; //To add a rib, just add numbers here - [height, width, xOffset]
+	double[][] ribVals = [[150, 100, -20],  [200, 100, 30], [150, 150, 10]]; //To add a rib, just add numbers here - [height, width, xOffset]
 	DHParameterKinematics neck=null;
 	/**
 	 * Gets the all dh chains.
@@ -342,7 +342,7 @@ return new ICadGenerator(){
 		attachPoint2 = attachPoint2.difference(new Cylinder(outerRadius, 5, 30).toCSG().movey( (spine.getMaxY() - spine.getMinY()) * (89 / 224)).movez( (spine.getMaxZ() - spine.getMinZ()) / 2).movex(outerRadius))
 	
 		base = base.union(attachPoint).union(attachPoint2);
-		return base.difference(new Cube(100, 100, 100).toCSG().toZMin().movez(-100))
+		return base.difference(new Cube(1000, 1000, 1000).toCSG().toZMin().movez(-1000))
 	}
 
 	private CSG makeRibCage(double[][] ribVals, double matThickness, CSG spine)
