@@ -1144,7 +1144,7 @@ class Headmaker implements IParameterChanged{
 						printerOffset.getMM()
 		).toCSG()
 		CSG pin = new Sphere((boltDiam.getMM()*1.5)+
-						printerOffset.getMM(),30,15).toCSG()
+						printerOffset.getMM()/2,30,15).toCSG()
 		
 		CSG ringBox =new Cube(	boltDiam.getMM()*4,// X dimention
 			boltDiam.getMM()*4,// Y dimention
@@ -1620,6 +1620,19 @@ class Headmaker implements IParameterChanged{
 		println "Finished Minkowski " + name
 		return base.difference(intersect)
 	}
+
+	public CSG unionMinkowski(CSG base, String name) {
+		println "Starting Minkowski " + name
+		mink = base.minkowski(new Cube(printerOffset.getMM()).toCSG())
+		minkIndex = 1
+		for (CSG c : mink) {
+			base = base.union(c)
+			println "Minkowski " + name + " " + minkIndex + " of " + mink.size()
+			minkIndex = minkIndex + 1
+		}
+		println "Finished Minkowski " + name
+		return base
+	}
 }
 
 if(args!=null)
@@ -1634,7 +1647,7 @@ CSG ballJoint = ballJointParts.get(0)
 CSG ballJointKeepAway = ballJointParts.get(1)
 
 //
-ArrayList<CSG> fullHead = new Headmaker().makeHead(true)
+ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
 
 return fullHead
 
