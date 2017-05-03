@@ -35,6 +35,7 @@ ArrayList<CSG> basePan = remoteLegPiece.rotatedLegLink(servo, horn, rotLength)
 
 ArrayList<CSG> baseTilt = remoteLegPiece.createThigh(servo, horn, baseTiltL, connector.movex(23))
 
+CSG immobileLink = remoteLegPiece.createBaseLink2(servo, horn, 80);
 
 foot = foot.movex(20)
 connector = connector.makeKeepaway(-2)
@@ -64,6 +65,7 @@ connector.setManufactuing({CSG arg0 ->
 
 ArrayList<CSG> totalParts = imobile;
 totalParts.add(foot.movex(400))
+totalParts.add(immobileLink.movez(200))
 
 for(int i = 0; i < basePan.size(); i++)
 {

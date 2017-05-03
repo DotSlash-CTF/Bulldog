@@ -88,11 +88,14 @@ return new ICadGenerator(){
 			HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 									.rotz(180+Math.toDegrees(dh.getTheta()));
+			CSG servo = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
+						.get( "hobbyServo","hv6214mg")
 			CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	;
 
 			
 			for(CSG attachment:	generateCad(l,0)){ //3x per leg, total of 12
-				CSG immobileLink = remoteLegPiece.createBaseLink2(servoReference, horn, 80);
+				CSG immobileLink = remoteLegPiece.createBaseLink2(servo, horn, 80); ///////here
+				immobileLink = immobileLink.rotx(180)
 				topLinks.add(immobileLink.transformed(csgTrans));
 	
 				if(attachment.getBounds().getMax().z > topLinkCoords[loc][2])
