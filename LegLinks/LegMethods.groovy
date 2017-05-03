@@ -505,15 +505,6 @@ mainLeg =mainLeg.difference(screwHole)
 screwHole = screwHole.movey(10)
 mainLeg =mainLeg.difference(screwHole)
 
-//union barriers that will stop the cap (below) from moving onto the main leg
-CSG barrier1 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
-								.movez(servoZ/2+2)
-								.movex(-xLength/6.8 + (xLength - 80)/2-1.5)
-CSG barrier2 = new RoundedCube(2, servoY*2-1, 2).cornerRadius(0.2).toCSG()
-								.movez(servoZ/2+2)
-								.movex(47.65 + (xLength - 80)/2)
-mainLeg = mainLeg.union(barrier1).union(barrier2)
-
 mainLeg = mainLeg.movex(-servoX/2)
 return mainLeg
 
