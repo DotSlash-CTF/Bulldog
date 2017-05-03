@@ -795,7 +795,7 @@
 <name>Neck</name>
 	<cadEngine>
 		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
-		<file>Head/neckCad.groovy</file>
+		<file>Body/NeckCad.groovy</file>
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/bcb4760a449190206170.git</git>
@@ -1064,11 +1064,11 @@
 <baseToZframe>
 	<x>-200.0</x>
 	<y>0.0</y>
-	<z>350.0</z>
-	<rotw>1.0</rotw>
-	<rotx>-0.0</rotx>
-	<roty>-0.0</roty>
-	<rotz>-0.0</rotz>
+	<z>400.0</z>
+	<rotw>4.329780281177467E-17</rotw>
+	<rotx>0.7071067811865476</rotx>
+	<roty>4.329780281177466E-17</roty>
+	<rotz>-0.7071067811865475</rotz>
 </baseToZframe>
 
 </appendage>
