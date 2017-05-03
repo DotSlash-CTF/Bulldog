@@ -1143,8 +1143,7 @@ class Headmaker implements IParameterChanged{
 		CSG cup = new Sphere((boltDiam.getMM()*2.2 )-
 						printerOffset.getMM()
 		).toCSG()
-		CSG pin = new Sphere((boltDiam.getMM()*1.5)+
-						printerOffset.getMM()/2,30,15).toCSG()
+		CSG pin = new Sphere((boltDiam.getMM()*1.5),30,15).toCSG() //removed +printerOffset.getMM()/2
 		
 		CSG ringBox =new Cube(	boltDiam.getMM()*4,// X dimention
 			boltDiam.getMM()*4,// Y dimention
