@@ -12,10 +12,10 @@ class Neck {
 
 		int xSize = 70
 		int ySize = (channel.getMaxY() - channel.getMinY())
-		int zSize = 35
+		int zSize = 37
 
 		CSG base = new Cube(xSize, ySize, zSize).toCSG()
-		CSG screw0 = Vitamins.get("capScrew","8#32").makeKeepaway(1.0)
+		CSG screw0 = Vitamins.get("capScrew","8#32").makeKeepaway(-1.0).scalez(2).movez(0.3)
 		CSG screw1 = screw0.movey(12.7*2).movex(6.5)
 		CSG screw2 = screw0.movey(12.7*2).movex(6.5+12.7*2)
 		CSG screw3 = screw0.movey(-12.7*2).movex(6.5+12.7*2)
@@ -27,10 +27,10 @@ class Neck {
 
 		servo = servo.rotz(90).toZMin().movex((servo.getMaxX()-servo.getMinX())/2)
 
-		base = base.movez((zSize / 2) + 0.8)
-		base = base.difference(servo.movez(-2))
-		base = base.difference(new Cube(10, 21, 30).toCSG().movex(-24).movez(15)).difference(new Cube(10, 21, 30).toCSG().movex(24).movez(15))
-		base = base.toXMin().movex(channel.getMaxX() - ((base.getMaxX()-base.getMinX())/2)).difference(channel)
+		base = base.movez((zSize / 2) + 0.8 - 2)
+		base = base.difference(servo.movez(-2)).difference(servo.movez(-5))
+		base = base.difference(new Cube(10, 21, 32).toCSG().movex(-24).toZMin().movez(-2)).difference(new Cube(10, 21, 32).toCSG().movex(24).toZMin().movez(-2))
+		base = base.toXMin().movex(channel.getMaxX() - ((base.getMaxX()-base.getMinX())/2)).movez(2).difference(channel)
 		
 		for (int i = 0; i < 20; i++) {
 			base = base.difference(channel)
