@@ -76,6 +76,7 @@ return new ICadGenerator(){
 	
 		//12 Total links per leg -> we want coords for the highest link on each leg
 		int round = 0; //Three rounds per leg
+		ArrayList<CSG> servoSubs = new ArrayList<CSG>();
 		int loc = 0; //leg -> corresponds to index for localMaxZ (back left, front right, front left, back right)
 		for(DHParameterKinematics l:base.getLegs()){
 
@@ -87,9 +88,12 @@ return new ICadGenerator(){
 			DHLink dh = dhLinks.get(0);
 			HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
-									.rotz(180+Math.toDegrees(dh.getTheta()));
+									.rotz(90+Math.toDegrees(dh.getTheta()));
+			servoSubs.add(servoReference)
 			CSG servo = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 						.get( "hobbyServo","hv6214mg")
+						//.rotz(90+Math.toDegrees(dh.getTheta()));
+						
 			CSG horn = Vitamins.get(conf.getShaftType(),conf.getShaftSize())	;
 
 			
@@ -100,7 +104,7 @@ return new ICadGenerator(){
 														.rotx(180)
 														.transformed(csgTrans)
 				
-				immobileLink = immobileLink.rotx(180)
+				immobileLink = immobileLink.rotx(180).union(servoReference)
 				topLinks.add(immobileLink.transformed(csgTrans));
 	
 				if(attachment.getBounds().getMax().z > topLinkCoords[loc][2])
@@ -158,11 +162,11 @@ return new ICadGenerator(){
 			{
 				cornerBlock = cornerBlock.movey(14.1).movex(9.4)//.difference(crossChannel);
 			}
-
+			CSG servoReference = servoSubs.get(i)
 			cornerBlock = cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength)
 			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i).hull() ).hull() //largest piece - cornerBlock hulled to servo block
 									.difference(immobileLinks.get(i).hull())//cuts out servo block, leaving just cornerBlock hulled to top of servo block
-									hulledAttach = hulledAttach.difference(sub1)//servoReference.hull().movez(-10))
+									hulledAttach = hulledAttach.union(servoReference.hull())
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
 			attachmentParts.add(hulledAttach.union(immobileLinks.get(i)).difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7)).setColor(javafx.scene.paint.Color.AQUA));
