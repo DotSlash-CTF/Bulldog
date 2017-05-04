@@ -57,7 +57,7 @@ return new ICadGenerator(){
 	
 		//Body CSGs 
 		CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
-		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20").roty(180)).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25).scale(1.01);
+		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20")).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25);//.scale(1.01);
 		CSG spine 		= cChannelRef.movez(-1.5 * unitLength).union(cChannelRef.rotx(180).movez(-0.5 * unitLength));
 		CSG mainBody    	= spine.union(crossChannel.movex(0.1 * -unitLength-0.25).movey(-6)).union(crossChannel.movex(-numPanels * unitLength + 0.1 * unitLength-0.25).movey(-6));
 	
@@ -73,10 +73,10 @@ return new ICadGenerator(){
 		ArrayList<CSG> topLinks = new ArrayList<CSG>(); //Used solely for determining max height for moving mainBody, never added to robot
 		ArrayList<CSG> attachmentParts = new ArrayList<CSG>(); //Final shoulders - cornerBlocks hulled to links
 		ArrayList<CSG> immobileLinks = new ArrayList<CSG>(); //Just the links that hold the servos - never directly rendered
+		ArrayList<CSG> servoSubs = new ArrayList<CSG>();
 	
 		//12 Total links per leg -> we want coords for the highest link on each leg
 		int round = 0; //Three rounds per leg
-		ArrayList<CSG> servoSubs = new ArrayList<CSG>();
 		int loc = 0; //leg -> corresponds to index for localMaxZ (back left, front right, front left, back right)
 		for(DHParameterKinematics l:base.getLegs()){
 
@@ -140,36 +140,51 @@ return new ICadGenerator(){
 		*/
 		
 		mainBody = mainBody.movez(topLinkCoords[0][2])
+
+		CSG bolt = Vitamins.get("capScrew","8#32");
 		
 		for(int i = 0; i < 4; i++)
 		{
 			ArrayList<CSG> coords = corners.get(i);
-			CSG cornerBlock = new Cube(25, 25, 25).toCSG().movex(coords.get(0)).movey(coords.get(1) + Math.signum(coords.get(1)) * unitLength);
+			CSG cornerBlock = new Cube(25, 60, 25).toCSG().movex(coords.get(0)).movey(coords.get(1) + Math.signum(coords.get(1)) * unitLength);
+			ArrayList<CSG> bolts = new ArrayList<CSG>();
+			for(int j = 0; j < 4; j++)
+			{
+				CSG baseBolt = bolt.movex(coords.get(0)).movey(coords.get(1) + Math.signum(coords.get(1)) * unitLength + (12.7 * j))
+				bolts.add(baseBolt);
+				bolts.add(baseBolt.movex(-12.7));
+			}
 			
 			if(i == 0) //back left
 			{
-				cornerBlock = cornerBlock.movey(-14.1).movex(9.4)//.difference(crossChannel);
+				cornerBlock = cornerBlock.movey(-14.1).movex(9.4).movez(-32)//.difference(crossChannel);
+				//bolts = bolts.collect{it.movey()}
 			}
 			else if(i == 1) //front right
 			{
-				cornerBlock = cornerBlock.movey(-23.5).movex(-9.4)//.difference(crossChannel);
+				cornerBlock = cornerBlock.movey(-8).movex(-6.5).movez(-32)//.difference(crossChannel);
+				bolts = bolts.collect{it.movey(-12.7*2)}
 			}
 			else if(i == 2) //front left
 			{
-				cornerBlock = cornerBlock.movey(23.5).movex(-9.4)//.difference(crossChannel);
+				cornerBlock = cornerBlock.movey(8).movex(-5).movez(-32)//.difference(crossChannel);
+				bolts = bolts.collect{it.movey(-12.7)}
 			}
 			else if(i == 3) //back right
 			{
-				cornerBlock = cornerBlock.movey(14.1).movex(9.4)//.difference(crossChannel);
+				cornerBlock = cornerBlock.movey(14.1).movex(9.4).movez(-32)//.difference(crossChannel);
 			}
-			CSG servoReference = servoSubs.get(i)
-			cornerBlock = cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength)
+
+			zOffset = topLinkCoords[0][2] - 1.5 * unitLength;
+
+			cornerBlock = cornerBlock.movez(zOffset)
+			bolts = bolts.collect{it.movez(zOffset - 18)}
 			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i).hull() ).hull() //largest piece - cornerBlock hulled to servo block
-									.difference(immobileLinks.get(i).hull())//cuts out servo block, leaving just cornerBlock hulled to top of servo block
-									hulledAttach = hulledAttach.union(servoReference.hull())
+									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
-			attachmentParts.add(hulledAttach.union(immobileLinks.get(i)).difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7)).setColor(javafx.scene.paint.Color.AQUA));
+			attachmentParts.add(hulledAttach.union(immobileLinks.get(i))/*.difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7))*/.difference(bolts).setColor(javafx.scene.paint.Color.AQUA));
+			//attachmentParts.addAll(bolts);
 		}
 		
 		//print "in generateBody"
