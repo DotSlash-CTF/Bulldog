@@ -95,6 +95,11 @@ return new ICadGenerator(){
 			
 			for(CSG attachment:	generateCad(l,0)){ //3x per leg, total of 12
 				CSG immobileLink = remoteLegPiece.createBaseLink2(servo, horn, 80); ///////here
+				//CSG sub1 = new Cube(servoX+3, servoY+1.5, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9).movex(-servoX/2)
+				CSG sub1 = new Cube(32+3+100, 11.8+1.5, 31.5).toCSG().movex(32/3 -1.5).movez(7.9).movex(-32/2)//creating extra subtraction piece
+														.rotx(180)
+														.transformed(csgTrans)
+				
 				immobileLink = immobileLink.rotx(180)
 				topLinks.add(immobileLink.transformed(csgTrans));
 	
@@ -156,7 +161,8 @@ return new ICadGenerator(){
 
 			cornerBlock = cornerBlock.movez(topLinkCoords[0][2] - 1.5 * unitLength)
 			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i).hull() ).hull() //largest piece - cornerBlock hulled to servo block
-									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
+									.difference(immobileLinks.get(i).hull())//cuts out servo block, leaving just cornerBlock hulled to top of servo block
+									hulledAttach = hulledAttach.difference(sub1)//servoReference.hull().movez(-10))
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
 			attachmentParts.add(hulledAttach.union(immobileLinks.get(i)).difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7)).setColor(javafx.scene.paint.Color.AQUA));
