@@ -89,7 +89,7 @@ return new ICadGenerator(){
 			HashMap<String, Object> servoMeasurments = Vitamins.getConfiguration(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 			CSG servoReference=   Vitamins.get(conf.getElectroMechanicalType(),conf.getElectroMechanicalSize())
 									.rotz(90+Math.toDegrees(dh.getTheta()));
-			servoSubs.add(servoReference)
+			servoSubs.add(servoReference.transformed(csgTrans))
 			CSG servo = com.neuronrobotics.bowlerstudio.vitamins.Vitamins
 						.get( "hobbyServo","hv6214mg")
 						//.rotz(90+Math.toDegrees(dh.getTheta()));
@@ -104,7 +104,7 @@ return new ICadGenerator(){
 														.rotx(180)
 														.transformed(csgTrans)
 				
-				immobileLink = immobileLink.rotx(180).union(servoReference)
+				immobileLink = immobileLink.rotx(180)//.union(servoReference)
 				topLinks.add(immobileLink.transformed(csgTrans));
 	
 				if(attachment.getBounds().getMax().z > topLinkCoords[loc][2])
@@ -175,15 +175,24 @@ return new ICadGenerator(){
 				cornerBlock = cornerBlock.movey(14.1).movex(9.4).movez(-32)//.difference(crossChannel);
 			}
 
+			CSG servoReference = servoSubs.get(i).movez(0)
 			zOffset = topLinkCoords[0][2] - 1.5 * unitLength;
 
 			cornerBlock = cornerBlock.movez(zOffset)
 			bolts = bolts.collect{it.movez(zOffset - 18)}
 			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i).hull() ).hull() //largest piece - cornerBlock hulled to servo block
 									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
+									//hulledAttache = hulledAttach.union(servoReference)
+			hulledAttach = hulledAttach.union(immobileLinks.get(i))
+			for(int k = 0; k < 50; k++){
+
+				hulledAttach = hulledAttach.difference(servoReference)
+				servoReference = servoReference.movex(-1)
+				
+			}
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
-			attachmentParts.add(hulledAttach.union(immobileLinks.get(i))/*.difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7))*/.difference(bolts).setColor(javafx.scene.paint.Color.AQUA));
+			attachmentParts.add(hulledAttach/*.difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7))*/.difference(bolts).setColor(javafx.scene.paint.Color.AQUA));
 			//attachmentParts.addAll(bolts);
 		}
 		
