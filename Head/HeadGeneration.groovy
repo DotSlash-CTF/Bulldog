@@ -8,7 +8,7 @@ import eu.mihosoft.vrl.v3d.FileUtil;
 class Headmaker implements IParameterChanged{
 	boolean performMinkowski = false;
 	boolean exportSTL = false;
-	boolean fastEye = true;
+	boolean fastEye = false;
 	ArrayList<CSG> mink
 	int minkIndex
 	
