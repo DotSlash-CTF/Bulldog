@@ -1198,6 +1198,7 @@ class Headmaker implements IParameterChanged{
 					.toCSG() 
 					.roty(-90)
 					)
+				//.difference(Vitamins.get("capScrew","8#32").makeKeepaway(-0.9))
 		
 		slot = slot.movex(-cupOffset)
 				.union(slot)
@@ -1632,6 +1633,10 @@ class Headmaker implements IParameterChanged{
 		println "Finished Minkowski " + name
 		return base
 	}
+
+	public ArrayList<CSG> makeEye(CSG ballJointKeepAway) {
+		return [getEye(leyeDiam.getMM(),ballJointKeepAway)]
+	}
 }
 
 if(args!=null)
@@ -1646,7 +1651,7 @@ CSG ballJoint = ballJointParts.get(0)
 CSG ballJointKeepAway = ballJointParts.get(1)
 
 //
-ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
+ArrayList<CSG> fullHead = new Headmaker().makeEye(ballJointKeepAway)//.makeHead(false)
 
 return fullHead
 
