@@ -159,7 +159,7 @@ return new ICadGenerator(){
 			if(i == 0) //back left
 			{
 				cornerBlock = cornerBlock.movey(-14.1).movex(9.4).movez(-32)//.difference(crossChannel);
-				//bolts = bolts.collect{it.movey()}
+				bolts = bolts.collect{it.movex(12.7).movey(-12.7*3 + 0.75)}
 			}
 			else if(i == 1) //front right
 			{
@@ -174,6 +174,7 @@ return new ICadGenerator(){
 			else if(i == 3) //back right
 			{
 				cornerBlock = cornerBlock.movey(14.1).movex(9.4).movez(-32)//.difference(crossChannel);
+				bolts = bolts.collect{it.movex(12.7)}
 			}
 
 			CSG servoReference = servoSubs.get(i).movez(0)
