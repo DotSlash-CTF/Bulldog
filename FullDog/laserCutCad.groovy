@@ -54,12 +54,13 @@ return new ICadGenerator(){
 		double 	unitLength 	= 62.5;
 		//double[] 	localMaxZ 	= {0, 0, 0, 0}; //Front right, back right, back left, front left (Clockwise from right front)
 		double[][]	topLinkCoords = new double[4][3];
+		double zHeightConst = 27.0;
 	
 		//Body CSGs 
 		CSG cChannelRef 	= centerOnAxes(createCChannel(numPanels)).rotz(90); //double long
 		CSG crossChannel 	= centerOnAxes(Vitamins.get("vexCchannel", "2x20")).movex(numPanels * unitLength/2).movez(-1.5 * unitLength - 12.5).movey(6.25);//.scale(1.01);
 		CSG spine 		= cChannelRef.movez(-1.5 * unitLength).union(cChannelRef.rotx(180).movez(-0.5 * unitLength));
-		CSG mainBody    	= spine.union(crossChannel.movex(0.1 * -unitLength-0.25).movey(-6)).union(crossChannel.movex(-numPanels * unitLength + 0.1 * unitLength-0.25).movey(-6));
+		CSG mainBody    	= spine.union(crossChannel.movex(0.1 * -unitLength-0.25).movey(-6)).union(crossChannel.movex(-numPanels * unitLength + 0.1 * unitLength-0.25).movey(-6)).movez(zHeightConst);
 	
 		//Utilities
 		def remoteLegPiece = ScriptingEngine.gitScriptRun("https://github.com/DotSlash-CTF/Bulldog.git", "LegLinks/LegMethods.groovy", null);
@@ -178,8 +179,8 @@ return new ICadGenerator(){
 			CSG servoReference = servoSubs.get(i).movez(0)
 			zOffset = topLinkCoords[0][2] - 1.5 * unitLength;
 
-			cornerBlock = cornerBlock.movez(zOffset)
-			bolts = bolts.collect{it.movez(zOffset - 18)}
+			cornerBlock = cornerBlock.movez(zOffset).movez(zHeightConst)
+			bolts = bolts.collect{it.movez(zOffset - 18 + zHeightConst)}
 			CSG hulledAttach = cornerBlock.union( immobileLinks.get(i).hull() ).hull() //largest piece - cornerBlock hulled to servo block
 									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
 									//hulledAttache = hulledAttach.union(servoReference)
