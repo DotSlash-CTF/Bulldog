@@ -160,6 +160,7 @@ return new ICadGenerator(){
 			{
 				cornerBlock = cornerBlock.movey(-14.1).movex(9.4).movez(-32)//.difference(crossChannel);
 				bolts = bolts.collect{it.movex(12.7).movey(-12.7*3 + 0.75)}
+				immobileLinks.set(i, immobileLinks.get(i).movex(15))
 			}
 			else if(i == 1) //front right
 			{
@@ -175,6 +176,7 @@ return new ICadGenerator(){
 			{
 				cornerBlock = cornerBlock.movey(14.1).movex(9.4).movez(-32)//.difference(crossChannel);
 				bolts = bolts.collect{it.movex(12.7)}
+				immobileLinks.set(i, immobileLinks.get(i).movex(15))
 			}
 
 			CSG servoReference = servoSubs.get(i).movez(0)
@@ -186,10 +188,12 @@ return new ICadGenerator(){
 									.difference(immobileLinks.get(i).hull()); //cuts out servo block, leaving just cornerBlock hulled to top of servo block
 									//hulledAttache = hulledAttach.union(servoReference)
 			hulledAttach = hulledAttach.union(immobileLinks.get(i))
-			for(int k = 0; k < 50; k++){
-
-				hulledAttach = hulledAttach.difference(servoReference)
-				servoReference = servoReference.movex(-1)
+			if(i == 1 || i == 2){
+					
+			for(int k = 0; k < 70; k++){\
+					hulledAttach = hulledAttach.difference(servoReference)
+					servoReference = servoReference.movex(-1)
+				}
 				
 			}
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
