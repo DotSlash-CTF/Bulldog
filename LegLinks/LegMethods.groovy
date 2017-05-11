@@ -591,6 +591,10 @@ mainLeg =mainLeg.difference(sub1)
 mainLeg =mainLeg.difference(screwHole)
 screwHole = screwHole.movey(10)
 mainLeg =mainLeg.difference(screwHole)
+screwHole = screwHole.movey(20.1+1-10).movex(20)
+mainLeg =mainLeg.difference(screwHole)
+screwHole = screwHole.movey(-20.1+9-10-20.1+9)//20.1 is servo2
+mainLeg =mainLeg.difference(screwHole)
 
 mainLeg = mainLeg.movex(-servoX/2)
 return mainLeg
