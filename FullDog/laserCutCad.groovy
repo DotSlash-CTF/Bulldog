@@ -75,6 +75,7 @@ return new ICadGenerator(){
 		ArrayList<CSG> attachmentParts = new ArrayList<CSG>(); //Final shoulders - cornerBlocks hulled to links
 		ArrayList<CSG> immobileLinks = new ArrayList<CSG>(); //Just the links that hold the servos - never directly rendered
 		ArrayList<CSG> servoSubs = new ArrayList<CSG>();
+		ArrayList<CSG> caps = new ArrayList<CSG>();
 	
 		//12 Total links per leg -> we want coords for the highest link on each leg
 		int round = 0; //Three rounds per leg
@@ -101,9 +102,10 @@ return new ICadGenerator(){
 			for(CSG attachment:	generateCad(l,0)){ //3x per leg, total of 12
 				CSG immobileLink = remoteLegPiece.createBaseLink2(servo, horn, 80); ///////here
 				CSG cap = remoteLegPiece.createCap(servo, horn, 80)
-				
-				immobileLink = immobileLink.rotx(180)//.union(servoReference)
-				topLinks.add(immobileLink.transformed(csgTrans));
+				cap = cap.rotx(180)
+				immobileLink = immobileLink.rotx(180)
+				caps.add(cap.transformed(csgTrans))
+				topLinks.add(immobileLink.transformed(csgTrans))
 	
 				if(attachment.getBounds().getMax().z > topLinkCoords[loc][2])
 				{
@@ -176,7 +178,7 @@ return new ICadGenerator(){
 				immobileLinks.set(i, immobileLinks.get(i).movex(15))
 			}
 
-			CSG servoReference = servoSubs.get(i).movez(0)
+			CSG servoReference = servoSubs.get(i)
 			zOffset = topLinkCoords[0][2] - 1.5 * unitLength;
 
 			cornerBlock = cornerBlock.movez(zOffset).movez(zHeightConst)
@@ -193,10 +195,13 @@ return new ICadGenerator(){
 				}
 				
 			}
+
+			hulledAttach = hulledAttach.union(caps.get(i))
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
 			attachmentParts.add(hulledAttach/*.difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7))*/.difference(bolts).setColor(javafx.scene.paint.Color.AQUA));
 			//attachmentParts.addAll(bolts);
+			//attachmentParts.add(caps.get(i))
 		}
 		
 		//print "in generateBody"
