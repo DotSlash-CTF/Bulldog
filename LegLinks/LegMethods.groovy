@@ -306,7 +306,7 @@ public CSG createCap(CSG servo, CSG hornRef, int xLength){
 	//visibility
 	//bottomCap = bottomCap.movez(-30)
 
-	return bottomCap
+	return bottomCap.movex(-(xLength + 25*xLength/80)-11)
 	
 }
 /*
