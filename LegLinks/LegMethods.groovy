@@ -282,10 +282,6 @@ public CSG createCap(CSG servo, CSG hornRef, int xLength){
 	bottomCap = bottomCap.movez(8)
 					 .union(connHole)
 
-	bottomCap = bottomCap
-				.difference(connector)
-	mainThigh = mainThigh.difference(connector)
-
 	CSG screwHole2 = new Cylinder(3,30,(int)23).toCSG()//move then subtract
 								  .movex(-9 + (xLength - 80)/2)
 								  .movey(-5)
@@ -308,7 +304,9 @@ public CSG createCap(CSG servo, CSG hornRef, int xLength){
 	
 	
 	//visibility
-	bottomCap = bottomCap.movez(-30)
+	//bottomCap = bottomCap.movez(-30)
+
+	return bottomCap
 	
 }
 /*
