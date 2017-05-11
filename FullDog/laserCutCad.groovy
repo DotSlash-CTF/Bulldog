@@ -100,10 +100,7 @@ return new ICadGenerator(){
 			
 			for(CSG attachment:	generateCad(l,0)){ //3x per leg, total of 12
 				CSG immobileLink = remoteLegPiece.createBaseLink2(servo, horn, 80); ///////here
-				//CSG sub1 = new Cube(servoX+3, servoY+1.5, servoZ).toCSG().movex(servoX/3 + (xLength - 80)/2 -1.5).movez(7.9).movex(-servoX/2)
-				CSG sub1 = new Cube(32+3+100, 11.8+1.5, 31.5).toCSG().movex(32/3 -1.5).movez(7.9).movex(-32/2)//creating extra subtraction piece
-														.rotx(180)
-														.transformed(csgTrans)
+				CSG cap = remoteLegPiece.createCap(servo, horn, 80)
 				
 				immobileLink = immobileLink.rotx(180)//.union(servoReference)
 				topLinks.add(immobileLink.transformed(csgTrans));
