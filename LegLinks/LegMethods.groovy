@@ -222,6 +222,95 @@ public ArrayList<CSG> createThigh(CSG servo, CSG hornRef, int xLength, CSG conne
 
 }
 
+public CSG createCap(CSG servo, CSG hornRef, int xLength){
+
+	HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","towerProMG91")
+	HashMap<String, Object>  vitaminData2 = Vitamins.getConfiguration( "hobbyServo","hv6214mg")//current servo
+	int servoX = vitaminData.get("flangeLongDimention")
+	int servoY = vitaminData.get("servoThinDimentionThickness")
+	int servoZ = vitaminData.get("servoShaftSideHeight")
+	int servoY2 = vitaminData2.get("servoThinDimentionThickness")//20.1
+	
+	CSG screwHole = new Cylinder(1.25,30,(int)25).toCSG()//move then subtract
+								  .movex(-9 + (xLength - 80)/2)
+								  .movey(-5)
+								  .movez(-20)
+								  .movex(xLength + 25*xLength/80)
+								  .movez(-20)
+								  
+	int bottMainLeng = 3+xLength/2+(xLength-80)/2//xLength*2.7/5
+	CSG bottomCap = new Cube(bottMainLeng, servoY2*2+1, 13).toCSG()
+							.movez(servoZ/2+2.5+2.5)
+							.toXMin()
+							.movex(15 + (xLength - 80)/2)
+	CSG capSide1 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
+								.toXMin()
+								.movex(15 + (xLength - 80)/2)
+								.movey(servoY2+2.6)
+								.movez(servoZ/4+9)
+	CSG capSide2 = new Cube(bottMainLeng, 5, servoZ/2+10).toCSG() 
+								.toXMin()
+								.movex(15 + (xLength - 80)/2)
+								.movey(-servoY2-2.6)
+								.movez(servoZ/4+9)
+	
+	bottomCap = bottomCap.union(capSide1)
+	bottomCap = bottomCap.union(capSide2)
+	CSG bottCap2 = new Cube(xLength, 5+servoY2*2, 5).toCSG()
+								.toXMin()
+								.movez(servoZ/2+6+4.25+1.25)
+								.movex(15 + (xLength - 80)/2)
+	bottomCap = bottomCap.union(bottCap2)
+	
+	//see original value declaration above
+	bottomCap = bottomCap
+				.movez(-60)
+				.rotx(180)
+				.movez(-73.5)
+	bottomCap = bottomCap.toXMin()
+					 .movex(xLength/2+11 + 25*xLength/80)//figure this out
+
+	CSG connHole = new Cylinder(3.45,4.5,(int)50).toCSG()
+								.movez(-19.5)
+								.movex(33)
+
+	connHole = connHole.toXMin()
+				    .toZMin()
+				    .movex(166+ 3.6/2*(xLength-100))//to be accounted for paramaterizing
+				    .movez(-32.5)
+
+	bottomCap = bottomCap.movez(8)
+					 .union(connHole)
+
+	bottomCap = bottomCap
+				.difference(connector)
+	mainThigh = mainThigh.difference(connector)
+
+	CSG screwHole2 = new Cylinder(3,30,(int)23).toCSG()//move then subtract
+								  .movex(-9 + (xLength - 80)/2)
+								  .movey(-5)
+								  .movez(-20)
+								  .movex(xLength + 25*(xLength/80))
+								  .movez(-40)
+								  .movey(servoY2+1).movex(20)
+	//holes below so that cap can be screwed in
+	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(10)
+	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(servoY2+1-10).movex(20+(-xLength+80)/80)//+20*xLength/80)
+	bottomCap = bottomCap.difference(screwHole)
+	screwHole = screwHole.movey(-servoY2+9-10-servoY2+9)
+	bottomCap = bottomCap.difference(screwHole)
+	
+	bottomCap = bottomCap.difference(screwHole2)
+	screwHole2 = screwHole2.movey(-servoY2+9-10-servoY2+9)
+	bottomCap = bottomCap.difference(screwHole2)
+	
+	
+	//visibility
+	bottomCap = bottomCap.movez(-30)
+	
+}
 /*
  * Creates the generic connector that will connect any 2 links
  */
