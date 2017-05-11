@@ -204,10 +204,10 @@ return new ICadGenerator(){
 				hulledAttach = hulledAttach.union(caps.get((i)*3))
 			}
 			else if(i == 1){
-				hulledAttach = hulledAttach.union(caps.get((i)*3))
+				hulledAttach = hulledAttach.difference(caps.get((i)*3))
 			}
-			else if(i == 1){
-				hulledAttach = hulledAttach.union(caps.get((i)*3))
+			else if(i == 2){
+				hulledAttach = hulledAttach.difference(caps.get((i)*3))
 			}
 			//hulledAttach = hulledAttach.difference(caps.get(i))
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
