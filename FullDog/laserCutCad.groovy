@@ -193,9 +193,8 @@ return new ICadGenerator(){
 									//hulledAttache = hulledAttach.union(servoReference)
 			hulledAttach = hulledAttach.union(immobileLinks.get(i))
 			if(i == 1 || i == 2){
-					
-			for(int k = 0; k < 70; k++){\
-					hulledAttach = hulledAttach.difference(servoReference)
+			for(int k = 0; k < 70; k++){
+					hulledAttach = hulledAttach.difference(servoReference.makeKeepaway(1.001))
 					servoReference = servoReference.movex(-1)
 				}
 				
