@@ -160,22 +160,27 @@ return new ICadGenerator(){
 				cornerBlock = cornerBlock.movey(-14.1).movex(9.4).movez(-32)//.difference(crossChannel);
 				bolts = bolts.collect{it.movex(12.7).movey(-12.7*3 + 0.75)}
 				immobileLinks.set(i, immobileLinks.get(i).movex(15))
+				//immobileLinks.set(i, immobileLinks.get(i).union(caps.get(i).movex(15)))
 			}
 			else if(i == 1) //front right
 			{
 				cornerBlock = cornerBlock.movey(-8).movex(-6.5).movez(-32)//.difference(crossChannel);
 				bolts = bolts.collect{it.movey(-12.7*2)}
+				//immobileLinks.set(i, immobileLinks.get(i).union(caps.get(i)))
+			
 			}
 			else if(i == 2) //front left
 			{
 				cornerBlock = cornerBlock.movey(8).movex(-5).movez(-32)//.difference(crossChannel);
 				bolts = bolts.collect{it.movey(-12.7)}
+				//immobileLinks.set(i, immobileLinks.get(i).union(caps.get(i)))
 			}
 			else if(i == 3) //back right
 			{
 				cornerBlock = cornerBlock.movey(14.1).movex(9.4).movez(-32)//.difference(crossChannel);
 				bolts = bolts.collect{it.movex(12.7)}
 				immobileLinks.set(i, immobileLinks.get(i).movex(15))
+				//immobileLinks.set(i, immobileLinks.get(i).union(caps.get(i).movex(15)))
 			}
 
 			CSG servoReference = servoSubs.get(i)
@@ -195,8 +200,16 @@ return new ICadGenerator(){
 				}
 				
 			}
-
-			hulledAttach = hulledAttach.union(caps.get(i))
+			if(i == 0){
+				hulledAttach = hulledAttach.union(caps.get((i)*3))
+			}
+			else if(i == 1){
+				hulledAttach = hulledAttach.union(caps.get((i)*3))
+			}
+			else if(i == 1){
+				hulledAttach = hulledAttach.union(caps.get((i)*3))
+			}
+			//hulledAttach = hulledAttach.difference(caps.get(i))
 			//immobileLinks.set(i, immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4)))
 			//attachmentParts.add(hulledAttach.union(immobileLinks.get(i).difference(mainBody).difference(mainBody.movey(9.4))).setColor(javafx.scene.paint.Color.AQUA)); //hulledAttach includes cornerBlock
 			attachmentParts.add(hulledAttach/*.difference(mainBody).difference(mainBody.movey(4.7)).difference(mainBody.movey(-4.7))*/.difference(bolts).setColor(javafx.scene.paint.Color.AQUA));
