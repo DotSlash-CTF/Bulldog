@@ -200,7 +200,7 @@ return new ICadGenerator(){
 				
 			}
 			if(i == 0){
-				hulledAttach = hulledAttach.union(caps.get((i)*3).movex(15))
+				hulledAttach = hulledAttach.difference(caps.get((i)*3).movex(15))
 			}
 			else if(i == 1){
 				hulledAttach = hulledAttach.difference(caps.get((i)*3))
