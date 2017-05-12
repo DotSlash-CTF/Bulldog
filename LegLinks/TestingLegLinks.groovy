@@ -28,6 +28,9 @@ boolean normFalseRotTrue = false
 
 CSG foot = remoteLegPiece.createFoot(servo, horn, 61.5+61.4*2.75/3.75)//back: 96+96*2.75/3.75
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
+CSG bottCap = remoteLegPiece.createCap(servo, horn, 80)
+
+//bottCap = bottCap.makeKeepaway(1.01)
 
 ArrayList<CSG> imobile = remoteLegPiece.createThigh(servo, horn, length, connector)
 
@@ -64,6 +67,7 @@ connector.setManufactuing({CSG arg0 ->
 
 
 ArrayList<CSG> totalParts = imobile;
+totalParts.add(bottCap.movey(-150))
 totalParts.add(foot.movex(400))
 totalParts.add(immobileLink.movez(200))
 
