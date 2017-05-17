@@ -41,7 +41,7 @@ class Neck {
 		//fullHead.add(channel)
 		//fullHead.add(servo)
 		fullHead.add(base)
-		return [fullHead]
+		return [fullHead.collect{it.toXMin()}]
 	}
 
 	public CSG generateBody()

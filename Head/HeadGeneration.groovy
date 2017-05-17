@@ -1204,7 +1204,11 @@ class Headmaker implements IParameterChanged{
 				.union(slot)
 				.hull()
 		slot=slot.difference(pin)
-		for (int i=1;i<5;i++){
+		CSG screw = Vitamins.get("capScrew","8#32").makeKeepaway(-1.0).roty(90).scalex(3).movex(-5)
+		CSG nut = Vitamins.get("nut", "8#32").makeKeepaway(-1.0).roty(90)
+		nut = nut.union(nut.movex(15)).hull().movex(12)
+		slot = slot.union(screw).union(nut)
+		for (int i=1;i<4;i++){
 			eye=eye
 			.difference(
 				slot
@@ -1651,7 +1655,7 @@ CSG ballJoint = ballJointParts.get(0)
 CSG ballJointKeepAway = ballJointParts.get(1)
 
 //
-ArrayList<CSG> fullHead = new Headmaker().makeEye(ballJointKeepAway)//.makeHead(false)
+ArrayList<CSG> fullHead = new Headmaker().makeHead(false)
 
 return fullHead
 
