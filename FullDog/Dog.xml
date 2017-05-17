@@ -421,7 +421,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>110.0</staticOffset>
+	<staticOffset>85.26119402985076</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>105</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -798,8 +798,8 @@
 		<file>Body/NeckCad.groovy</file>
 	</cadEngine>
 	<kinematics>
-		<git>https://gist.github.com/bcb4760a449190206170.git</git>
-		<file>DefaultDhSolver.groovy</file>
+		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
+		<file>DH-Solver.groovy</file>
 	</kinematics>
 <link>
 	<name>basePan</name>
@@ -993,8 +993,8 @@
 		<file>ThreeDPrintCad.groovy</file>
 	</cadEngine>
 	<kinematics>
-		<git>https://gist.github.com/bcb4760a449190206170.git</git>
-		<file>DefaultDhSolver.groovy</file>
+		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
+		<file>DH-Solver.groovy</file>
 	</kinematics>
 <link>
 	<name>elbow</name>
