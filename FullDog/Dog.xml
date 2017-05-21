@@ -221,7 +221,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>8</index>
-	<scale>-0.861</scale>
+	<scale>0.861</scale>
 	<upperLimit>184.58955223880596</upperLimit>
 	<lowerLimit>45.67164179104477</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -275,7 +275,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>7</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>186.49253731343285</upperLimit>
 	<lowerLimit>18.902985074626862</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -329,7 +329,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>6</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>182.6865671641791</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -416,7 +416,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>5</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>137.01492537313433</upperLimit>
 	<lowerLimit>17.12686567164179</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -470,7 +470,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>4</index>
-	<scale>-0.861</scale>
+	<scale>0.861</scale>
 	<upperLimit>192.2014925373134</upperLimit>
 	<lowerLimit>10.582089552238806</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -524,7 +524,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>3</index>
-	<scale>-0.861</scale>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
