@@ -716,9 +716,9 @@
 </link>
 <link>
 	<name>elbow</name>
-	<deviceName>dyio</deviceName>
+	<deviceName>dyio1</deviceName>
 	<type>servo-rotory</type>
-	<index>0</index>
+	<index>9</index>
 	<scale>-0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
