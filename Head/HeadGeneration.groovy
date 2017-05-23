@@ -1192,8 +1192,8 @@ class Headmaker implements IParameterChanged{
 		
 		CSG pin = new Sphere(boltDiam.getMM()*1.5,30,15).toCSG()
 				.union(
-					new Cylinder(	boltDiam.getMM()/1.5,
-								boltDiam.getMM()/1.5,,
+					new Cylinder(	boltDiam.getMM(),
+								boltDiam.getMM(),,
 								boltDiam.getMM()*4,(int)15)
 					.toCSG() 
 					.roty(-90)
@@ -1204,10 +1204,10 @@ class Headmaker implements IParameterChanged{
 				.union(slot)
 				.hull()
 		slot=slot.difference(pin)
-		CSG screw = Vitamins.get("capScrew","8#32").makeKeepaway(-1.0).roty(90).scalex(3).movex(-5)
-		CSG nut = Vitamins.get("nut", "8#32").makeKeepaway(-1.0).roty(90)
+		CSG screw = Vitamins.get("capScrew","8#32").makeKeepaway(1.0).roty(90).scalex(3).movex(-3)
+		CSG nut = Vitamins.get("nut", "8#32").makeKeepaway(1.0).roty(90)
 		nut = nut.union(nut.movex(15)).hull().movex(12)
-		slot = slot.union(screw).union(nut)
+		slot = slot.union(screw).union(nut).movex(-1)
 		for (int i=1;i<4;i++){
 			eye=eye
 			.difference(
