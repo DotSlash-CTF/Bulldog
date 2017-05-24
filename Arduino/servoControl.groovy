@@ -228,7 +228,7 @@ timer.schedule(new TimerTask() {
 				turn=value
 			}
 			else{
-				//System.out.println("UNALLOCATED "+comp.getName()+" is value= "+val);
+				System.out.println("UNALLOCATED "+comp.getName()+" is value= "+val);
 			}
 		}catch(Exception e){
 			e.printStackTrace(System.out)
