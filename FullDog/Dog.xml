@@ -27,8 +27,8 @@
 	<type>servo-rotory</type>
 	<index>9</index>
 	<scale>0.861</scale>
-	<upperLimit>255.0</upperLimit>
-	<lowerLimit>0.0</lowerLimit>
+	<upperLimit>102.7500057220459</upperLimit>
+	<lowerLimit>58.49999964237213</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
 	<staticOffset>75.84328358208955</staticOffset>
@@ -81,7 +81,7 @@
 	<type>servo-rotory</type>
 	<index>11</index>
 	<scale>0.861</scale>
-	<upperLimit>258.0</upperLimit>
+	<upperLimit>130.0</upperLimit>
 	<lowerLimit>3.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
@@ -222,8 +222,8 @@
 	<type>servo-rotory</type>
 	<index>8</index>
 	<scale>0.861</scale>
-	<upperLimit>184.58955223880596</upperLimit>
-	<lowerLimit>45.67164179104477</lowerLimit>
+	<upperLimit>109.58955223880596</upperLimit>
+	<lowerLimit>60.67164179104477</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
 	<staticOffset>85.0</staticOffset>
@@ -417,8 +417,8 @@
 	<type>servo-rotory</type>
 	<index>5</index>
 	<scale>-0.861</scale>
-	<upperLimit>137.01492537313433</upperLimit>
-	<lowerLimit>17.12686567164179</lowerLimit>
+	<upperLimit>119.01492823415728</upperLimit>
+	<lowerLimit>73.37686924792048</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
 	<staticOffset>98.0</staticOffset>
@@ -612,8 +612,8 @@
 	<type>servo-rotory</type>
 	<index>2</index>
 	<scale>0.861</scale>
-	<upperLimit>243.5820895522388</upperLimit>
-	<lowerLimit>26.641791044776124</lowerLimit>
+	<upperLimit>134.83210385735356</upperLimit>
+	<lowerLimit>83.64179390579908</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
 	<staticOffset>111.15671641791045</staticOffset>
@@ -666,7 +666,7 @@
 	<type>servo-rotory</type>
 	<index>1</index>
 	<scale>-0.861</scale>
-	<upperLimit>255.0</upperLimit>
+	<upperLimit>130.49999713897705</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
@@ -724,7 +724,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>173.48507462686567</staticOffset>
+	<staticOffset>0.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
