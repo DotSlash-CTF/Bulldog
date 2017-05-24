@@ -28,6 +28,21 @@ if(dyiodev==null){
 	d = (DyIO) dyiodev
 }
 
+DyIO smallBattery =null;
+Object dyiodev2 = DeviceManager.getSpecificDevice(DyIO.class, "dyio1");
+if(dyiodev2==null){
+	smallBattery =new DyIO();
+	if (!ConnectionDialog.getBowlerDevice(smallBattery)){
+		System.err.println("Dialog failed");
+		return;
+	}
+	DeviceManager.addConnection(smallBattery,"dyio1");
+	
+}else{
+	smallBattery = (DyIO) dyiodev2
+}
+
+
   BowlerJInputDevice g=null;// Create a variable to store the device
 //Check if the device already exists in the device Manager
 if(DeviceManager.getSpecificDevice(BowlerJInputDevice.class, "jogController")==null){
@@ -60,7 +75,7 @@ MobileBase base;
 Object dev = DeviceManager.getSpecificDevice(MobileBase.class, "DogRobot");
 println "found: "+dev
 //Check if the device already exists in the device Manager
-
+System.out.println("checking")
 if(dev==null){
 	//Create the kinematics model from the xml file describing the D-H compliant parameters. 
 	def file=["https://github.com/DotSlash-CTF/Bulldog.git","FullDog/Dog.xml"]as String[]
@@ -79,11 +94,13 @@ if(dev==null){
 
 //Set the DyIO into cached mode
 d.setCachedMode(true);
+smallBattery.setCachedMode(true);
 
-ServoChannel pan = new ServoChannel(d.getChannel(11))
-ServoChannel tilt = new ServoChannel(d.getChannel(1))
-ServoChannel jaw = new ServoChannel(d.getChannel(8))
-ServoChannel mid = new ServoChannel(d.getChannel(10))
+ServoChannel eyeLeft = new ServoChannel(smallBattery.getChannel(0))
+ServoChannel eyeRight = new ServoChannel(smallBattery.getChannel(1))
+ServoChannel jaw = new ServoChannel(smallBattery.getChannel(2))
+ServoChannel tail = new ServoChannel(smallBattery.getChannel(7))
+ServoChannel neck = new ServoChannel(smallBattery.getchannel(4))
 
 double move=0;
 double turn=0;
@@ -100,7 +117,7 @@ int valuesMid = 50;
 boolean testBool = false;
 
 int milisInASec = 1000;
-long time = System.currentTimeMillis();
+//long time = System.currentTimeMillis();
 
 
 /* 
@@ -132,7 +149,7 @@ timer.schedule(new TimerTask() {
 			valuesMid = 22;
 		}
 		dir = !dir
-		pan.getChannel().setCachedValue(valuesPan);
+		eyeLeft.getChannel().setCachedValue(valuesPan);
 		mid.getChannel().setCachedValue(valuesMid);
 		d.flush(0)
 		counter ++;
@@ -141,7 +158,7 @@ timer.schedule(new TimerTask() {
 		testBool = true;
 	}
 	if (testBool && counter < 6) {
-		pan.getChannel().setCachedValue(104);
+		eyeLeft.getChannel().setCachedValue(104);
 		mid.getChannel().setCachedValue(90);
 		counter ++;
 		d.flush(0);
@@ -176,7 +193,7 @@ timer.schedule(new TimerTask() {
 				//values = WalkMotion(joystickVal, minimum, maximum, direction, position);
 				//position = valuesPan;
 				//counter ++;
-				//pan.getChannel().setCachedValue(values);
+				//eyeLeft.getChannel().setCachedValue(values);
 				//System.out.println(comp.getName()+" is value= "+values);
 				//Thread.sleep(25);
 				
@@ -192,7 +209,8 @@ timer.schedule(new TimerTask() {
 				if(val<80)
 					val=80
 				System.out.println(comp.getName()+" is value= "+val);
-				tilt.getChannel().setCachedValue(val);
+				eyeLeft.getChannel().setCachedValue(val);
+				eyeRight.getChannel().serCachedValue(val);
 			}else
 			if(comp.getName().equals("Z Axis")){
 				val=val-127+63
@@ -280,6 +298,7 @@ try{
 			move=0
 			turn=0
 			d.flush(0)
+			smallBattery.flush(0)
 		}
 	}
 }catch (java.lang.InterruptedException ex){
