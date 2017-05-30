@@ -5,7 +5,7 @@ import eu.mihosoft.vrl.v3d.Extrude;
 import java.nio.file.Paths;
 import eu.mihosoft.vrl.v3d.FileUtil;
 
-class Neck {
+class Neck implements ICadGenerator {
 	ArrayList<CSG> makeNeck() {
 		ArrayList<CSG> fullHead = new ArrayList<CSG>()
 		CSG channel = generateBody()
@@ -44,6 +44,16 @@ class Neck {
 		return [fullHead.collect{it.toXMin()}]
 	}
 
+	@Override
+	public ArrayList<CSG> generateCad(DHParameterKinematics d, int linkIndex) {
+		return makeNeck()
+	}
+	
+	@Override 
+	public ArrayList<CSG> generateBody(MobileBase b ) {
+		return new ArrayList<CSG>()
+	}
+	
 	public CSG generateBody()
 	{
 		CSG crossChannel = centerOnX(Vitamins.get("vexCchannel", "5x20").roty(180).rotz(90))
@@ -55,8 +65,6 @@ class Neck {
 		return start.toYMin().movey(-(yWidth / 2));
 	}
 }
-ArrayList<CSG> fullHead = new Neck().makeNeck()
-
-return fullHead
+return new Neck()
 
 //474 in LegMethods
