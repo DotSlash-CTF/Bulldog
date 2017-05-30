@@ -329,7 +329,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>6</index>
-	<scale>-0.861</scale>
+	<scale>0.861</scale>
 	<upperLimit>166.93656430315616</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
@@ -524,7 +524,7 @@
 	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
 	<index>3</index>
-	<scale>0.861</scale>
+	<scale>-0.861</scale>
 	<upperLimit>177.7500057220459</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
