@@ -666,11 +666,11 @@
 	<type>servo-rotory</type>
 	<index>1</index>
 	<scale>-0.861</scale>
-	<upperLimit>130.49999713897705</upperLimit>
+	<upperLimit>177.74999141693115</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>86.80597014925372</staticOffset>
+	<staticOffset>90.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
