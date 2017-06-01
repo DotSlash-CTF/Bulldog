@@ -911,10 +911,10 @@
 </link>
 <link>
 	<name>elbow</name>
-	<deviceName>dyio</deviceName>
+	<deviceName>dyio1</deviceName>
 	<type>servo-rotory</type>
-	<index>20</index>
-	<scale>0.33</scale>
+	<index>4</index>
+	<scale>0.861</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
