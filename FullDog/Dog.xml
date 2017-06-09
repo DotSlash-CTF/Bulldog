@@ -608,9 +608,9 @@
 	</kinematics>
 <link>
 	<name>basePan</name>
-	<deviceName>dyio1</deviceName>
+	<deviceName>dyio</deviceName>
 	<type>servo-rotory</type>
-	<index>9</index>
+	<index>0</index>
 	<scale>0.861</scale>
 	<upperLimit>134.83210385735356</upperLimit>
 	<lowerLimit>83.64179390579908</lowerLimit>
