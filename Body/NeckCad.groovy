@@ -8,7 +8,7 @@ import eu.mihosoft.vrl.v3d.FileUtil;
 class Neck implements ICadGenerator {
 	ArrayList<CSG> makeNeck() {
 		ArrayList<CSG> fullHead = new ArrayList<CSG>()
-		CSG channel = generateBody()
+		CSG channel = generateBody()//andrew was here
 
 		int xSize = 70
 		int ySize = (channel.getMaxY() - channel.getMinY())
