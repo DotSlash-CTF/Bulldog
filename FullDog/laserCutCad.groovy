@@ -7,6 +7,7 @@ import com.neuronrobotics.bowlerstudio.vitamins.Vitamins;
 import javafx.scene.paint.Color;
 import eu.mihosoft.vrl.v3d.Transform;
 import com.neuronrobotics.bowlerstudio.physics.TransformFactory;
+import javafx.scene.transform.Affine;
 
 return new ICadGenerator(){
 	HashMap<String , HashMap<String,ArrayList<CSG>>> map =  new HashMap<>();

@@ -5,7 +5,7 @@ import com.neuronrobotics.bowlerstudio.vitamins.*;
 import eu.mihosoft.vrl.v3d.parametrics.*;
 import javafx.scene.paint.Color;
 import com.neuronrobotics.bowlerstudio.threed.BowlerStudio3dEngine;
-
+import javafx.scene.transform.Affine;
 
 class Feet implements ICadGenerator, IParameterChanged{
 	//First we load teh default cad generator script 
