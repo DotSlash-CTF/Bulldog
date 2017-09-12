@@ -4,6 +4,7 @@ import eu.mihosoft.vrl.v3d.Transform;
 import eu.mihosoft.vrl.v3d.Extrude;
 import java.nio.file.Paths;
 import eu.mihosoft.vrl.v3d.FileUtil;
+import com.neuronrobotics.bowlerstudio.creature.ICadGenerator;
 
 class Neck implements ICadGenerator {
 	ArrayList<CSG> makeNeck() {
