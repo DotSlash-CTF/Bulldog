@@ -233,7 +233,7 @@ return new ICadGenerator(){
 		add(bodyParts, attachmentParts, 															base.getRootListener());
 		
 			
-		
+		print "done with genBody"
 		return bodyParts;
 	}
 
@@ -251,6 +251,7 @@ return new ICadGenerator(){
 			map.put(legStr, new HashMap<String,ArrayList<CSG>>())	
 			// now load the cad and return it. 
 		}
+		print "genCad check 1"
 		legmap=map.get(legStr)
 		if(legmap.get(linkStr) == null ){
 			legmap.put(linkStr,new ArrayList<CSG>())
@@ -261,6 +262,7 @@ return new ICadGenerator(){
 			println "This link is cached"
 			return csg;
 		}
+		print "genCad check 2"
 		//Creating the horn
 		ArrayList<DHLink> dhLinks=sourceLimb.getChain().getLinks();
 		DHLink dh = dhLinks.get(linkIndex);
@@ -277,7 +279,7 @@ return new ICadGenerator(){
 		servoReference=servoReference
 			.movez(-servoTop)
 
-		
+		print "genCad check 3"
 		
 		if(linkIndex==0){
 			add(csg,servoReference.clone(),sourceLimb.getRootListener())
