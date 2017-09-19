@@ -10,7 +10,7 @@ class Neck implements ICadGenerator {
 	ArrayList<CSG> makeNeck() {
 		ArrayList<CSG> fullHead = new ArrayList<CSG>()
 		CSG channel = generateBody()//andrew was here
-
+		
 		int xSize = 70
 		int ySize = (channel.getMaxY() - channel.getMinY())
 		int zSize = 37
@@ -42,7 +42,8 @@ class Neck implements ICadGenerator {
 		//fullHead.add(channel)
 		//fullHead.add(servo)
 		fullHead.add(base)
-		return [fullHead.collect{it.toXMin()}]
+		
+		return fullHead.collect{it.toXMin()}
 	}
 
 	@Override
