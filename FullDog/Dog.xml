@@ -1,11 +1,11 @@
 <root>
 <mobilebase>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>FullDog/laserCutCad.groovy</file>
 	</cadEngine>
 	<driveEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>walkingGait.groovy</file>
 	</driveEngine>
 
@@ -14,7 +14,7 @@
 
 <name>BackLeft</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
@@ -209,7 +209,7 @@
 
 <name>FrontRight</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
@@ -404,7 +404,7 @@
 
 <name>FrontLeft</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
@@ -599,7 +599,7 @@
 
 <name>BackRight</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
@@ -794,7 +794,7 @@
 
 <name>Neck</name>
 	<cadEngine>
-		<git>https://github.com/madhephaestus/Bulldog.git</git>
+		<git>https://github.com/DotSlash-CTF/Bulldog.git</git>
 		<file>Body/NeckCad.groovy</file>
 	</cadEngine>
 	<kinematics>
