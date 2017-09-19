@@ -989,7 +989,7 @@
 
 <name>Tail</name>
 	<cadEngine>
-		<git>https://gist.github.com/bcb4760a449190206170.git</git>
+		<git>https://github.com/madhephaestus/carl-the-hexapod.git</git>
 		<file>ThreeDPrintCad.groovy</file>
 	</cadEngine>
 	<kinematics>
