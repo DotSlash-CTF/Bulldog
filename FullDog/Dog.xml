@@ -803,7 +803,7 @@
 	</kinematics>
 <link>
 	<name>basePan</name>
-	<deviceName>dyio</deviceName>
+	<deviceName>dyio1</deviceName>
 	<type>servo-rotory</type>
 	<index>23</index>
 	<scale>0.33</scale>
@@ -857,7 +857,7 @@
 </link>
 <link>
 	<name>baseTilt</name>
-	<deviceName>dyio</deviceName>
+	<deviceName>dyio1</deviceName>
 	<type>servo-rotory</type>
 	<index>21</index>
 	<scale>0.33</scale>
@@ -911,9 +911,9 @@
 </link>
 <link>
 	<name>elbow</name>
-	<deviceName>dyio</deviceName>
+	<deviceName>dyio1</deviceName>
 	<type>servo-rotory</type>
-	<index>20</index>
+	<index>1</index>
 	<scale>0.33</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
@@ -998,9 +998,9 @@
 	</kinematics>
 <link>
 	<name>elbow</name>
-	<deviceName>dyio</deviceName>
+	<deviceName>dyio1</deviceName>
 	<type>servo-rotory</type>
-	<index>14</index>
+	<index>0</index>
 	<scale>0.33</scale>
 	<upperLimit>255.0</upperLimit>
 	<lowerLimit>0.0</lowerLimit>
