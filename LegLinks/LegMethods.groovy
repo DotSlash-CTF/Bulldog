@@ -751,7 +751,12 @@ public CSG createFootCap(CSG servo, CSG hornRef, double xLength){
 	int servoY = vitaminData.get("servoThinDimentionThickness")//11.8
 	
 	LengthParameter connectorLength = new LengthParameter("Length of Leg",70,[150,60])
-
+	CSG fCap = new Cylinder(40, // Radius at the bottom
+                      		25, // Radius at the top
+                      		20, // Height
+                      		(int)30 //resolution
+                      		).toCSG()//convert to CSG to display                    			         ).toCSG()//convert to CSG to display 
+                      		.movey(50)
 	int thickness = 10
 								
 	CSG connector = new Cube((xLength - 80)/2 + 61, servoY*8/7,thickness).toCSG()
@@ -826,7 +831,7 @@ public CSG createFootCap(CSG servo, CSG hornRef, double xLength){
 	connector = connector.movez(-20).toXMin().movex(servoX-10 + (xLength - 80)/2)
 
 	
-	return connector
+	return fCap
 }
 
 }
