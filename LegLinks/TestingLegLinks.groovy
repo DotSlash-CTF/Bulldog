@@ -65,8 +65,9 @@ connector.setManufactuing({CSG arg0 ->
 						return arg0.toZMin();
 			})
 
-
+/*
 ArrayList<CSG> totalParts = imobile;
+
 totalParts.add(bottCap.movey(-150))
 totalParts.add(foot.movex(400))
 totalParts.add(immobileLink.movez(200))
@@ -79,7 +80,7 @@ for(int i = 0; i < baseTilt.size(); i++)
 {
 	totalParts.add(baseTilt.get(i).movex((rotLength+length)))
 }
-
+*/
 //again for back leg:
 length = 80
 rotLength = 92//92--115
@@ -102,6 +103,7 @@ for(int i = 0; i < imobile.size(); i++)
 	imobile.get(i).setManufactuing({CSG arg0 ->
 								return arg0.toZMin();
 			})
+	
 }
 for(int i = 0; i < baseTilt.size(); i++)
 {
@@ -110,6 +112,7 @@ for(int i = 0; i < baseTilt.size(); i++)
 			})
 }
 int moveY = -100
+/*
 for(int i = 0; i < imobile.size(); i++)
 {
 	totalParts.add(imobile.get(i).movey(moveY))
@@ -122,4 +125,8 @@ for(int i = 0; i < baseTilt.size(); i++)
 {
 	totalParts.add(baseTilt.get(i).movex((length+rotLength)).movey(moveY))
 }
+*/
+CSG fCap = remoteLegPiece.createFootCap(servo, horn, 61.5+61.4*2.75/3.75)
+ArrayList<CSG> totalParts = imobile
+totalParts.add(fCap.movey(200))
 return totalParts
