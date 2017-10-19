@@ -26,7 +26,7 @@ int rotLength = 80//80--100
 int baseTiltL = 104//104--130
 boolean normFalseRotTrue = false
 
-CSG foot = remoteLegPiece.createFoot(servo, horn, 61.5+61.4*2.75/3.75)//back: 96+96*2.75/3.75
+CSG foot = remoteLegPiece.createFoot(servo, horn, 200+61.5+61.4*2.75/3.75)//back: 96+96*2.75/3.75
 CSG connector = remoteLegPiece.createConnector(servo, horn, length)
 CSG bottCap = remoteLegPiece.createCap(servo, horn, 80)
 
@@ -128,5 +128,6 @@ for(int i = 0; i < baseTilt.size(); i++)
 */
 CSG fCap = remoteLegPiece.createFootCap(servo, horn, 61.5+61.4*2.75/3.75)
 ArrayList<CSG> totalParts = imobile
+totalParts.add(foot.movey(-200))
 totalParts.add(fCap.movey(200))
 return totalParts

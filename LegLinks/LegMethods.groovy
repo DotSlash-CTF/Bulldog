@@ -703,9 +703,13 @@ public CSG createFoot(CSG servo, CSG hornRef, double xLength){
 	connector = connector.difference(connHole)
 
 	int endLength = (xLength - 80)/2 + 61 +20 - 2
+	CSG subCube = new Cube(40,40,40).toCSG().movez(-26)
+	.movex(endLength)
+							.movez(-25.5)
 	CSG footEnd = new Sphere(17).toCSG()
 							.movex(endLength)
 							.movez(-25.5)
+	footEnd = footEnd.difference(subCube)
 	CSG connectorEnd1 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
 									.movex(endLength)
 									.movey(6)
@@ -799,9 +803,10 @@ public CSG createFootCap(CSG servo, CSG hornRef, double xLength){
 	connector = connector.difference(connHole)
 
 	int endLength = (xLength - 80)/2 + 61 +20 - 2
+	CSG cube = new Cube(20,20,20).toCSG().movez(10)
 	CSG footEnd = new Sphere(17).toCSG()
-							.movex(endLength)
-							.movez(-25.5)
+							//.movex(endLength)
+							//.movez(-25.5)
 	CSG connectorEnd1 = new Cylinder(2,2,thickness+2,(int)50).toCSG()
 									.movex(endLength)
 									.movey(6)
