@@ -15,7 +15,7 @@ import com.neuronrobotics.sdk.common.Log;
 import Jama.Matrix;
 
 if(args==null){
-	double stepOverHeight=5;
+	double stepOverHeight=200;
 	long stepOverTime=80;
 	Double zLock=-70;
 	Closure calcHome = { DHParameterKinematics leg -> 

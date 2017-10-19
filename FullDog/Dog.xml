@@ -19,7 +19,6 @@
 	</cadEngine>
 	<kinematics>
 		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
-		<file>DH-Solver.groovy</file>
 	</kinematics>
 <link>
 	<name>basePan</name>
@@ -197,7 +196,7 @@
 <baseToZframe>
 	<x>-200.0</x>
 	<y>86.0</y>
-	<z>470.0</z>
+	<z>498.0</z>
 	<rotw>0.7071684852014806</rotw>
 	<rotx>-0.0</rotx>
 	<roty>0.7070450717866884</roty>
