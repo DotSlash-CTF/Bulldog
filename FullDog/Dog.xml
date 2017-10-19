@@ -85,7 +85,7 @@
 	<lowerLimit>3.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>90.09701492537313</staticOffset>
+	<staticOffset>110.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -178,7 +178,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>96.0</Radius>
+		<Radius>296.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -197,10 +197,10 @@
 <baseToZframe>
 	<x>-200.0</x>
 	<y>86.0</y>
-	<z>298.0</z>
-	<rotw>0.7071067811865476</rotw>
+	<z>470.0</z>
+	<rotw>0.7071684852014806</rotw>
 	<rotx>-0.0</rotx>
-	<roty>0.7071067811865475</roty>
+	<roty>0.7070450717866884</roty>
 	<rotz>-0.0</rotz>
 </baseToZframe>
 
@@ -373,7 +373,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>61.5</Radius>
+		<Radius>261.5</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -392,11 +392,11 @@
 <baseToZframe>
 	<x>200.0</x>
 	<y>-160.0</y>
-	<z>270.0</z>
-	<rotw>4.329780281177467E-17</rotw>
-	<rotx>-0.7071067811865475</rotx>
-	<roty>4.329780281177466E-17</roty>
-	<rotz>0.7071067811865476</rotz>
+	<z>470.0</z>
+	<rotw>6.17120920870449E-5</rotw>
+	<rotx>0.7071684825087826</rotx>
+	<roty>6.170132223491232E-5</roty>
+	<rotz>-0.7070450690944604</rotz>
 </baseToZframe>
 
 </leg>
@@ -568,7 +568,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.01</Theta>
-		<Radius>61.5</Radius>
+		<Radius>261.5</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -587,11 +587,11 @@
 <baseToZframe>
 	<x>200.0</x>
 	<y>160.0</y>
-	<z>270.0</z>
-	<rotw>4.329780281177467E-17</rotw>
-	<rotx>-0.7071067811865475</rotx>
-	<roty>4.329780281177466E-17</roty>
-	<rotz>0.7071067811865476</rotz>
+	<z>470.0</z>
+	<rotw>6.17120920870449E-5</rotw>
+	<rotx>0.7071684825087826</rotx>
+	<roty>6.170132223491232E-5</roty>
+	<rotz>-0.7070450690944604</rotz>
 </baseToZframe>
 
 </leg>
@@ -670,7 +670,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>84.69403010695729</staticOffset>
+	<staticOffset>70.1026129010898</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>97</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -763,7 +763,7 @@
 	<DHParameters>
 		<Delta>0.0</Delta>
 		<Theta>90.0</Theta>
-		<Radius>96.0</Radius>
+		<Radius>296.0</Radius>
 		<Alpha>0.01</Alpha>
 	</DHParameters>
 
@@ -782,10 +782,10 @@
 <baseToZframe>
 	<x>-200.0</x>
 	<y>-86.0</y>
-	<z>298.0</z>
-	<rotw>0.7071067811865476</rotw>
+	<z>498.0</z>
+	<rotw>0.7071684852014806</rotw>
 	<rotx>-0.0</rotx>
-	<roty>0.7071067811865475</roty>
+	<roty>0.7070450717866884</roty>
 	<rotz>-0.0</rotz>
 </baseToZframe>
 
