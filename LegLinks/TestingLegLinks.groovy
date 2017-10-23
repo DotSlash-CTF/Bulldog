@@ -147,7 +147,7 @@ return totalParts
 
 /*
 int angle = 30
-int width = 10
+int width = 4
 CSG stick = new Cylinder(2, 2, 120, (int)3).toCSG().roty(angle)
 CSG stick2 = stick.rotz(-15).movex(width*Math.cos(Math.toRadians(15))).movey(width*Math.sin(15*2*Math.PI/360))
 for(int i = 0; i < 25; i++){
@@ -161,7 +161,7 @@ CSG stick3 = new Cylinder(2, 2, 120, (int)3).toCSG().roty(angle)
 stick2 = stick3.rotz(-15).movex(width*Math.cos(Math.toRadians(15))).movey(width*Math.sin(15*2*Math.PI/360)).rotx(180)
 for(int i = 0; i < 25; i++){
 
-stick = stick.union(stick2)//.movey(50).movex(-20))
+stick = stick.union(stick2)//.movey(30).movex(-10))
 stick2 = stick2.rotz(15).movex(width*Math.cos(Math.toRadians(15))).movey(width*Math.sin(15*2*Math.PI/360))
 
 }
