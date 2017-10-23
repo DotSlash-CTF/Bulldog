@@ -126,8 +126,19 @@ for(int i = 0; i < baseTilt.size(); i++)
 	totalParts.add(baseTilt.get(i).movex((length+rotLength)).movey(moveY))
 }
 */
-CSG fCap = remoteLegPiece.createFootCap(servo, horn, 61.5+61.4*2.75/3.75)
+int angle = 30
+CSG stick = new Cylinder(2, 2, 120, (int)3).toCSG().roty(angle)
+for(int i = 0; i++; i < 5){
+
+
+CSG stick2 = stick2.rotz(-15).movex(31.05*Math.cos(Math.toRadians(15))).movey(31.05*Math.sin(15*2*Math.PI/360))
+
+stick = stick.union(stick2)
+}
 ArrayList<CSG> totalParts = imobile
+CSG fCap = remoteLegPiece.createFootCap(servo, horn, 61.5+61.4*2.75/3.75)
 totalParts.add(foot.movey(-200))
 totalParts.add(fCap.movey(200))
+Math.toRadians(15)
+totalParts.add(stick)
 return totalParts
