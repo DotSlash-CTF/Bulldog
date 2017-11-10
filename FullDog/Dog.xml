@@ -18,7 +18,8 @@
 		<file>LegLinks/feetCad.groovy</file>
 	</cadEngine>
 	<kinematics>
-		<git>https://gist.github.com/375b47a8e071608688a1.git</git>
+		<git>https://github.com/madhephaestus/carl-the-hexapod.git</git>
+		<file>DefaultDhSolver.groovy</file>
 	</kinematics>
 <link>
 	<name>basePan</name>
@@ -138,7 +139,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>156.32089552238807</staticOffset>
+	<staticOffset>203.8955223880597</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -329,11 +330,11 @@
 	<type>servo-rotory</type>
 	<index>6</index>
 	<scale>0.861</scale>
-	<upperLimit>165.0335792285293</upperLimit>
-	<lowerLimit>0.0</lowerLimit>
+	<upperLimit>185.96641504942482</upperLimit>
+	<lowerLimit>5.708955223880596</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>156.0</staticOffset>
+	<staticOffset>180.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>
@@ -723,7 +724,7 @@
 	<lowerLimit>0.0</lowerLimit>
 	<upperVelocity>1.0E8</upperVelocity>
 	<lowerVelocity>-1.0E8</lowerVelocity>
-	<staticOffset>1.902985074626865</staticOffset>
+	<staticOffset>0.0</staticOffset>
 	<isLatch>true</isLatch>
 	<indexLatch>145</indexLatch>
 	<isStopOnLatch>false</isStopOnLatch>

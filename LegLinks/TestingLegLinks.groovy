@@ -168,4 +168,3 @@ stick2 = stick2.rotz(15).movex(width*Math.cos(Math.toRadians(15))).movey(width*M
 return stick
 */
 
- */
